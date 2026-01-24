@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchanger Pro - Trusted Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root { --primary: #2c3e50; --success: #27ae60; --danger: #e74c3c; --whatsapp: #25D366; --warning: #f39c12; }
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 80px; }
+        .price-badge { background: #fff; border-left: 5px solid var(--success); border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #fff; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #7f8c8d; text-decoration: none; font-size: 12px; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--success); transform: scale(1.1); }
+        .content-section { display: none; padding: 15px; animation: fadeIn 0.4s; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .whatsapp-btn { position: fixed; bottom: 85px; right: 20px; background-color: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+        .balance-card { background: linear-gradient(45deg, #1a2a6c, #b21f1f); color: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .trust-box { background: #fff; border-radius: 12px; padding: 15px; margin-top: 20px; border: 1px solid #e0e0e0; }
+        #auth-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0f2f5; z-index: 2000; padding: 20px; overflow-y: auto; }
+        .auth-card { max-width: 400px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<div id="auth-page">
+    <div class="auth-card">
+        <div id="login-form">
+            <h4 class="text-center fw-bold mb-4">লগইন করুন</h4>
+            <input type="email" id="loginEmail" class="form-control mb-3" placeholder="জিমেইল অ্যাড্রেস">
+            <input type="password" id="loginPass" class="form-control mb-3" placeholder="পাসওয়ার্ড">
+            <button class="btn btn-primary w-100 py-2 mb-3" onclick="handleLogin()">Login</button>
+            <p class="text-center small">অ্যাকাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')">রেজিস্ট্রেশন করুন</a></p>
+            <button class="btn btn-light w-100 btn-sm" onclick="hideAuth()">ফিরে যান</button>
+        </div>
+        <div id="reg-form" style="display: none;">
+            <h4 class="text-center fw-bold mb-4">রেজিস্ট্রেশন</h4>
+            <input type="text" id="regName" class="form-control mb-3" placeholder="পুরো নাম">
+            <input type="email" id="regEmail" class="form-control mb-3" placeholder="আসল জিমেইল">
+            <input type="password" id="regPass" class="form-control mb-3" placeholder="পাসওয়ার্ড (৬+ সংখ্যা/অক্ষর)">
+            <input type="password" id="regConfirmPass" class="form-control mb-3" placeholder="কনফার্ম পাসওয়ার্ড">
+            <button class="btn btn-success w-100 py-2 mb-3" onclick="handleRegister()">Register Account</button>
+            <p class="text-center small">অ্যাকাউন্ট আছে? <a href="#" onclick="toggleAuth('login')">লগইন</a></p>
+        </div>
+    </div>
+</div>
+
+<a href="https://wa.me/8801964182265?text=Hello%20I%20need%20support" class="whatsapp-btn" target="_blank"><i class="bi bi-whatsapp"></i></a>
+
+<nav class="navbar navbar-dark sticky-top" style="background: var(--primary);">
+    <div class="container text-center">
+        <span class="navbar-brand mx-auto fw-bold"><i class="bi bi-shield-check text-success"></i> EXCHANGER PRO</span>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    
+    <div id="home" class="content-section active">
+        <div class="alert alert-info py-2 shadow-sm border-0" style="font-size: 13px;">
+            <i class="bi bi-patch-check-fill text-primary"></i> <b>১০০% নিরাপদ:</b> আমরা সততার সাথে সার্ভিস দিচ্ছি।
+        </div>
+        <div class="price-badge d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-1 text-muted">আজকের রেট</h6>
+                <div class="fw-bold text-dark">
+                    <span class="badge bg-success" id="newRateLabel">New: ১০ টাকা</span>
+                    <span class="badge bg-primary" id="oldRateLabel">Old: ৮ টাকা</span>
+                </div>
+            </div>
+            <i class="bi bi-graph-up-arrow fs-3 text-success"></i>
+        </div>
+        <div class="card p-4 border-0 shadow-sm">
+            <h5 class="mb-4">লেনদেন শুরু করুন</h5>
+            <div class="mb-3">
+                <label class="form-label">জিমেইল ধরন</label>
+                <select class="form-select form-select-lg" id="dollarType" onchange="updateTotal()"></select>
+            </div>
+            <button class="btn btn-success btn-lg w-100 mt-2" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right"></i></button>
+        </div>
+
+        <div class="trust-box shadow-sm">
+            <h6 class="fw-bold text-center border-bottom pb-2">কেন আমাদের বেছে নিবেন?</h6>
+            <div class="row text-center mt-3 g-2">
+                <div class="col-4"><i class="bi bi-lightning-charge text-warning fs-3"></i><p style="font-size: 11px;">দ্রুত পেমেন্ট</p></div>
+                <div class="col-4"><i class="bi bi-lock text-info fs-3"></i><p style="font-size: 11px;">নিরাপদ ডাটা</p></div>
+                <div class="col-4"><i class="bi bi-headset text-success fs-3"></i><p style="font-size: 11px;">২৪/৭ সাপোর্ট</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exchange_step" class="content-section">
+        <div class="d-flex align-items-center mb-3">
+            <button class="btn btn-sm btn-outline-secondary me-3" onclick="switchTab('home')"><i class="bi bi-chevron-left"></i></button>
+            <h5 class="mb-0">জিমেইল ডিটেইলস দিন</h5>
+        </div>
+        <form id="gmailForm">
+            <div id="gmailRows">
+                <div class="gmail-row p-3 bg-white rounded border mb-2 row-item position-relative">
+                    <input type="email" class="form-control mb-2 g-input" placeholder="Real Gmail Address" required>
+                    <input type="text" class="form-control p-input" placeholder="Password" required>
+                </div>
+                <div class="gmail-row p-3 bg-white rounded border mb-2 row-item position-relative">
+                    <input type="email" class="form-control mb-2 g-input" placeholder="Real Gmail Address" required>
+                    <input type="text" class="form-control p-input" placeholder="Password" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="addMoreRow()">+ আরও যোগ করুন</button>
+            <div class="card p-3 mb-3 bg-light border-0 text-center"><p class="mb-0 fw-bold">মোট সম্ভাব্য ইনকাম: ৳ <span id="tempTotal">0</span></p></div>
+            <div id="masterError" class="alert alert-danger py-2 fw-bold" style="display:none; font-size: 13px;"></div>
+            <button type="button" class="btn btn-primary btn-lg w-100 shadow" onclick="validateAndSubmit()">Confirm & Submit</button>
+        </form>
+    </div>
+
+    <div id="sellers" class="content-section">
+        <h5 class="mb-3 text-center">🏆 Top Selling Today</h5>
+        <div id="topSellersList"></div>
+    </div>
+
+    <div id="profile" class="content-section">
+        <div class="balance-card text-center">
+            <div class="mb-1 small"><i class="bi bi-check-circle-fill"></i> <span id="userDisplayName">User</span></div>
+            <small class="opacity-75">💳 Main Balance</small>
+            <h2 class="fw-bold">৳ <span id="mainBalance">0.00</span></h2>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <button class="btn btn-light btn-sm fw-bold px-3" onclick="toggleWithdraw()">Withdraw</button>
+                <button class="btn btn-warning btn-sm fw-bold px-3 text-white" onclick="Swal.fire('হোল্ড ব্যালেন্স', 'এই টাকা রিভিউতে আছে। অ্যাডমিন এপ্রুভ করলে মেইন ব্যালেন্সে যোগ হবে।', 'info')">Hold: ৳ <span id="holdBalance">0.00</span></button>
+            </div>
+        </div>
+        <div class="card p-4 border-0 shadow-sm mb-3">
+            <h6><i class="bi bi-telephone text-primary"></i> 📞 Payment Number</h6>
+            <div class="input-group mb-4">
+                <input type="text" class="form-control" id="paymentNumber" placeholder=" bKash / Nagad / Rocket No.">
+                <button class="btn btn-dark" onclick="savePaymentNumber()">Save</button>
+            </div>
+            <div id="withdrawArea" style="display: none; border-top: 2px solid #eee; padding-top: 15px;">
+                <p class="text-muted small text-center">💰 Minimum Withdrawal: 100 BDT</p>
+                <select class="form-select mb-3" id="withdrawMethod">
+                    <option value="">পেমেন্ট মেথড সিলেক্ট করুন</option>
+                    <option value="bkash">bKash 💸  </option>
+                    <option value="nagad">Nagad 💵 </option>
+                    <option value="binance">Binance 🪙  
+</option>
+                </select>
+                <input type="number" class="form-control mb-3" id="withdrawAmount" placeholder="পরিমাণ লিখুন (১০০+)" min="100">
+                <button class="btn btn-danger w-100" onclick="processWithdraw()">Submit Request</button>
+            </div>
+            <button class="btn btn-outline-danger w-100 mt-4 btn-sm" onclick="handleLogout()">Logout</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="nav-bottom shadow">
+    <div class="nav-item active" id="home-btn" onclick="switchTab('home')"><i class="bi bi-house-door fs-4"></i><br>Home</div>
+    <div class="nav-item" id="sellers-btn" onclick="switchTab('sellers')"><i class="bi bi-star fs-4"></i><br>Top Seller</div>
+    <div class="nav-item" id="profile-btn" onclick="protectedAction('profile')"><i class="bi bi-person fs-4"></i><br>Profile</div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getDatabase, ref, set, get, update, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbsa0uvBYhkEYoLxuHwD4TQi5GDdAzQpg",
+    authDomain: "exchanger-pro.firebaseapp.com",
+    databaseURL: "https://exchanger-pro-default-rtdb.firebaseio.com",
+    projectId: "exchanger-pro",
+    storageBucket: "exchanger-pro.firebasestorage.app",
+    messagingSenderId: "889959520630",
+    appId: "1:889959520630:web:f4cbf82f236b616e1f8257",
+    measurementId: "G-KBJJNKZPZD"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  window.currentUser = null;
+
+  onValue(ref(db, "settings/rates"), (snap) => {
+    if (snap.exists()) {
+      const data = snap.val();
+      const nR = data.newRate || 10;
+      const oR = data.oldRate || 8;
+      document.getElementById('newRateLabel').innerText = `New: ${nR} টাকা`;
+      document.getElementById('oldRateLabel').innerText = `Old: ${oR} টাকা`;
+      document.getElementById('dollarType').innerHTML = `
+        <option value="${nR}">New Gmail (${nR} টাকা)</option>
+        <option value="${oR}">Old Gmail (${oR} টাকা)</option>
+      `;
+      updateTotal();
+    }
+  });
+
+  onValue(ref(db, "users"), (snap) => {
+    const sellersList = document.getElementById('topSellersList');
+    let htmlContent = '';
+    const users = [];
+    snap.forEach((child) => {
+      const u = child.val();
+      if (u.isTopSeller === true) users.push(u);
+    });
+    users.sort((a, b) => (Number(b.balance) || 0) - (Number(a.balance) || 0));
+    users.forEach(u => {
+      htmlContent += `
+        <div class="card p-3 shadow-sm mb-2 border-0 d-flex flex-row justify-content-between align-items-center">
+            <span><i class="bi bi-trophy-fill text-warning me-2"></i> <b>${u.username}</b></span>
+            <span class="badge bg-success">৳ ${(Number(u.balance) || 0).toFixed(0)}</span>
+        </div>`;
+    });
+    sellersList.innerHTML = htmlContent;
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    window.currentUser = user;
+    if (user) {
+      onValue(ref(db, 'users/' + user.uid), (snap) => {
+        if (snap.exists()) {
+          const data = snap.val();
+          document.getElementById('userDisplayName').innerText = data.username || "User";
+          document.getElementById('mainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
+          document.getElementById('holdBalance').innerText = (Number(data.hold) || 0).toFixed(2);
+          if (data.paymentNumber) document.getElementById('paymentNumber').value = data.paymentNumber;
+        }
+      });
+      document.getElementById('auth-page').style.display = 'none';
+    }
+  });
+
+  window.handleLogin = async () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      switchTab('home');
+    } catch (err) { Swal.fire("ত্রুটি", "ভুল ইমেইল বা পাসওয়ার্ড", "error"); }
+  };
+
+  window.handleRegister = async () => {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass = document.getElementById('regPass').value;
+    if (!name || !email.endsWith('@gmail.com') || pass.length < 6) return alert("সঠিক তথ্য দিন");
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, pass);
+      await set(ref(db, 'users/' + res.user.uid), { username: name, email, balance: 0, hold: 0, paymentNumber: "", createdAt: Date.now() });
+      location.reload();
+    } catch (err) { alert(err.message); }
+  };
+
+  window.handleLogout = () => signOut(auth).then(() => location.reload());
+
+  // --- Gmail Submission with Fixed Hold Logic ---
+  window.submitGmails = async (submissionData) => {
+    // NaN চেক
+    if (isNaN(submissionData.totalAmount) || submissionData.totalAmount <= 0) {
+        return Swal.fire("ত্রুটি", "কাজের রেট লোড হতে পারেনি। পেজটি রিফ্রেশ করুন।", "error");
+    }
+
+    try {
+      for (let item of submissionData.gmails) {
+        const q = query(ref(db, 'used_emails'), orderByChild('email'), equalTo(item.email));
+        const emailSnap = await get(q);
+        if (emailSnap.exists()) return Swal.fire("এরর", `${item.email} আগে সাবমিট করা হয়েছে!`, "warning");
+      }
+
+      const newRef = push(ref(db, 'submissions'));
+      await set(newRef, {
+        userId: currentUser.uid,
+        username: document.getElementById('userDisplayName').innerText,
+        submittedAt: Date.now(),
+        status: "pending",
+        ...submissionData
+      });
+
+      for (let item of submissionData.gmails) {
+        await push(ref(db, 'used_emails'), { email: item.email });
+      }
+
+      // কাজ সাবমিট করলে টাকা hold এ যোগ হবে (সংখ্যা হিসেবে)
+      const userRef = ref(db, 'users/' + currentUser.uid);
+      const userSnap = await get(userRef);
+      const userData = userSnap.val();
+      const currentHold = Number(userData.hold) || 0;
+      
+      await update(userRef, { hold: currentHold + submissionData.totalAmount });
+
+      Swal.fire("সফল", "কাজ জমা হয়েছে। রিভিউ এর পর টাকা মেইন ব্যালেন্সে যোগ হবে।", "success").then(() => location.reload());
+    } catch (err) {
+      if (err.message.includes("indexOn")) {
+         Swal.fire("ডেটাবেজ এরর", "Firebase Rules এ '.indexOn': 'email' যোগ করতে হবে।", "error");
+      } else {
+         Swal.fire("ত্রুটি", err.message, "error");
+      }
+    }
+  };
+
+  window.processWithdraw = async () => {
+    const method = document.getElementById('withdrawMethod').value;
+    const amt = Number(document.getElementById('withdrawAmount').value);
+    const balance = Number(document.getElementById('mainBalance').innerText);
+    const pNum = document.getElementById('paymentNumber').value.trim();
+
+    if (!method || isNaN(amt) || amt < 100) return Swal.fire("ত্রুটি", "সঠিক তথ্য দিন (সর্বনিম্ন ১০০)", "error");
+    if (amt > balance) return Swal.fire("এরর", "মেইন ব্যালেন্সে পর্যাপ্ত টাকা নেই", "error");
+    if (!pNum) return Swal.fire("ত্রুটি", "পেমেন্ট নম্বর সেভ করুন", "error");
+
+    try {
+      const newWithdrawRef = push(ref(db, 'withdraw_requests'));
+      await set(newWithdrawRef, {
+        userId: currentUser.uid,
+        username: document.getElementById('userDisplayName').innerText,
+        amount: amt,
+        method: method,
+        paymentNumber: pNum,
+        status: "pending",
+        requestedAt: Date.now()
+      });
+
+      const userRef = ref(db, 'users/' + currentUser.uid);
+      await update(userRef, { balance: balance - amt });
+
+      Swal.fire("সফল", "উত্তোলন রিকোয়েস্ট পাঠানো হয়েছে!", "success").then(()=>location.reload());
+    } catch (err) { Swal.fire("ত্রুটি", "সমস্যা হয়েছে", "error"); }
+  };
+
+  window.savePaymentNumber = async () => {
+    const num = document.getElementById('paymentNumber').value.trim();
+    if (num) {
+      await update(ref(db, 'users/' + currentUser.uid), { paymentNumber: num });
+      Swal.fire("সফল", "সেভ হয়েছে", "success");
+    }
+  };
+</script>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        const btn = document.getElementById(tabId + '-btn');
+        if(btn) btn.classList.add('active');
+    }
+
+    function protectedAction(tabId) {
+        if (!window.currentUser) document.getElementById('auth-page').style.display = 'block';
+        else if (tabId === 'exchange') switchTab('exchange_step');
+        else switchTab(tabId);
+    }
+
+    function addMoreRow() {
+        const row = document.createElement('div');
+        row.className = 'gmail-row p-3 bg-white rounded border mb-2 row-item position-relative';
+        row.innerHTML = `<input type="email" class="form-control mb-2 g-input" placeholder="Real Gmail Address" required>
+            <input type="text" class="form-control p-input" placeholder="Password" required>
+            <span class="text-danger position-absolute top-0 end-0 p-1" style="cursor:pointer" onclick="this.parentElement.remove(); updateTotal();"><i class="bi bi-x-circle"></i></span>`;
+        document.getElementById('gmailRows').appendChild(row);
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const count = document.querySelectorAll('.gmail-row').length;
+        const selectEl = document.getElementById('dollarType');
+        const rate = selectEl ? Number(selectEl.value) : 0;
+        const total = count * (isNaN(rate) ? 0 : rate);
+        const totalEl = document.getElementById('tempTotal');
+        if(totalEl) totalEl.innerText = total;
+    }
+
+    function validateAndSubmit() {
+        const errorBox = document.getElementById('masterError');
+        errorBox.style.display = 'none';
+        const rows = document.querySelectorAll('.gmail-row');
+        if (rows.length < 2) { errorBox.innerText = "কমপক্ষে ২টি জিমেইল দিন!"; errorBox.style.display = 'block'; return; }
+
+        const gmails = [];
+        let hasError = false;
+        const localSet = new Set();
+
+        rows.forEach((row, idx) => {
+            const email = row.querySelector('.g-input').value.trim().toLowerCase();
+            const pass = row.querySelector('.p-input').value.trim();
+            if (!email.endsWith("@gmail.com")) { hasError = true; errorBox.innerText = `${idx+1} নম্বর জিমেইল সঠিক নয়!`; }
+            else if (localSet.has(email)) { hasError = true; errorBox.innerText = "একই জিমেইল দুবার দিয়েছেন!"; }
+            else if (pass.length < 6) { hasError = true; errorBox.innerText = "পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে!"; }
+            
+            if (!hasError) { localSet.add(email); gmails.push({ email, password: pass }); }
+        });
+
+        if (!hasError) {
+            const rate = Number(document.getElementById('dollarType').value);
+            window.submitGmails({ gmails, totalAmount: gmails.length * rate, rate, count: gmails.length });
+        } else { errorBox.style.display = 'block'; }
+    }
+
+    function toggleWithdraw() {
+        const w = document.getElementById('withdrawArea');
+        w.style.display = (w.style.display === "none") ? "block" : "none";
+    }
+
+    function toggleAuth(type) {
+        document.getElementById('login-form').style.display = type === 'reg' ? 'none' : 'block';
+        document.getElementById('reg-form').style.display = type === 'reg' ? 'block' : 'none';
+    }
+    function hideAuth() { document.getElementById('auth-page').style.display = 'none'; }
+</script>
+
+</body>
+</html>
