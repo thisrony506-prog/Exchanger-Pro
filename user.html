@@ -7,19 +7,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
-        :root { --primary: #2c3e50; --success: #27ae60; --danger: #e74c3c; --whatsapp: #25D366; --warning: #f39c12; }
+        :root { --primary: #2c3e50; --success: #27ae60; --danger: #e74c3c; --whatsapp: #25D366; --telegram: #0088cc; --warning: #f39c12; }
         body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 80px; }
         .price-badge { background: #fff; border-left: 5px solid var(--success); border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #fff; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
-        .nav-item { text-align: center; color: #7f8c8d; text-decoration: none; font-size: 12px; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--success); transform: scale(1.1); }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #fff; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #7f8c8d; text-decoration: none; font-size: 11px; cursor: pointer; transition: 0.3s; flex: 1; }
+        .nav-item.active { color: var(--success); transform: scale(1.05); }
         .content-section { display: none; padding: 15px; animation: fadeIn 0.4s; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .whatsapp-btn { position: fixed; bottom: 85px; right: 20px; background-color: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+        
+        /* Floating Buttons */
+        .social-float { position: fixed; bottom: 90px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .float-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-decoration: none; color: white; transition: transform 0.2s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .wa-btn { background-color: var(--whatsapp); }
+        .tg-btn { background-color: var(--telegram); }
+
         .balance-card { background: linear-gradient(45deg, #1a2a6c, #b21f1f); color: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .trust-box { background: #fff; border-radius: 12px; padding: 15px; margin-top: 20px; border: 1px solid #e0e0e0; }
+        .history-list-item { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 13px; }
+        .history-list-item:last-child { border-bottom: none; }
+        
+        /* Stats Box */
+        .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: #fff; padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .stat-card h6 { margin: 0; font-size: 18px; font-weight: bold; }
+        .stat-card small { color: #777; font-size: 11px; }
+
+        /* Referral Box */
+        .refer-box { background: #fff; border: 1px dashed var(--success); padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .refer-box h6 { color: var(--success); font-weight: bold; }
+        .refer-code { background: #f0f2f5; padding: 8px; border-radius: 5px; font-family: monospace; font-size: 18px; letter-spacing: 2px; font-weight: bold; display: inline-block; margin: 10px 0; border: 1px solid #ddd; }
+
         #auth-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f0f2f5; z-index: 2000; padding: 20px; overflow-y: auto; }
         .auth-card { max-width: 400px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     </style>
@@ -48,7 +70,10 @@
     </div>
 </div>
 
-<a href="https://wa.me/8801964182265?text=Hello%20I%20need%20support" class="whatsapp-btn" target="_blank"><i class="bi bi-whatsapp"></i></a>
+<div class="social-float">
+    <a href="https://t.me/gmail_marketing02" target="_blank" class="float-btn tg-btn"><i class="bi bi-telegram"></i></a>
+    <a href="https://wa.me/8801964182265?text=Hello%20I%20need%20support" target="_blank" class="float-btn wa-btn"><i class="bi bi-whatsapp"></i></a>
+</div>
 
 <nav class="navbar navbar-dark sticky-top" style="background: var(--primary);">
     <div class="container text-center">
@@ -58,10 +83,12 @@
 
 <div class="container mt-3">
     
+    <!-- HOME PAGE -->
     <div id="home" class="content-section active">
         <div class="alert alert-info py-2 shadow-sm border-0" style="font-size: 13px;">
             <i class="bi bi-patch-check-fill text-primary"></i> <b>১০০% নিরাপদ:</b> আমরা সততার সাথে সার্ভিস দিচ্ছি।
         </div>
+        
         <div class="price-badge d-flex justify-content-between align-items-center">
             <div>
                 <h6 class="mb-1 text-muted">আজকের রেট</h6>
@@ -72,6 +99,7 @@
             </div>
             <i class="bi bi-graph-up-arrow fs-3 text-success"></i>
         </div>
+        
         <div class="card p-4 border-0 shadow-sm">
             <h5 class="mb-4">লেনদেন শুরু করুন</h5>
             <div class="mb-3">
@@ -79,6 +107,19 @@
                 <select class="form-select form-select-lg" id="dollarType" onchange="updateTotal()"></select>
             </div>
             <button class="btn btn-success btn-lg w-100 mt-2" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right"></i></button>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="card border-0 shadow-sm mt-3 bg-light">
+            <div class="card-body py-3 text-center">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <i class="bi bi-stopwatch text-danger fs-4"></i>
+                    <div>
+                        <div class="fw-bold text-dark" id="timerTextDisplay">Review Time: 1-12 Hours</div>
+                        <small class="text-muted fw-bold" id="liveClock">00:00:00</small>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="trust-box shadow-sm">
@@ -91,11 +132,13 @@
         </div>
     </div>
 
+    <!-- EXCHANGE STEP -->
     <div id="exchange_step" class="content-section">
         <div class="d-flex align-items-center mb-3">
             <button class="btn btn-sm btn-outline-secondary me-3" onclick="switchTab('home')"><i class="bi bi-chevron-left"></i></button>
             <h5 class="mb-0">জিমেইল ডিটেইলস দিন</h5>
         </div>
+        
         <form id="gmailForm">
             <div id="gmailRows">
                 <div class="gmail-row p-3 bg-white rounded border mb-2 row-item position-relative">
@@ -114,11 +157,32 @@
         </form>
     </div>
 
+    <!-- HISTORY PAGE -->
+    <div id="history" class="content-section">
+        <!-- Broadcast Message Box -->
+        <div id="broadcastBox" class="alert alert-warning py-3 shadow-sm border-0 d-flex align-items-center" style="display:none;">
+            <i class="bi bi-megaphone-fill me-3 fs-4"></i> 
+            <div>
+                <small class="d-block text-muted fw-bold">জরুরী নোটিশ:</small>
+                <span id="broadcastText" class="fw-bold text-dark">No new messages.</span>
+            </div>
+        </div>
+
+        <h5 class="mb-3 fw-bold">📋 Transaction History</h5>
+        <div class="card border-0 shadow-sm">
+            <ul class="list-group list-group-flush" id="historyList">
+                <li class="list-group-item text-center text-muted py-4">লগইন করার পর হিস্ট্রি দেখা যাবে...</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SELLERS -->
     <div id="sellers" class="content-section">
         <h5 class="mb-3 text-center">🏆 Top Selling Today</h5>
         <div id="topSellersList"></div>
     </div>
 
+    <!-- PROFILE -->
     <div id="profile" class="content-section">
         <div class="balance-card text-center">
             <div class="mb-1 small"><i class="bi bi-check-circle-fill"></i> <span id="userDisplayName">User</span></div>
@@ -129,22 +193,67 @@
                 <button class="btn btn-warning btn-sm fw-bold px-3 text-white" onclick="Swal.fire('হোল্ড ব্যালেন্স', 'এই টাকা রিভিউতে আছে। অ্যাডমিন এপ্রুভ করলে মেইন ব্যালেন্সে যোগ হবে।', 'info')">Hold: ৳ <span id="holdBalance">0.00</span></button>
             </div>
         </div>
+
+        <!-- Referral Section -->
+        <div class="refer-box shadow-sm">
+            <i class="bi bi-gift-fill text-success" style="font-size: 24px;"></i>
+            <h6 class="mt-2">Refer & Earn (Lifetime <span id="refPercentText">5%</span>)</h6>
+            <small class="text-muted">আপনার রেফারেল কোড শেয়ার করুন এবং আয় করুন</small>
+            <div class="refer-code" id="myReferralCode">LOADING...</div>
+            <button class="btn btn-sm btn-outline-success" onclick="copyRefLink()"><i class="bi bi-link-45deg"></i> Copy Link</button>
+            
+            <div class="row mt-3 text-center">
+                <div class="col-6 border-end">
+                    <small class="text-muted d-block">বোনাস আয়</small>
+                    <span class="fw-bold text-dark">৳ <span id="referralEarnings">0.00</span></span>
+                </div>
+                <div class="col-6">
+                    <small class="text-muted d-block">মোট রেফার</small>
+                    <span class="fw-bold text-primary" id="totalReferred">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="card p-3 border-0 shadow-sm mb-3">
+            <h6 class="fw-bold mb-3 border-bottom pb-2">📊 সাবমিশন স্ট্যাটাস</h6>
+            <div class="stats-box">
+                <div class="stat-card">
+                    <small>মোট জিমেইল</small>
+                    <h6 id="statTotal">0</h6>
+                </div>
+                <div class="stat-card" style="background: #fff3cd;">
+                    <small>Pending</small>
+                    <h6 class="text-warning" id="statPending">0</h6>
+                </div>
+                <div class="stat-card" style="background: #d1e7dd;">
+                    <small>Approved</small>
+                    <h6 class="text-success" id="statApproved">0</h6>
+                </div>
+                <div class="stat-card" style="background: #f8d7da;">
+                    <small>Rejected</small>
+                    <h6 class="text-danger" id="statRejected">0</h6>
+                </div>
+            </div>
+        </div>
+
         <div class="card p-4 border-0 shadow-sm mb-3">
             <h6><i class="bi bi-telephone text-primary"></i> 📞 Payment Number</h6>
             <div class="input-group mb-4">
                 <input type="text" class="form-control" id="paymentNumber" placeholder=" bKash / Nagad / Rocket No.">
                 <button class="btn btn-dark" onclick="savePaymentNumber()">Save</button>
             </div>
+            
             <div id="withdrawArea" style="display: none; border-top: 2px solid #eee; padding-top: 15px;">
-                <p class="text-muted small text-center">💰 Minimum Withdrawal: 100 BDT</p>
+                <p class="text-muted small text-center" id="minWithdrawLabel">💰 Minimum Withdrawal: 100 BDT</p>
+                <div class="mb-3" id="savedPaymentMethodDisplay" style="display:none; font-size:12px; color:var(--success); font-weight:bold;"></div>
                 <select class="form-select mb-3" id="withdrawMethod">
                     <option value="">পেমেন্ট মেথড সিলেক্ট করুন</option>
                     <option value="bkash">bKash 💸  </option>
                     <option value="nagad">Nagad 💵 </option>
-                    <option value="binance">Binance 🪙  
-</option>
+                    <option value="binance">Binance 🪙</option>
                 </select>
-                <input type="number" class="form-control mb-3" id="withdrawAmount" placeholder="পরিমাণ লিখুন (১০০+)" min="100">
+                <input type="number" class="form-control mb-3" id="withdrawAmount" placeholder="পরিমাণ লিখুন" min="1">
                 <button class="btn btn-danger w-100" onclick="processWithdraw()">Submit Request</button>
             </div>
             <button class="btn btn-outline-danger w-100 mt-4 btn-sm" onclick="handleLogout()">Logout</button>
@@ -155,14 +264,15 @@
 
 <div class="nav-bottom shadow">
     <div class="nav-item active" id="home-btn" onclick="switchTab('home')"><i class="bi bi-house-door fs-4"></i><br>Home</div>
-    <div class="nav-item" id="sellers-btn" onclick="switchTab('sellers')"><i class="bi bi-star fs-4"></i><br>Top Seller</div>
+    <div class="nav-item" id="history-btn" onclick="protectedAction('history')"><i class="bi bi-clock-history fs-4"></i><br>History</div>
+    <div class="nav-item" id="sellers-btn" onclick="switchTab('sellers')"><i class="bi bi-star fs-4"></i><br>Seller</div>
     <div class="nav-item" id="profile-btn" onclick="protectedAction('profile')"><i class="bi bi-person fs-4"></i><br>Profile</div>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getDatabase, ref, set, get, update, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  import { getDatabase, ref, set, get, update, push, onValue, query, orderByChild, equalTo, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAbsa0uvBYhkEYoLxuHwD4TQi5GDdAzQpg",
@@ -180,12 +290,16 @@
   const db = getDatabase(app);
 
   window.currentUser = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const referrerCode = urlParams.get('ref');
 
-  onValue(ref(db, "settings/rates"), (snap) => {
+  // ১. সেটিংস লোড করা
+  onValue(ref(db, "settings"), (snap) => {
     if (snap.exists()) {
       const data = snap.val();
-      const nR = data.newRate || 10;
-      const oR = data.oldRate || 8;
+      
+      const nR = data.rates?.newRate || 10;
+      const oR = data.rates?.oldRate || 8;
       document.getElementById('newRateLabel').innerText = `New: ${nR} টাকা`;
       document.getElementById('oldRateLabel').innerText = `Old: ${oR} টাকা`;
       document.getElementById('dollarType').innerHTML = `
@@ -193,6 +307,37 @@
         <option value="${oR}">Old Gmail (${oR} টাকা)</option>
       `;
       updateTotal();
+
+      document.getElementById('timerTextDisplay').innerText = data.timer_text || "Review Time: 1-12 Hours";
+      document.getElementById('refPercentText').innerText = (data.referral_bonus || 5) + '%';
+
+      const minW = data.min_withdraw || 100;
+      document.getElementById('minWithdrawLabel').innerText = `💰 Minimum Withdrawal: ${minW} BDT`;
+      document.getElementById('withdrawAmount').setAttribute('min', minW);
+      document.getElementById('withdrawAmount').placeholder = `পরিমাণ লিখুন (${minW}+)`;
+
+      const broadcastMsg = data.broadcast || "";
+      const box = document.getElementById('broadcastBox');
+      const txt = document.getElementById('broadcastText');
+      
+      if(broadcastMsg) {
+          txt.innerText = broadcastMsg;
+          box.style.display = 'flex';
+          
+          const lastSeen = localStorage.getItem('last_broadcast_seen');
+          if(lastSeen !== broadcastMsg) {
+              Swal.fire({
+                  title: '📢 গুরুত্বপূর্ণ নোটিশ',
+                  text: broadcastMsg,
+                  confirmButtonText: 'ঠিক আছে',
+                  allowOutsideClick: false
+              }).then(() => {
+                  localStorage.setItem('last_broadcast_seen', broadcastMsg);
+              });
+          }
+      } else {
+          box.style.display = 'none';
+      }
     }
   });
 
@@ -218,16 +363,132 @@
   onAuthStateChanged(auth, (user) => {
     window.currentUser = user;
     if (user) {
+        update(ref(db, 'users/' + user.uid), { last_login: Date.now() });
+
       onValue(ref(db, 'users/' + user.uid), (snap) => {
         if (snap.exists()) {
           const data = snap.val();
           document.getElementById('userDisplayName').innerText = data.username || "User";
           document.getElementById('mainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
           document.getElementById('holdBalance').innerText = (Number(data.hold) || 0).toFixed(2);
+          document.getElementById('myReferralCode').innerText = data.referralCode || "LOADING...";
+          document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
+          
           if (data.paymentNumber) document.getElementById('paymentNumber').value = data.paymentNumber;
+          
+          const payMethodBox = document.getElementById('savedPaymentMethodDisplay');
+          if(data.paymentMethod) {
+              payMethodBox.style.display = 'block';
+              payMethodBox.innerText = `Saved Method: ${data.paymentMethod} (${data.paymentNumber})`;
+          } else {
+              payMethodBox.style.display = 'none';
+          }
+
+          // Admin Popup Message Logic
+          if (data.admin_message && data.admin_message !== "") {
+              const lastMsg = localStorage.getItem('last_admin_msg_' + user.uid);
+              if (lastMsg !== data.admin_message) {
+                  Swal.fire({
+                      title: 'Admin Message',
+                      text: data.admin_message,
+                      confirmButtonText: 'OK'
+                  }).then(() => {
+                      localStorage.setItem('last_admin_msg_' + user.uid, data.admin_message);
+                      update(ref(db, 'users/' + user.uid + '/admin_message'), ""); 
+                  });
+              }
+          }
         }
       });
+
+      const referralQuery = query(ref(db, 'users'), orderByChild('referredBy'), equalTo(user.uid));
+      onValue(referralQuery, (snap) => {
+          document.getElementById('totalReferred').innerText = snap.size;
+      });
+
+      const historyQuery = query(ref(db, 'submissions'), orderByChild('userId'), equalTo(user.uid));
+      onValue(historyQuery, (snap) => {
+          const list = document.getElementById('historyList');
+          list.innerHTML = '';
+          let hasData = false;
+          let totalEmails = 0;
+          let pendingCount = 0;
+          let approvedCount = 0;
+          let rejectedCount = 0;
+
+          let submissions = [];
+          snap.forEach(child => {
+              const item = child.val();
+              item.key = child.key;
+              submissions.push(item);
+          });
+          submissions.sort((a, b) => b.submittedAt - a.submittedAt);
+
+          submissions.forEach(item => {
+              hasData = true;
+              const date = new Date(item.submittedAt).toLocaleString();
+              totalEmails += Number(item.count || 0);
+
+              let detailsHTML = '';
+              if(item.gmails && Array.isArray(item.gmails)){
+                  item.gmails.forEach(g => {
+                      let status = g.status || item.status || 'pending'; 
+                      
+                      if(status === 'pending') { pendingCount++; }
+                      if(status === 'approved') { approvedCount++; }
+                      if(status === 'rejected') { rejectedCount++; }
+
+                      let badgeClass = 'bg-warning text-dark'; 
+                      let badgeText = 'Pending';
+
+                      if(status === 'approved') {
+                          badgeClass = 'bg-success';
+                          badgeText = 'Approved';
+                      } else if(status === 'rejected') {
+                          badgeClass = 'bg-danger';
+                          badgeText = 'Rejected';
+                      }
+
+                      detailsHTML += `
+                        <div class="d-flex justify-content-between align-items-center mt-1 p-1 rounded" style="background: #f8f9fa;">
+                            <small class="text-truncate" style="max-width: 150px;" title="${g.email}">${g.email}</small>
+                            <span class="badge ${badgeClass}">${badgeText}</span>
+                        </div>
+                      `;
+                  });
+              }
+
+              list.innerHTML += `
+                <li class="list-group-item history-list-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="fw-bold">৳ ${item.totalAmount} <small class="text-muted">(${item.count} Emails)</small></div>
+                        <i class="bi bi-trash3 text-danger" onclick="deleteSubmission('${item.key}')" style="cursor:pointer;" title="Delete History"></i>
+                    </div>
+                    <div class="d-flex flex-column gap-1 mt-2">
+                        ${detailsHTML}
+                    </div>
+                    <div class="text-muted small mt-1"><i class="bi bi-clock"></i> ${date}</div>
+                </li>
+              `;
+          });
+
+          document.getElementById('statTotal').innerText = totalEmails;
+          document.getElementById('statPending').innerText = pendingCount;
+          document.getElementById('statApproved').innerText = approvedCount;
+          document.getElementById('statRejected').innerText = rejectedCount;
+
+          if(!hasData) {
+              list.innerHTML = '<li class="list-group-item text-center text-muted py-4">কোনো হিস্ট্রি পাওয়া যায়নি।</li>';
+          }
+      });
+
       document.getElementById('auth-page').style.display = 'none';
+    } else {
+        document.getElementById('historyList').innerHTML = '<li class="list-group-item text-center text-muted py-4">লগইন করার পর হিস্ট্রি দেখা যাবে...</li>';
+        document.getElementById('statTotal').innerText = "0";
+        document.getElementById('statPending').innerText = "0";
+        document.getElementById('statApproved').innerText = "0";
+        document.getElementById('statRejected').innerText = "0";
     }
   });
 
@@ -244,30 +505,40 @@
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const pass = document.getElementById('regPass').value;
+    const myRefCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+    
     if (!name || !email.endsWith('@gmail.com') || pass.length < 6) return alert("সঠিক তথ্য দিন");
     try {
       const res = await createUserWithEmailAndPassword(auth, email, pass);
-      await set(ref(db, 'users/' + res.user.uid), { username: name, email, balance: 0, hold: 0, paymentNumber: "", createdAt: Date.now() });
+      await set(ref(db, 'users/' + res.user.uid), { 
+          username: name, 
+          email, 
+          balance: 0, 
+          hold: 0, 
+          paymentNumber: "", 
+          paymentMethod: "",
+          createdAt: Date.now(),
+          referralCode: myRefCode,
+          referredBy: referrerCode || "",
+          referralEarnings: 0,
+          last_login: Date.now()
+      });
       location.reload();
     } catch (err) { alert(err.message); }
   };
 
   window.handleLogout = () => signOut(auth).then(() => location.reload());
 
-  // --- Gmail Submission with Fixed Hold Logic ---
   window.submitGmails = async (submissionData) => {
-    // NaN চেক
     if (isNaN(submissionData.totalAmount) || submissionData.totalAmount <= 0) {
         return Swal.fire("ত্রুটি", "কাজের রেট লোড হতে পারেনি। পেজটি রিফ্রেশ করুন।", "error");
     }
-
     try {
       for (let item of submissionData.gmails) {
         const q = query(ref(db, 'used_emails'), orderByChild('email'), equalTo(item.email));
         const emailSnap = await get(q);
         if (emailSnap.exists()) return Swal.fire("এরর", `${item.email} আগে সাবমিট করা হয়েছে!`, "warning");
       }
-
       const newRef = push(ref(db, 'submissions'));
       await set(newRef, {
         userId: currentUser.uid,
@@ -276,19 +547,14 @@
         status: "pending",
         ...submissionData
       });
-
       for (let item of submissionData.gmails) {
         await push(ref(db, 'used_emails'), { email: item.email });
       }
-
-      // কাজ সাবমিট করলে টাকা hold এ যোগ হবে (সংখ্যা হিসেবে)
       const userRef = ref(db, 'users/' + currentUser.uid);
       const userSnap = await get(userRef);
       const userData = userSnap.val();
       const currentHold = Number(userData.hold) || 0;
-      
       await update(userRef, { hold: currentHold + submissionData.totalAmount });
-
       Swal.fire("সফল", "কাজ জমা হয়েছে। রিভিউ এর পর টাকা মেইন ব্যালেন্সে যোগ হবে।", "success").then(() => location.reload());
     } catch (err) {
       if (err.message.includes("indexOn")) {
@@ -304,11 +570,13 @@
     const amt = Number(document.getElementById('withdrawAmount').value);
     const balance = Number(document.getElementById('mainBalance').innerText);
     const pNum = document.getElementById('paymentNumber').value.trim();
+    
+    const minW = Number(document.getElementById('withdrawAmount').getAttribute('min'));
 
-    if (!method || isNaN(amt) || amt < 100) return Swal.fire("ত্রুটি", "সঠিক তথ্য দিন (সর্বনিম্ন ১০০)", "error");
+    if (!method || isNaN(amt) || amt < minW) return Swal.fire("ত্রুটি", `সর্বনিম্ন ${minW} টাকা উত্তোলন করতে পারবেন।`, "error");
     if (amt > balance) return Swal.fire("এরর", "মেইন ব্যালেন্সে পর্যাপ্ত টাকা নেই", "error");
     if (!pNum) return Swal.fire("ত্রুটি", "পেমেন্ট নম্বর সেভ করুন", "error");
-
+    
     try {
       const newWithdrawRef = push(ref(db, 'withdraw_requests'));
       await set(newWithdrawRef, {
@@ -320,28 +588,132 @@
         status: "pending",
         requestedAt: Date.now()
       });
-
       const userRef = ref(db, 'users/' + currentUser.uid);
       await update(userRef, { balance: balance - amt });
-
       Swal.fire("সফল", "উত্তোলন রিকোয়েস্ট পাঠানো হয়েছে!", "success").then(()=>location.reload());
     } catch (err) { Swal.fire("ত্রুটি", "সমস্যা হয়েছে", "error"); }
   };
 
   window.savePaymentNumber = async () => {
     const num = document.getElementById('paymentNumber').value.trim();
+    const method = document.getElementById('withdrawMethod').value; 
+    
+    const updates = { paymentNumber: num };
+    if(method) updates.paymentMethod = method;
+
     if (num) {
-      await update(ref(db, 'users/' + currentUser.uid), { paymentNumber: num });
+      await update(ref(db, 'users/' + currentUser.uid), updates);
       Swal.fire("সফল", "সেভ হয়েছে", "success");
     }
   };
+
+  window.deleteSubmission = async (key) => {
+      const result = await Swal.fire({
+          title: 'Delete History?',
+          text: "আপনি কি এই হিস্ট্রিটি ডিলিট করতে চান?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete!'
+      });
+
+      if (result.isConfirmed) {
+          await remove(ref(db, `submissions/${key}`));
+          Swal.fire("Deleted", "History removed.", "success");
+      }
+  };
+
+  // --- ফিক্সড রেফার লিংক কপি ফাংশন ---
+  window.copyRefLink = async () => {
+      if (!window.currentUser) {
+          return Swal.fire("Error", "অনুগ্রহ করে লগইন করুন।", "error");
+      }
+
+      const uid = window.currentUser.uid;
+      const dbRef = ref(db, 'users/' + uid);
+      
+      try {
+          const snap = await get(dbRef);
+          if (!snap.exists()) {
+              return Swal.fire("Error", "User data not found.", "error");
+          }
+          
+          let data = snap.val();
+          let code = data.referralCode;
+
+          // যদি কোড না থাকে, নতুন কোড জেনারেট করুন এবং সেভ করুন
+          if (!code || code === "N/A" || code === "LOADING...") {
+              const newCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+              
+              // DB তে সেভ করুন
+              await update(dbRef, { referralCode: newCode });
+              
+              // লোকাল ডাটা আপডেট
+              data.referralCode = newCode;
+              
+              // UI তে সাথে সাথে আপডেট করা যাতে ব্যবহারকারী দেখতে পারে
+              const codeEl = document.getElementById('myReferralCode');
+              if(codeEl) codeEl.innerText = newCode;
+              
+              code = newCode;
+          }
+
+          // লিংক তৈরি করা
+          const baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+          const link = baseUrl + "?ref=" + code;
+
+          // কপি করা
+          let success = false;
+          if (navigator.clipboard && window.isSecureContext) {
+              try {
+                  await navigator.clipboard.writeText(link);
+                  success = true;
+              } catch (err) {
+                  console.error('Failed to copy: ', err);
+                  fallbackCopyTextToClipboard(link);
+                  success = true; // Fallback worked
+              }
+          } else {
+              fallbackCopyTextToClipboard(link);
+              success = true;
+          }
+
+          if (success) {
+              Swal.fire("Success!", "রেফারেল লিংক কপি হয়েছে!", "success");
+          }
+
+      } catch (error) {
+          console.error("Error in copyRefLink:", error);
+          Swal.fire("Error", "Something went wrong!", "error");
+      }
+  };
+
+  function fallbackCopyTextToClipboard(text) {
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+  }
+
 </script>
 
 <script>
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const clockEl = document.getElementById('liveClock');
+        if(clockEl) clockEl.innerText = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
     function switchTab(tabId) {
         document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
+        const tabElement = document.getElementById(tabId);
+        if (tabElement) tabElement.classList.add('active');
         const btn = document.getElementById(tabId + '-btn');
         if(btn) btn.classList.add('active');
     }
@@ -352,11 +724,11 @@
         else switchTab(tabId);
     }
 
-    function addMoreRow() {
+    function addMoreRow(email='', pass='') {
         const row = document.createElement('div');
         row.className = 'gmail-row p-3 bg-white rounded border mb-2 row-item position-relative';
-        row.innerHTML = `<input type="email" class="form-control mb-2 g-input" placeholder="Real Gmail Address" required>
-            <input type="text" class="form-control p-input" placeholder="Password" required>
+        row.innerHTML = `<input type="email" class="form-control mb-2 g-input" value="${email}" placeholder="Real Gmail Address" required>
+            <input type="text" class="form-control p-input" value="${pass}" placeholder="Password" required>
             <span class="text-danger position-absolute top-0 end-0 p-1" style="cursor:pointer" onclick="this.parentElement.remove(); updateTotal();"><i class="bi bi-x-circle"></i></span>`;
         document.getElementById('gmailRows').appendChild(row);
         updateTotal();
@@ -386,7 +758,7 @@
             const pass = row.querySelector('.p-input').value.trim();
             if (!email.endsWith("@gmail.com")) { hasError = true; errorBox.innerText = `${idx+1} নম্বর জিমেইল সঠিক নয়!`; }
             else if (localSet.has(email)) { hasError = true; errorBox.innerText = "একই জিমেইল দুবার দিয়েছেন!"; }
-            else if (pass.length < 6) { hasError = true; errorBox.innerText = "পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে!"; }
+            else if (pass.length < 6) { hasError = true; errorBox.innerText = "পাসওয়ার্ড অন্তত ব অক্ষরের হতে হবে!"; }
             
             if (!hasError) { localSet.add(email); gmails.push({ email, password: pass }); }
         });
