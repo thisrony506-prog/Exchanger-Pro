@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Exchanger Pro - Trusted Platform</title>
+    <meta name="theme-color" content="#4F46E5">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        :root { 
+            --primary-color: #4F46E5;
+            --primary-light: #818CF8;
+            --accent-color: #10B981;
+            --bg-body: #F3F4F6;
+            --text-main: #1F2937;
+            --gradient-main: linear-gradient(135deg, var(--primary-color) 0%, #7C3AED 100%);
+            --shadow-card: 0 4px 20px rgba(79, 70, 229, 0.08);
+        }
+        
+        body { background-color: var(--bg-body); font-family: 'Segoe UI', sans-serif; color: var(--text-main); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .page-container { padding-bottom: 80px; padding-top: 15px; }
+
+        /* Navbar */
+        .navbar { background: var(--gradient-main) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 10px 0; position: sticky; top: 0; z-index: 1001; }
+        .brand-logo-link { display: flex; align-items: center; text-decoration: none; gap: 10px; }
+        .logo-icon-custom { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); }
+        .logo-icon-custom svg { width: 20px; height: 20px; fill: white; }
+        .logo-title { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+        .logo-subtitle { font-size: 9px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* Bottom Nav */
+        .nav-bottom { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 6px 0 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
+        .nav-item { color: #6B7280; font-size: 10px; font-weight: 600; transition: 0.2s; width: 25%; text-align: center; padding: 4px 0; cursor: pointer; }
+        .nav-item.active { color: var(--primary-color); }
+        .nav-item i { font-size: 22px; margin-bottom: 2px; display: block; }
+        
+        /* Components */
+        .social-float { position: fixed; bottom: 85px; right: 15px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+        .float-btn { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); color: white; }
+        .wa-btn { background-color: #25D366; }
+        .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #0055aa 100%); }
+        .card { border: none; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.5); }
+        
+        /* Level Rate Card */
+        .level-rate-card { background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%); border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border-left: 5px solid var(--primary-color); display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
+        .lrc-title { font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
+        .lrc-rates { display: flex; gap: 15px; }
+        .lrc-badge { padding: 5px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+        .lrc-new { background: #dcfce7; color: #166534; }
+        .lrc-old { background: #e0e7ff; color: #3730a3; }
+
+        /* Review Time Card */
+        .review-time-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: space-between; border: 1px solid #f3f4f6; }
+        .rtc-left h6 { margin: 0; font-weight: 700; color: #374151; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .rtc-clock-box { background: #f8fafc; padding: 10px 20px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; }
+        .rtc-time { font-size: 20px; font-weight: 800; color: var(--primary-color); font-family: monospace; letter-spacing: 1px; }
+
+        /* Transaction Card */
+        .trans-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); }
+        .trans-btn { background: var(--gradient-main); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; width: 100%; font-size: 16px; transition: 0.2s; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2); }
+        .trans-btn:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; }
+
+        /* Gmail Row */
+        .gmail-row { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; position: relative; border: 1px solid #e5e7eb; transition: all 0.2s; }
+        .gmail-row:focus-within { border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1); }
+        .gmail-row input { border: none; background: #f9fafb; border-radius: 8px; padding: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; }
+        .gmail-row .remove-btn { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; line-height: 1; cursor: pointer; }
+
+        /* History Tabs */
+        .history-tabs-container { background: white; padding: 8px; border-radius: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border: 1px solid #f3f4f6; }
+        .history-tabs { display: flex; gap: 8px; }
+        .h-tab-btn { flex: 1; border: none; background: transparent; padding: 12px 5px; font-weight: 600; color: #6B7280; font-size: 11px; border-radius: 16px; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .h-tab-btn i { font-size: 20px; transition: 0.3s; }
+        .h-tab-btn.active { background: var(--gradient-main); color: white; transform: scale(1.02); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); }
+
+        /* Top Sellers */
+        .seller-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f3f4f6; transition: 0.2s; }
+        .seller-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.06); }
+        .seller-rank { width: 45px; height: 45px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-right: 15px; color: #6B7280; font-size: 16px; flex-shrink: 0; }
+        .seller-rank.gold { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); }
+        .seller-rank.silver { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); color: white; }
+        .seller-info { flex-grow: 1; }
+        .seller-name { font-weight: 700; font-size: 15px; color: #111827; }
+        .seller-income-label { font-size: 11px; color: #9ca3af; font-weight: 600; }
+        .seller-amount { font-weight: 800; color: var(--primary-color); font-size: 18px; text-align: right; }
+        .seller-amount small { font-size: 11px; font-weight: 600; color: #6b7280; }
+
+        /* Profile Redesign */
+        .profile-header { background: var(--gradient-main); padding: 30px 20px 40px; border-radius: 0 0 30px 30px; margin: -15px -15px 20px -15px; color: white; text-align: center; position: relative; overflow: hidden; }
+        .ph-logo-custom { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .ph-logo-custom svg { width: 40px; height: 40px; fill: white; }
+        .ph-name { font-size: 20px; font-weight: 700; margin-bottom: 15px; }
+        .balance-row { display: flex; justify-content: center; gap: 20px; }
+        .bal-item { text-align: center; background: rgba(0,0,0,0.15); padding: 10px 25px; border-radius: 12px; backdrop-filter: blur(5px); }
+        .bal-label { font-size: 10px; opacity: 0.9; }
+        .bal-val { font-size: 20px; font-weight: 700; }
+
+        /* Withdraw Button */
+        .withdraw-main-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 15px; border-radius: 16px; width: 100%; font-weight: 700; font-size: 16px; box-shadow: 0 5px 15px rgba(79, 70, 229, 0.1); transition: 0.2s; margin-top: -25px; position: relative; z-index: 10; }
+        .withdraw-main-btn:active { background: var(--primary-color); color: white; }
+
+        /* Feature Grid */
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; margin-top: 15px; }
+        .feature-card { background: white; border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #f3f4f6; }
+        .feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; }
+        .feature-icon.ref { background: #dcfce7; color: #16a34a; }
+        .feature-icon.stats { background: #e0e7ff; color: #4f46e5; }
+        .feature-title { font-size: 11px; color: #6b7280; margin-bottom: 2px; }
+        .feature-val { font-size: 18px; font-weight: 700; }
+
+        /* Submission Stats Design */
+        .stats-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border: 1px solid #f3f4f6; }
+        .stats-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .stats-header i { font-size: 20px; color: var(--primary-color); }
+        .stats-header h6 { margin: 0; font-weight: 700; font-size: 15px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        .stat-item { background: #f9fafb; border-radius: 12px; padding: 10px 5px; }
+        .stat-val { font-size: 18px; font-weight: 800; display: block; }
+        .stat-label { font-size: 10px; color: #6b7280; font-weight: 600; }
+        .stat-item.total .stat-val { color: var(--primary-color); }
+        .stat-item.pend .stat-val { color: #eab308; }
+        .stat-item.app .stat-val { color: #22c55e; }
+        .stat-item.rej .stat-val { color: #ef4444; }
+
+        /* Auth Page */
+        #auth-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-main); z-index: 2000; overflow-y: auto; }
+        .auth-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { width: 100%; max-width: 400px; background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .auth-header { padding: 40px 20px 20px; text-align: center; background: transparent; }
+        .auth-logo-box { width: 80px; height: 80px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 2px solid var(--primary-light); }
+        .auth-logo-box svg { width: 40px; height: 40px; }
+        
+        .auth-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; line-height: 1.3; color: var(--primary-color); }
+        .auth-subtitle { font-size: 14px; color: #4B5563; margin-bottom: 10px; opacity: 1; }
+        .auth-desc { font-size: 13px; color: #6B7280; line-height: 1.5; max-width: 300px; margin: 0 auto; opacity: 1; }
+        
+        .auth-features { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #374151; text-align: left; padding: 0 10px; }
+        
+        .trust-badges { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .trust-badge-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #6B7280; }
+        .trust-badge-item i { font-size: 18px; margin-bottom: 4px; color: var(--primary-color); }
+        .auth-body { padding: 25px 30px 30px; }
+        .form-control { border-radius: 10px; border: 2px solid #eee; font-size: 16px; padding: 12px; }
+        .form-control:focus { border-color: var(--primary-light); box-shadow: 0 0 0 0.15rem rgba(79, 70, 229, 0.1); }
+        .btn-main { background: var(--gradient-main); border: none; font-weight: 700; border-radius: 12px; padding: 12px; box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2); color: white; width: 100%; }
+
+        /* Withdraw Page */
+        #withdraw-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); z-index: 1500; overflow-y: auto; animation: slideUp 0.3s ease-out; }
+        .wd-header { background: var(--gradient-main); padding: 50px 20px 30px; color: white; text-align: center; border-radius: 0 0 30px 30px; position: relative; }
+        .wd-back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.2); border: none; color: white; width: 35px; height: 35px; border-radius: 50%; font-size: 18px; cursor: pointer; }
+        .wd-balance-box { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 15px; margin-top: 15px; }
+        .wd-body { padding: 20px; }
+        
+        .payment-method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .pm-card { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .pm-card.active { border-color: var(--primary-color); background: rgba(79, 70, 229, 0.05); }
+        .pm-card i { font-size: 24px; margin-bottom: 5px; display: block; }
+        .pm-card span { font-size: 11px; font-weight: 700; }
+        .pm-card.bkash i { color: #E2136E; }
+        .pm-card.nagad i { color: #F6921D; }
+        .pm-card.binance i { color: #F0B90B; }
+
+        .content-section { display: none; padding: 15px; animation: slideUp 0.3s ease-out; }
+        .content-section.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<!-- Auth Page -->
+<div id="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo-box">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#4F46E5"/>
+                        <path d="M2 17L12 22L22 17" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <div id="login-header-content">
+                    <div class="auth-title">Welcome Back to Exchanger Pro</div>
+                    <div class="auth-subtitle">আপনার একাউন্টে লগইন করে এক্সচেঞ্জ এবং ব্যালেন্স ম্যানেজ করুন।</div>
+                </div>
+                
+                <div id="reg-header-content" style="display: none;">
+                    <div class="auth-title">Exchanger Pro এ একাউন্ট খুলুন</div>
+                    <div class="auth-subtitle">দ্রুত, নিরাপদ এবং সহজভাবে এক্সচেঞ্জ শুরু করতে এখনই রেজিস্ট্রেশন করুন।</div>
+                </div>
+
+                <div class="trust-badges" style="margin-top: 25px;">
+                    <div class="trust-badge-item"><i class="bi bi-shield-lock-fill"></i><span>Secure</span></div>
+                    <div class="trust-badge-item"><i class="bi bi-lightning-charge-fill"></i><span>Fast</span></div>
+                    <div class="trust-badge-item"><i class="bi bi-people-fill"></i><span>5000+ Users</span></div>
+                </div>
+            </div>
+            <div class="auth-body">
+                <div id="login-form">
+                    <div class="form-floating mb-3"><input type="text" class="form-control" id="loginEmail" placeholder="Email"><label>Email / Phone</label></div>
+                    <div class="form-floating mb-4"><input type="password" class="form-control" id="loginPass" placeholder="Password"><label>Password</label></div>
+                    <button class="btn btn-main py-3 fw-bold" onclick="window.handleLogin()">Login</button>
+                    <p class="text-center small mt-4 mb-0">একাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')" class="fw-bold" style="color:var(--primary-color)">Register করুন</a></p>
+                </div>
+
+                <div id="reg-form" style="display: none;">
+                    <div class="form-floating mb-3"><input type="text" class="form-control" id="regName" placeholder="Name"><label>Full Name</label></div>
+                    <div class="form-floating mb-3"><input type="text" class="form-control" id="regEmail" placeholder="Email"><label>Email / Phone</label></div>
+                    <div class="form-floating mb-3"><input type="password" class="form-control" id="regPass" placeholder="Pass"><label>Password</label></div>
+                    <div class="form-floating mb-4"><input type="password" class="form-control" id="regConfirmPass" placeholder="Confirm"><label>Confirm Password</label></div>
+                    <button class="btn btn-main py-3 fw-bold" onclick="window.handleRegister()">Register / Sign Up</button>
+                    <p class="text-center small mt-4 mb-0">আগে থেকেই একাউন্ট আছে? <a href="#" onclick="toggleAuth('login')" class="fw-bold" style="color:var(--primary-color)">Login করুন</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Withdraw Page -->
+<div id="withdraw-page">
+    <div class="wd-header">
+        <button class="wd-back-btn" onclick="window.closeWithdrawPage()"><i class="bi bi-x-lg"></i></button>
+        <h5 class="fw-bold mb-0">উত্তোলন করুন</h5>
+        <div class="wd-balance-box">
+            <div class="d-flex justify-content-around">
+                <div><small style="font-size: 10px; opacity: 0.8;">Main Balance</small><h4 class="fw-bold mb-0">৳ <span id="wdMainBalance">0.00</span></h4></div>
+                <div class="border-start"></div>
+                <div><small style="font-size: 10px; opacity: 0.8;">Hold Balance</small><h4 class="fw-bold mb-0 text-warning">৳ <span id="wdHoldBalance">0.00</span></h4></div>
+            </div>
+        </div>
+    </div>
+    <div class="wd-body">
+        <div class="card p-3 border-0 shadow-sm mb-3">
+            <label class="text-muted small fw-bold mb-2">পেমেন্ট মেথড সিলেক্ট করুন</label>
+            <div class="payment-method-grid">
+                <div class="pm-card bkash active" onclick="window.selectPaymentMethod(this, 'bkash')"><i class="bi bi-wallet2"></i><span>bKash</span></div>
+                <div class="pm-card nagad" onclick="window.selectPaymentMethod(this, 'nagad')"><i class="bi bi-wallet2"></i><span>Nagad</span></div>
+                <div class="pm-card binance" onclick="window.selectPaymentMethod(this, 'binance')"><i class="bi bi-app-indicator"></i><span>USDT</span></div>
+            </div>
+            <input type="hidden" id="selectedMethod" value="bkash">
+        </div>
+        <div class="card p-3 border-0 shadow-sm mb-3">
+            <div class="mb-3"><label class="form-label text-muted small fw-bold">একাউন্ট নম্বর</label><input type="text" class="form-control" id="wdAccNumber" placeholder="Address "></div>
+            <div class="mb-3">
+                <label class="form-label text-muted small fw-bold">টাকার পরিমাণ</label>
+                <input type="number" class="form-control" id="wdAmount" placeholder="পরিমাণ লিখুন" min="100">
+                <div class="form-text text-danger small fw-bold" id="wdMinLabel">সর্বনিম্ন উত্তোলন: 100 টাকা</div>
+            </div>
+        </div>
+        <button class="btn btn-main w-100 py-3 fw-bold" onclick="window.processWithdraw()">উত্তোলন রিকোয়েস্ট পাঠান <i class="bi bi-send-check ms-2"></i></button>
+    </div>
+</div>
+
+<!-- Main App -->
+<div class="social-float">
+    <a href="https://t.me/gmail_marketing02" target="_blank" class="float-btn tg-btn"><i class="bi bi-telegram"></i></a>
+    <a href="https://wa.me/8801964182265" target="_blank" class="float-btn wa-btn"><i class="bi bi-whatsapp"></i></a>
+</div>
+
+<nav class="navbar navbar-dark">
+    <div class="container d-flex justify-content-center">
+        <a class="brand-logo-link" href="#">
+            <div class="logo-icon-custom">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+                    <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div>
+                <span class="logo-title">Exchanger Pro</span>
+                <span class="logo-subtitle">Trusted  & Fast</span>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-2 page-container">
+    
+    <!-- HOME PAGE -->
+    <div id="home" class="content-section active">
+        <div class="alert alert-custom shadow-sm border-0 mb-3" style="background:#fff; border-left:4px solid var(--primary-color); border-radius:12px; display:flex; align-items:center; padding:12px;">
+            <i class="bi bi-patch-check-fill text-primary me-3 fs-4"></i> 
+            <div class="small"><b>১০০% নিরাপদ :</b> আমরা সততার সাথে সার্ভিস দিচ্ছি।</div>
+        </div>
+
+        <div class="level-rate-card shadow-sm">
+            <div>
+                <div class="lrc-title" id="homeLevelTitle">Level 1 Rate</div>
+                <div class="lrc-rates">
+                    <span class="lrc-badge lrc-new" id="rateNew">New Gmail : 10 টাকা</span>
+                    <span class="lrc-badge lrc-old" id="rateOld">Old Gmail : 8 টাকা</span>
+                </div>
+            </div>
+            <i class="bi bi-graph-up-arrow text-primary fs-2 d-none d-md-block"></i>
+        </div>
+
+        <div class="trans-card">
+            <h6 class="mb-3 fw-bold text-dark"><i class="bi bi-currency-exchange text-primary me-2"></i>লেনদেন শুরু করুন</h6>
+            <div class="mb-3">
+                <label class="form-label text-muted small fw-bold">জিমেইল ধরন</label>
+                <select class="form-select bg-light border-0" id="dollarType" onchange="updateTotal()" style="padding:12px; border-radius:10px; background-color:#f8fafc;"></select>
+            </div>
+            <button class="trans-btn" id="startTransBtn" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right-circle ms-2"></i></button>
+        </div>
+
+        <div class="review-time-card">
+            <div class="rtc-left">
+                <div>
+                    <h6>Review Time: 1- 6 Hours ⌛</h6>
+                    <small>সাধারণত এই সময়ের মধ্যে কাজ শেষ হবে।</small>
+                </div>
+            </div>
+            <div class="rtc-clock-box">
+                <div class="rtc-label">Time</div>
+                <div class="rtc-time" id="liveClock">00:00:00</div>
+            </div>
+        </div>
+
+        <div class="trust-box shadow-sm" style="background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(0,0,0,0.03);">
+            <h6 class="fw-bold border-bottom pb-2 mb-3 text-dark" style="font-size:14px;">কেন আমাদের বেছে নিবেন?</h6>
+            <div class="row">
+                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-lightning-charge text-warning" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">দ্রুত পেমেন্ট</p></div>
+                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-lock text-info" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">নিরাপদ ডাটা</p></div>
+                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-headset text-success" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">২৪/৭ সাপোর্ট</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXCHANGE STEP -->
+    <div id="exchange_step" class="content-section">
+        <div class="d-flex align-items-center mb-3">
+            <button class="btn btn-sm btn-light me-2 rounded-circle shadow-sm" onclick="switchTab('home')" style="width:32px; height:32px; padding:0;"><i class="bi bi-chevron-left"></i></button>
+            <h6 class="mb-0 fw-bold text-dark">জিমেইল ডিটেইলস দিন : </h6>
+        </div>
+        
+        <div class="alert alert-info py-2 px-3 d-flex justify-content-between align-items-center mb-3" style="border-radius:10px; font-size:13px;">
+            <span>আপনার বর্তমান লেভেল রেট:</span>
+            <b id="currentRateDisplay">10 টাকা</b>
+        </div>
+
+        <form id="gmailForm">
+            <div id="gmailRows"></div>
+            <button type="button" class="btn btn-outline-primary btn-sm mb-3 w-100 py-2" style="border-radius:10px;" onclick="addMoreRow()"><i class="bi bi-plus-circle me-1"></i> আরও যোগ করুন</button>
+            <div class="card p-3 mb-3 bg-white border text-center shadow-sm" style="border-radius:12px;">
+                <small class="text-muted" style="font-size:11px;">মোট সম্ভাব্য ইনকাম</small>
+                <h3 class="mb-0 fw-bold text-success">৳ <span id="tempTotal">0</span></h3>
+            </div>
+            <div id="masterError" class="alert alert-danger py-2 text-center fw-bold" style="display:none; border-radius:10px; font-size:12px;"></div>
+            <button type="button" id="submitBtn" class="trans-btn" onclick="validateAndSubmit()"><span id="btnText">Confirm & Submit</span><span id="btnLoad" class="spinner-border spinner-border-sm d-none"></span></button>
+        </form>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div id="history" class="content-section">
+        <div class="history-tabs-container">
+            <div class="history-tabs">
+                <button class="h-tab-btn active" onclick="showHistoryTab('sub', event)"><i class="bi bi-list-check"></i> Submissions</button>
+                <button class="h-tab-btn" onclick="showHistoryTab('wd', event)"><i class="bi bi-cash-stack"></i> Withdraws</button>
+                <button class="h-tab-btn" onclick="showHistoryTab('trend', event)"><i class="bi bi-fire"></i> Trending</button>
+            </div>
+        </div>
+        <!-- Broadcast Box kept for reference in history tab, but popup will show globally -->
+        <div id="broadcastBox" class="alert alert-warning py-2 shadow-sm border-0 d-flex align-items-center mb-3" style="display:none; border-radius:12px;"><i class="bi bi-megaphone-fill me-2 text-danger fs-5"></i><span id="broadcastText" class="fw-bold text-dark small"></span></div>
+        
+        <div id="history_sub"><div class="card border-0 shadow-sm" style="border-radius:12px;"><ul class="list-group list-group-flush" id="historyList" style="border-radius:12px;"><li class="list-group-item text-center text-muted py-4 border-0">লোড হচ্ছে...</li></ul></div></div>
+        <div id="history_wd" style="display:none;"><div class="card border-0 shadow-sm"><ul class="list-group list-group-flush" id="withdrawHistoryList"><li class="list-group-item text-center text-muted py-4 border-0">লোড হচ্ছে...</li></ul></div></div>
+        <div id="history_trend" style="display:none;"><div id="trendingList"></div></div>
+    </div>
+
+    <!-- SELLERS -->
+    <div id="sellers" class="content-section">
+        <h5 class="mb-3 text-center fw-bold text-dark">🏆 Top Sellers</h5>
+        <div id="topSellersList"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="profile" class="content-section">
+        
+        <div class="profile-header">
+            <div class="ph-logo-custom">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+                    <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="ph-name" id="userDisplayName">User</div>
+            <div class="balance-row">
+                <div class="bal-item"><div class="bal-label">Balance</div><div class="bal-val">৳<span id="mainBalance">0.00</span></div></div>
+                <div class="bal-item" style="background: rgba(255,255,255,0.1);"><div class="bal-label">Hold</div><div class="bal-val text-warning">৳<span id="holdBalance">0.00</span></div></div>
+            </div>
+        </div>
+
+        <button class="withdraw-main-btn" onclick="window.openWithdrawPage()">
+            <i class="bi bi-wallet2"></i> উত্তোলন করুন
+        </button>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon ref"><i class="bi bi-people-fill"></i></div>
+                <div class="feature-title">Total Refers</div>
+                <div class="feature-val" id="totalReferred">0</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon stats"><i class="bi bi-cash-coin"></i></div>
+                <div class="feature-title">Total Earned</div>
+                <div class="feature-val" style="color: var(--success);">৳ <span id="referralEarnings">0.00</span></div>
+            </div>
+        </div>
+
+        <div class="card p-3 border-0 shadow-sm mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="mb-0 fw-bold"><i class="bi bi-award-fill text-warning me-2"></i>Level Progress</h6>
+                <span class="badge bg-primary rounded-pill" id="levelNameDisplay">Level 1</span>
+            </div>
+            <div class="small text-muted mb-1">Rate: <b id="levelCurrentRate">10</b> টাকা | Done: <b id="levelTotalApproved">0</b></div>
+            <div class="progress" style="height: 6px;"><div class="progress-bar bg-primary" id="levelProgressBar" style="width: 0%"></div></div>
+            <div class="text-end small text-muted mt-1" id="levelRemainCount">Next: 40 Left</div>
+        </div>
+
+        <div class="card p-3 border-0 shadow-sm mb-3 text-center">
+            <label class="form-label small text-muted fw-bold mb-1">🎁 আপনার রেফারেল কোড 🎁</label>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+                <h4 class="mb-0 fw-bold text-primary" id="myReferralCode">LOADING</h4>
+                <button class="btn btn-sm btn-outline-primary rounded-circle" onclick="window.copyRefLink()"><i class="bi bi-clipboard"></i></button>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-header">
+                <i class="bi bi-bar-chart-fill"></i>
+                <h6>সাবমিশন স্ট্যাটাস</h6>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item total"><span class="stat-val" id="statTotal">0</span><span class="stat-label">মোট</span></div>
+                <div class="stat-item pend"><span class="stat-val" id="statPending">0</span><span class="stat-label">Pending</span></div>
+                <div class="stat-item app"><span class="stat-val" id="statApproved">0</span><span class="stat-label">Approved</span></div>
+                <div class="stat-item rej"><span class="stat-val" id="statRejected">0</span><span class="stat-label">Rejected</span></div>
+            </div>
+        </div>
+
+        <button class="btn btn-outline-danger w-100 btn-sm rounded-pill" onclick="window.handleLogout()">Logout</button>
+    </div>
+</div>
+
+<div class="nav-bottom shadow">
+    <div class="nav-item active" id="home-btn" onclick="switchTab('home')"><i class="bi bi-house-door"></i><span>Home</span></div>
+    <div class="nav-item" id="history-btn" onclick="protectedAction('history')"><i class="bi bi-clock-history"></i><span>History</span></div>
+    <div class="nav-item" id="sellers-btn" onclick="switchTab('sellers')"><i class="bi bi-star"></i><span>Seller</span></div>
+    <div class="nav-item" id="profile-btn" onclick="protectedAction('profile')"><i class="bi bi-person"></i><span>Profile</span></div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getDatabase, ref, set, get, update, push, onValue, increment, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbsa0uvBYhkEYoLxuHwD4TQi5GDdAzQpg",
+    authDomain: "exchanger-pro.firebaseapp.com",
+    databaseURL: "https://exchanger-pro-default-rtdb.firebaseio.com",
+    projectId: "exchanger-pro",
+    storageBucket: "exchanger-pro.firebasestorage.app",
+    messagingSenderId: "889959520630",
+    appId: "1:889959520630:web:f4cbf82f236b616e1f8257"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  window.currentUser = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const referrerCodeParam = urlParams.get('ref');
+  
+  window.currentDynamicRate = 10; 
+  window.baseOldRate = 8;
+  let currentUserApprovedCount = 0;
+  
+  // Variable to track if broadcast message was shown to avoid duplicate popups
+  let lastBroadcastMessage = "";
+
+  const levels = [
+      { level: 1, approved: 0, rate: 10 },
+      { level: 2, approved: 40, rate: 12 },
+      { level: 3, approved: 90, rate: 12.50 },
+      { level: 4, approved: 180, rate: 13 },
+      { level: 5, approved: 290, rate: 13.50 },
+      { level: 6, approved: 390, rate: 14 },
+      { level: 7, approved: 510, rate: 14.50 }
+  ];
+
+  function getUserLevel(totalApproved) {
+      let currentLevel = levels[0];
+      let nextLevel = levels[1];
+      for (let i = 0; i < levels.length; i++) {
+          if (totalApproved >= levels[i].approved) {
+              currentLevel = levels[i];
+              if (i + 1 < levels.length) nextLevel = levels[i + 1];
+              else nextLevel = null;
+          }
+      }
+      return { current: currentLevel, next: nextLevel };
+  }
+  
+  function syncRatesAndTotal() {
+      const levelData = getUserLevel(currentUserApprovedCount);
+      window.currentDynamicRate = levelData.current.rate;
+      
+      const rateDisplay = document.getElementById('currentRateDisplay');
+      if(rateDisplay) rateDisplay.innerText = window.currentDynamicRate + " টাকা";
+      
+      const homeTitle = document.getElementById('homeLevelTitle');
+      const homeRateNew = document.getElementById('rateNew');
+      
+      if(window.currentUser) {
+          if(homeTitle) homeTitle.innerText = `Level ${levelData.current.level} Rate`;
+          if(homeRateNew) homeRateNew.innerText = `New Gmail  : ${window.currentDynamicRate} টাকা`;
+      } else {
+          if(homeTitle) homeTitle.innerText = "Level 1 Rate";
+      }
+      
+      updateTotal();
+  }
+
+  function showPopup(icon, title, text) {
+      Swal.fire({ icon: icon, title: title, text: text, confirmButtonColor: '#4F46E5', background: '#fff' });
+  }
+
+  function showError(title, msg) {
+      showPopup('error', title, msg);
+  }
+  
+  function getErrorReason(error) {
+      let msg = "Unknown error.";
+      switch(error.code) {
+          case 'auth/email-already-in-use': msg = 'এই ইমেইল দিয়ে আগে রেজিস্ট্রেশন করা হয়েছে।'; break;
+          case 'auth/invalid-email': msg = 'ইমেইল ফরম্যাট সঠিক নয়।'; break;
+          case 'auth/weak-password': msg = 'পাসওয়ার্ড খুব দুর্বল।'; break;
+          case 'auth/user-not-found': msg = 'এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট নেই।'; break;
+          case 'auth/wrong-password': msg = 'পাসওয়ার্ড ভুল হয়েছে।'; break;
+          case 'auth/invalid-credential': msg = 'ইমেইল অথবা পাসওয়ার্ড ভুল।'; break;
+          default: msg = error.message;
+      }
+      return msg;
+  }
+
+  function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', { hour12: true });
+      document.getElementById('liveClock').innerText = timeString;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  onValue(ref(db, "settings"), (snap) => {
+    if (snap.exists()) {
+      const data = snap.val();
+      
+      const isMaintenance = data.maintenance_mode || false;
+      const startBtn = document.getElementById('startTransBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      if(isMaintenance) {
+          if(startBtn) { startBtn.disabled = true; startBtn.innerText = "⚠️ কাজটি সাময়িকভাবে স্থগিত। ⏳"; }
+          if(submitBtn) { submitBtn.disabled = true; document.getElementById('btnText').innerText = "Maintenance Mode"; }
+      } else {
+          if(startBtn) { startBtn.disabled = false; startBtn.innerText = "Next Step"; }
+          if(submitBtn) { submitBtn.disabled = false; document.getElementById('btnText').innerText = "Confirm & Submit"; }
+      }
+
+      if(data.levels) {
+          Object.keys(data.levels).forEach(key => {
+              const idx = levels.findIndex(l => l.level === parseInt(key));
+              if(idx !== -1) {
+                  levels[idx].rate = data.levels[key].new_rate;
+                  levels[idx].approved = data.levels[key].req;
+              }
+          });
+      }
+
+      const nR = data.levels?.[1]?.new_rate || 10;
+      const oR = data.levels?.[1]?.old_rate || 8;
+      
+      if (!window.currentUser) {
+          document.getElementById('rateNew').innerText = `New Gmail : ${nR} টাকা`;
+      }
+      document.getElementById('rateOld').innerText = `Old Gmail : ${oR} টাকা`;
+      document.getElementById('dollarType').innerHTML = `<option value="new">New Gmail (Level Rate)</option><option value="${oR}">Old Gmail (Level Rate)</option>`;
+      
+      window.baseOldRate = oR;
+      
+      const minW = data.min_withdraw || 100;
+      document.getElementById('wdMinLabel').innerText = `সর্বনিম্ন উত্তোলন: ${minW} টাকা`;
+      document.getElementById('wdAmount').setAttribute('min', minW);
+      
+      // --- BROADCAST MESSAGE POPUP LOGIC ---
+      if(data.broadcast) {
+          // Update the text in history tab always
+          document.getElementById('broadcastText').innerText = data.broadcast;
+          document.getElementById('broadcastBox').style.display = 'flex';
+          
+          // Check if message is new or changed
+          if (data.broadcast !== lastBroadcastMessage) {
+              // Show SweetAlert Popup
+              Swal.fire({
+                  icon: 'info',
+                  title: '📢 Notifications',
+                  text: data.broadcast,
+                  confirmButtonColor: '#4F46E5',
+                  confirmButtonText: 'Okay '
+              });
+              // Update tracker
+              lastBroadcastMessage = data.broadcast;
+          }
+      } else {
+          document.getElementById('broadcastBox').style.display = 'none';
+          lastBroadcastMessage = ""; // Reset if broadcast removed
+      }
+      
+      syncRatesAndTotal();
+    }
+  });
+
+  function renderSellers(snap, containerId) {
+      const list = document.getElementById(containerId);
+      let htmlContent = '';
+      const users = [];
+      snap.forEach((child) => { const u = child.val(); if (u.isTopSeller === true) users.push(u); });
+      users.sort((a, b) => (Number(b.balance) || 0) - (Number(a.balance) || 0));
+      users.forEach((u, i) => {
+        let badge = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : ''));
+        let rankClass = i === 0 ? 'gold' : (i === 1 ? 'silver' : '');
+        htmlContent += `
+          <div class="seller-card">
+            <div class="seller-rank ${rankClass}">${badge || (i+1)}</div>
+            <div class="seller-info">
+                <div class="seller-name">${u.username}</div>
+                <div class="seller-income-label">Total Income</div>
+            </div>
+            <div class="text-end">
+                <div class="seller-amount">${(Number(u.balance) || 0).toFixed(0)} <small>BDT</small></div>
+            </div>
+          </div>`;
+      });
+      if(users.length === 0) htmlContent = '<div class="text-center text-muted p-4">No sellers found</div>';
+      list.innerHTML = htmlContent;
+  }
+  
+  onValue(ref(db, "users"), (snap) => {
+      renderSellers(snap, 'topSellersList');
+      renderSellers(snap, 'trendingList');
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    window.currentUser = user;
+    if (user) {
+      onValue(ref(db, 'users/' + user.uid), (snap) => {
+        if (snap.exists()) {
+          const data = snap.val();
+          
+          // Individual Admin Message (Keep this separate as before)
+          if(data.admin_message) {
+              showPopup('info', 'ব্যক্তিগত বার্তা', data.admin_message);
+              update(ref(db, 'users/' + user.uid), { admin_message: null });
+          }
+
+          if(data.is_blocked) {
+              showPopup('error', 'Account Blocked', 'আপনার একাউন্ট ব্লক করা হয়েছে।');
+              signOut(auth);
+              return;
+          }
+
+          document.getElementById('userDisplayName').innerText = data.username || "User";
+          document.getElementById('mainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
+          document.getElementById('holdBalance').innerText = (Number(data.hold) || 0).toFixed(2);
+          document.getElementById('wdMainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
+          document.getElementById('wdHoldBalance').innerText = (Number(data.hold) || 0).toFixed(2);
+          document.getElementById('myReferralCode').innerText = data.referralCode || "N/A";
+          document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
+          if (data.paymentNumber) document.getElementById('wdAccNumber').value = data.paymentNumber;
+          if(data.paymentMethod) {
+              document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active'));
+              const card = document.querySelector(`.pm-card.${data.paymentMethod}`);
+              if(card) card.classList.add('active');
+              document.getElementById('selectedMethod').value = data.paymentMethod;
+          }
+
+          currentUserApprovedCount = data.manual_approved_count || 0;
+          const levelData = getUserLevel(currentUserApprovedCount);
+          
+          window.currentDynamicRate = levelData.current.rate;
+          
+          document.getElementById('levelNameDisplay').innerText = `Level ${levelData.current.level}`;
+          document.getElementById('levelCurrentRate').innerText = levelData.current.rate;
+          document.getElementById('levelTotalApproved').innerText = currentUserApprovedCount;
+          
+          if(levelData.next) {
+              document.getElementById('levelRemainCount').innerText = `${levelData.next.approved - currentUserApprovedCount} Left`;
+              let progress = ((currentUserApprovedCount - levelData.current.approved) / (levelData.next.approved - levelData.current.approved)) * 100;
+              document.getElementById('levelProgressBar').style.width = progress + '%';
+          } else { 
+              document.getElementById('levelRemainCount').innerText = "MAX"; 
+              document.getElementById('levelProgressBar').style.width = '100%'; 
+          }
+          
+          syncRatesAndTotal();
+        }
+      });
+
+      onValue(ref(db, 'users'), (snap) => {
+          let cnt = 0;
+          snap.forEach(c => { if(c.val().referredBy === user.uid) cnt++; });
+          document.getElementById('totalReferred').innerText = cnt;
+      });
+
+      onValue(ref(db, 'submissions'), (snap) => {
+          const list = document.getElementById('historyList');
+          list.innerHTML = '';
+          let totalEmails = 0, pending = 0, approved = 0, rejected = 0;
+          let submissions = [];
+          snap.forEach(child => { let item = child.val(); if(item.userId === user.uid) { item.key = child.key; submissions.push(item); } });
+          submissions.sort((a, b) => b.submittedAt - a.submittedAt);
+
+          submissions.forEach(item => {
+              const date = new Date(item.submittedAt).toLocaleString();
+              totalEmails += Number(item.count || 0);
+              let detailsHTML = '';
+              
+              if(item.gmails && Array.isArray(item.gmails)){
+                  item.gmails.forEach(g => {
+                      let status = g.status || item.status || 'pending';
+                      if (status === 'completed') status = 'approved';
+                      
+                      if(status === 'pending' || status === 'checking') pending++;
+                      if(status === 'approved') approved++;
+                      if(status === 'rejected') rejected++;
+                      
+                      let badgeClass = status === 'approved' ? 'bg-success' : (status === 'rejected' ? 'bg-danger' : 'bg-warning text-dark');
+                      let statusText = status === 'checking' ? 'Checking' : status.charAt(0).toUpperCase() + status.slice(1);
+                      
+                      detailsHTML += `<div class="d-flex justify-content-between mt-1 p-1 rounded bg-light small mb-1" style="font-size:11px;"><span class="text-truncate" style="max-width:120px;">${g.email}</span><span class="badge ${badgeClass}">${statusText}</span></div>`;
+                  });
+              }
+              
+              list.innerHTML += `<li class="list-group-item history-list-item border-0 bg-white mb-2 shadow-sm" style="border-radius:12px;"><div class="d-flex justify-content-between"><div class="fw-bold" style="color:var(--primary-color)">৳ ${item.totalAmount}</div><small class="text-muted">${item.count} Emails</small></div>${detailsHTML}<div class="text-muted small mt-1"><i class="bi bi-clock"></i> ${date}</div></li>`;
+          });
+          
+          if(submissions.length === 0) list.innerHTML = '<li class="list-group-item text-center text-muted py-4 border-0">কোনো সাবমিশন নেই</li>';
+
+          document.getElementById('statTotal').innerText = totalEmails;
+          document.getElementById('statPending').innerText = pending;
+          document.getElementById('statApproved').innerText = approved;
+          document.getElementById('statRejected').innerText = rejected;
+      });
+
+      onValue(ref(db, 'withdraw_requests'), (snap) => {
+          const list = document.getElementById('withdrawHistoryList');
+          list.innerHTML = '';
+          if(!snap.exists()) { list.innerHTML = '<li class="list-group-item text-center text-muted py-4 border-0">কোনো রিকোয়েস্ট নেই</li>'; return; }
+          
+          let requests = [];
+          snap.forEach(c => { 
+              const val = c.val();
+              if(val.userId === user.uid) requests.push(val); 
+          });
+          
+          requests.sort((a, b) => b.requestedAt - a.requestedAt);
+          
+          if(requests.length === 0) {
+              list.innerHTML = '<li class="list-group-item text-center text-muted py-4 border-0">কোনো রিকোয়েস্ট নেই</li>';
+              return;
+          }
+
+          requests.forEach(r => {
+              let statusBadge = r.status === 'approved' ? '<span class="badge bg-success rounded-pill">Approved</span>' : (r.status === 'rejected' ? '<span class="badge bg-danger rounded-pill">Rejected</span>' : '<span class="badge bg-warning text-dark rounded-pill">Pending</span>');
+              list.innerHTML += `<li class="list-group-item history-list-item border-0 bg-white mb-2 shadow-sm" style="border-radius:12px;"><div class="d-flex justify-content-between align-items-center"><div><b style="color:var(--primary-color)">${r.amount} BDT</b> <small class="text-muted d-block">${new Date(r.requestedAt).toLocaleDateString()}</small></div><div class="text-end">${statusBadge}<br><small class="text-muted">${r.method}</small></div></div></li>`;
+          });
+      });
+      
+      document.getElementById('auth-page').style.display = 'none';
+    }
+  });
+
+  window.handleLogin = async () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if(!email) return showError("Input Error", "Email cannot be empty.");
+    if(!pass) return showError("Input Error", "Password cannot be empty.");
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      showPopup('success', 'Login Successful', 'Welcome back!');
+      switchTab('home');
+    } catch (err) { showError("Login Failed", getErrorReason(err)); }
+  };
+
+  window.handleRegister = async () => {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass = document.getElementById('regPass').value;
+    const confirmPass = document.getElementById('regConfirmPass').value;
+    
+    if (!name) return showError("Input Error", "Name is required.");
+    if (!email) return showError("Input Error", "Email is required.");
+    if (pass.length < 6) return showError("Weak Password", "Password must be at least 6 characters.");
+    if (pass !== confirmPass) return showError("Validation Error", "Passwords do not match.");
+    
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, pass);
+      const myRefCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      let referrerId = null;
+      if(referrerCodeParam) {
+          const usersRef = ref(db, 'users');
+          const snapshot = await get(usersRef);
+          snapshot.forEach(child => { if(child.val().referralCode === referrerCodeParam) referrerId = child.key; });
+      }
+      await set(ref(db, 'users/' + res.user.uid), { 
+          username: name, email, balance: 0, hold: 0, paymentNumber: "", paymentMethod: "",
+          createdAt: Date.now(), referralCode: myRefCode, referredBy: referrerId || "",
+          referralEarnings: 0, last_login: Date.now()
+      });
+      showPopup('success', 'Success', 'Account created successfully!');
+      location.reload();
+    } catch (err) { showError("Registration Failed", getErrorReason(err)); }
+  };
+
+  window.handleLogout = () => signOut(auth).then(() => location.reload());
+
+  window.submitGmails = async (submissionData) => {
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoad = document.getElementById('btnLoad');
+    btn.disabled = true; btnText.innerText = "Processing..."; btnLoad.classList.remove('d-none');
+    try {
+      for (let item of submissionData.gmails) {
+        const q = query(ref(db, 'used_emails'), orderByChild('email'), equalTo(item.email));
+        const emailSnap = await get(q);
+        if (emailSnap.exists()) {
+             btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none');
+             return showError("Duplicate Entry", item.email + " has already been submitted.");
+        }
+      }
+      const newRef = push(ref(db, 'submissions'));
+      await set(newRef, {
+        userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText,
+        submittedAt: Date.now(), status: "pending", ...submissionData
+      });
+      for (let item of submissionData.gmails) await push(ref(db, 'used_emails'), { email: item.email });
+      const userRef = ref(db, 'users/' + currentUser.uid);
+      const userSnap = await get(userRef);
+      await update(userRef, { hold: (Number(userSnap.val().hold) || 0) + submissionData.totalAmount });
+      showPopup('success', 'Success', 'Submission recorded.');
+      location.reload();
+    } catch (err) {
+       btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none');
+       showError("Server Error", err.message);
+    }
+  };
+
+  window.processWithdraw = async () => {
+    const method = document.getElementById('selectedMethod').value;
+    const amt = Number(document.getElementById('wdAmount').value);
+    const balance = Number(document.getElementById('wdMainBalance').innerText);
+    const pNum = document.getElementById('wdAccNumber').value.trim();
+    const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
+    
+    if (!pNum) return showError("Missing Number", "Account number is required.");
+    if (!amt || amt < minW) return showError("Invalid Amount", `Minimum is ${minW} BDT.`);
+    if (amt > balance) return showError("Insufficient Balance", `You have ${balance} BDT.`);
+    
+    try {
+        await push(ref(db, 'withdraw_requests'), { 
+            userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText, 
+            amount: amt, method, paymentNumber: pNum, status: "pending", requestedAt: Date.now() 
+        });
+        await update(ref(db, 'users/' + currentUser.uid), { balance: balance - amt, paymentNumber: pNum, paymentMethod: method });
+        showPopup('success', 'Success', 'Request Submitted.');
+        window.closeWithdrawPage();
+        location.reload();
+    } catch(e) { showError("Database Error", "Could not connect."); }
+  };
+
+  window.copyRefLink = async () => {
+      if (!window.currentUser) return;
+      try {
+          const snap = await get(ref(db, 'users/' + currentUser.uid));
+          let code = snap.val().referralCode;
+          if(!code) {
+              code = Math.random().toString(36).substring(2, 8).toUpperCase(); 
+              await update(ref(db, 'users/' + currentUser.uid), { referralCode: code });
+              document.getElementById('myReferralCode').innerText = code;
+          }
+          const link = window.location.origin + window.location.pathname + "?ref=" + code;
+          if(navigator.clipboard) await navigator.clipboard.writeText(link);
+          showPopup('success', 'Copied!', 'Link copied.');
+      } catch(e) { showError("Error", "Could not copy."); }
+  };
+
+  window.openWithdrawPage = () => {
+      document.getElementById('withdraw-page').style.display = 'block';
+      document.querySelector('.page-container').style.display = 'none';
+      document.querySelector('.nav-bottom').style.display = 'none';
+  };
+
+  window.closeWithdrawPage = () => {
+      document.getElementById('withdraw-page').style.display = 'none';
+      document.querySelector('.page-container').style.display = 'block';
+      document.querySelector('.nav-bottom').style.display = 'flex';
+  };
+
+  window.selectPaymentMethod = (el, method) => {
+      document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('selectedMethod').value = method;
+  };
+
+</script>
+
+<script>
+    // UI Logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if(document.getElementById(tabId + '-btn')) document.getElementById(tabId + '-btn').classList.add('active');
+    }
+
+    function showHistoryTab(tab, e) {
+        document.querySelectorAll('.h-tab-btn').forEach(b => b.classList.remove('active'));
+        if(e && e.target) e.target.closest('.h-tab-btn').classList.add('active');
+        document.getElementById('history_sub').style.display = tab === 'sub' ? 'block' : 'none';
+        document.getElementById('history_wd').style.display = tab === 'wd' ? 'block' : 'none';
+        document.getElementById('history_trend').style.display = tab === 'trend' ? 'block' : 'none';
+    }
+
+    function protectedAction(tabId) {
+        if (!window.currentUser) document.getElementById('auth-page').style.display = 'block';
+        else if (tabId === 'exchange') switchTab('exchange_step');
+        else switchTab(tabId);
+    }
+    
+    function toggleAuth(type) {
+        document.getElementById('login-form').style.display = type === 'reg' ? 'none' : 'block';
+        document.getElementById('reg-form').style.display = type === 'reg' ? 'block' : 'none';
+        document.getElementById('login-header-content').style.display = type === 'reg' ? 'none' : 'block';
+        document.getElementById('reg-header-content').style.display = type === 'reg' ? 'block' : 'none';
+    }
+    function hideAuth() { document.getElementById('auth-page').style.display = 'none'; }
+
+    document.addEventListener('DOMContentLoaded', () => { addMoreRow(); addMoreRow(); });
+
+    function addMoreRow(email='', pass='') {
+        const row = document.createElement('div');
+        row.className = 'gmail-row position-relative';
+        row.innerHTML = `
+            <button type="button" class="remove-btn" onclick="removeRow(this)"><i class="bi bi-x"></i></button>
+            <input type="email" class="g-input" value="${email}" placeholder="Gmail Address" required>
+            <input type="text" class="p-input" value="${pass}" placeholder="Password" required>`;
+        document.getElementById('gmailRows').appendChild(row);
+        updateTotal();
+    }
+
+    function removeRow(element) {
+        const rows = document.querySelectorAll('.gmail-row');
+        if (rows.length <= 2) { showError("Warning", "Minimum 2 emails required."); return; }
+        element.parentElement.remove();
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const count = document.querySelectorAll('.gmail-row').length;
+        const type = document.getElementById('dollarType').value;
+        
+        const rate = (type === 'new') ? (window.currentDynamicRate || 10) : (window.baseOldRate || 8);
+        
+        document.getElementById('tempTotal').innerText = count * rate;
+    }
+
+    function validateAndSubmit() {
+        const errorBox = document.getElementById('masterError');
+        errorBox.style.display = 'none';
+        const rows = document.querySelectorAll('.gmail-row');
+        if (rows.length < 2) { return showError("Validation Error", "Minimum 2 emails required."); }
+
+        const gmails = [];
+        let hasError = false;
+        const localSet = new Set();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+        rows.forEach((row, idx) => {
+            const email = row.querySelector('.g-input').value.trim().toLowerCase();
+            const pass = row.querySelector('.p-input').value.trim();
+            if (!email || !pass) { hasError = true; showError("Input Error", `Row ${idx+1} fields cannot be empty.`); }
+            else if (!emailRegex.test(email)) { hasError = true; showError("Invalid Email", `Row ${idx+1} is not a valid Gmail.`); }
+            else if (pass.length < 6) { hasError = true; showError("Weak Password", `Row ${idx+1} password too short.`); }
+            else if (localSet.has(email)) { hasError = true; showError("Duplicate", `${email} entered twice.`); }
+            else if (pass === email.split('@')[0]) { hasError = true; showError("Weak Password", `Row ${idx+1} password is too simple.`); }
+            
+            if (!hasError) { localSet.add(email); gmails.push({ email, password: pass }); }
+        });
+
+        if (!hasError) {
+            const type = document.getElementById('dollarType').value;
+            let rate = (type === 'new') ? (window.currentDynamicRate || 10) : (window.baseOldRate || 8);
+            window.submitGmails({ gmails, totalAmount: gmails.length * rate, rate, count: gmails.length });
+        }
+    }
+    
+    function showError(title, msg) {
+       Swal.fire({ icon: 'error', title: title, text: msg, confirmButtonColor: '#4F46E5' });
+    }
+</script>
+
+</body>
+</html>
