@@ -23,6 +23,9 @@
         body { background-color: var(--bg-body); font-family: 'Segoe UI', sans-serif; color: var(--text-main); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .page-container { padding-bottom: 80px; padding-top: 15px; }
 
+        /* SweetAlert Z-Index */
+        .swal2-container { z-index: 99999 !important; }
+
         /* Navbar */
         .navbar { background: var(--gradient-main) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 10px 0; position: sticky; top: 0; z-index: 1001; }
         .brand-logo-link { display: flex; align-items: center; text-decoration: none; gap: 10px; }
@@ -47,7 +50,7 @@
         /* Level Rate Card */
         .level-rate-card { background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%); border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border-left: 5px solid var(--primary-color); display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
         .lrc-title { font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
-        .lrc-rates { display: flex; gap: 15px; }
+        .lrc-rates { display: flex; gap: 15px; flex-wrap: wrap; }
         .lrc-badge { padding: 5px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; }
         .lrc-new { background: #dcfce7; color: #166534; }
         .lrc-old { background: #e0e7ff; color: #3730a3; }
@@ -57,6 +60,13 @@
         .rtc-left h6 { margin: 0; font-weight: 700; color: #374151; font-size: 16px; display: flex; align-items: center; gap: 8px; }
         .rtc-clock-box { background: #f8fafc; padding: 10px 20px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; }
         .rtc-time { font-size: 20px; font-weight: 800; color: var(--primary-color); font-family: monospace; letter-spacing: 1px; }
+
+        /* Trust Box */
+        .trust-box { background: white; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid rgba(0,0,0,0.03); box-shadow: var(--shadow-card); margin-bottom: 15px; }
+        .trust-box h6 { font-size: 14px; font-weight: 700; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 15px; }
+        .trust-item i { font-size: 28px; margin-bottom: 5px; }
+        .trust-item p { font-size: 11px; font-weight: 700; color: #374151; margin: 0; }
+        .trust-icon-box { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; background: #f3f4f6; }
 
         /* Transaction Card */
         .trans-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); }
@@ -108,8 +118,87 @@
         .feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; }
         .feature-icon.ref { background: #dcfce7; color: #16a34a; }
         .feature-icon.stats { background: #e0e7ff; color: #4f46e5; }
-        .feature-title { font-size: 11px; color: #6b7280; margin-bottom: 2px; }
+        .feature-title { font-size: 11px; color: #6b7280; margin-bottom: 2px; font-weight: 600; }
         .feature-val { font-size: 18px; font-weight: 700; }
+
+        /* Referral Card - Redesigned */
+        .referral-card {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .referral-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .ref-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .ref-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .ref-code-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ref-code-label { font-size: 12px; opacity: 0.8; margin-bottom: 5px; }
+        .ref-code-value { font-size: 32px; font-weight: 800; letter-spacing: 3px; font-family: monospace; }
+        
+        .ref-link-area {
+            background: white;
+            border-radius: 10px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .ref-link-input {
+            border: none;
+            background: transparent;
+            padding: 8px 12px;
+            font-size: 12px;
+            flex-grow: 1;
+            color: #333;
+            width: 100%;
+        }
+        .ref-copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
         /* Submission Stats Design */
         .stats-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border: 1px solid #f3f4f6; }
@@ -136,9 +225,6 @@
         
         .auth-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; line-height: 1.3; color: var(--primary-color); }
         .auth-subtitle { font-size: 14px; color: #4B5563; margin-bottom: 10px; opacity: 1; }
-        .auth-desc { font-size: 13px; color: #6B7280; line-height: 1.5; max-width: 300px; margin: 0 auto; opacity: 1; }
-        
-        .auth-features { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #374151; text-align: left; padding: 0 10px; }
         
         .trust-badges { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
         .trust-badge-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #6B7280; }
@@ -146,7 +232,8 @@
         .auth-body { padding: 25px 30px 30px; }
         .form-control { border-radius: 10px; border: 2px solid #eee; font-size: 16px; padding: 12px; }
         .form-control:focus { border-color: var(--primary-light); box-shadow: 0 0 0 0.15rem rgba(79, 70, 229, 0.1); }
-        .btn-main { background: var(--gradient-main); border: none; font-weight: 700; border-radius: 12px; padding: 12px; box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2); color: white; width: 100%; }
+        .btn-main { background: var(--gradient-main); border: none; font-weight: 700; border-radius: 12px; padding: 12px; box-shadow: 0 5px 15px rgba(79, 70, 229, 0.2); color: white; width: 100%; position: relative; }
+        .btn-main .spinner-border { width: 1.2rem; height: 1.2rem; }
 
         /* Withdraw Page */
         #withdraw-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); z-index: 1500; overflow-y: auto; animation: slideUp 0.3s ease-out; }
@@ -195,16 +282,21 @@
                 </div>
 
                 <div class="trust-badges" style="margin-top: 25px;">
-                    <div class="trust-badge-item"><i class="bi bi-shield-lock-fill"></i><span>Secure</span></div>
+                    <div class="trust-badge-item"><i class="bi bi-shield-lock-fill"></i><span>Trusted</span></div>
                     <div class="trust-badge-item"><i class="bi bi-lightning-charge-fill"></i><span>Fast</span></div>
-                    <div class="trust-badge-item"><i class="bi bi-people-fill"></i><span>5000+ Users</span></div>
+                    <div class="trust-badge-item"><i class="bi bi-people-fill"></i><span>50000+ Users</span></div>
                 </div>
             </div>
             <div class="auth-body">
                 <div id="login-form">
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="loginEmail" placeholder="Email"><label>Gmail Address</label></div>
                     <div class="form-floating mb-4"><input type="password" class="form-control" id="loginPass" placeholder="Password"><label>Password</label></div>
-                    <button class="btn btn-main py-3 fw-bold" onclick="window.handleLogin()">Login</button>
+                    
+                    <button class="btn btn-main py-3 fw-bold" id="loginBtn" onclick="window.handleLogin()">
+                        <span id="loginBtnText">Login</span>
+                        <span id="loginBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                    
                     <p class="text-center small mt-4 mb-0">একাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')" class="fw-bold" style="color:var(--primary-color)">Register করুন</a></p>
                 </div>
 
@@ -213,7 +305,12 @@
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="regEmail" placeholder="Email"><label>Gmail Address</label></div>
                     <div class="form-floating mb-3"><input type="password" class="form-control" id="regPass" placeholder="Pass"><label>Password</label></div>
                     <div class="form-floating mb-4"><input type="password" class="form-control" id="regConfirmPass" placeholder="Confirm"><label>Confirm Password</label></div>
-                    <button class="btn btn-main py-3 fw-bold" onclick="window.handleRegister()">Register / Sign Up</button>
+                    
+                    <button class="btn btn-main py-3 fw-bold" id="regBtn" onclick="window.handleRegister()">
+                        <span id="regBtnText">Register / Sign Up</span>
+                        <span id="regBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                    
                     <p class="text-center small mt-4 mb-0">আগে থেকেই একাউন্ট আছে? <a href="#" onclick="toggleAuth('login')" class="fw-bold" style="color:var(--primary-color)">Login করুন</a></p>
                 </div>
             </div>
@@ -245,10 +342,10 @@
             <input type="hidden" id="selectedMethod" value="bkash">
         </div>
         <div class="card p-3 border-0 shadow-sm mb-3">
-            <div class="mb-3"><label class="form-label text-muted small fw-bold">একাউন্ট নম্বর</label><input type="text" class="form-control" id="wdAccNumber" placeholder="Address "></div>
+            <div class="mb-3"><label class="form-label text-muted small fw-bold">একাউন্ট নম্বর</label><input type="text" class="form-control" id="wdAccNumber" placeholder="Number/Address"></div>
             <div class="mb-3">
                 <label class="form-label text-muted small fw-bold">টাকার পরিমাণ</label>
-                <input type="number" class="form-control" id="wdAmount" placeholder="পরিমাণ লিখুন" min="100">
+                <input type="number" class="form-control" id="wdAmount" placeholder="Amount" min="100">
                 <div class="form-text text-danger small fw-bold" id="wdMinLabel">সর্বনিম্ন উত্তোলন: 100 টাকা</div>
             </div>
         </div>
@@ -274,7 +371,7 @@
             </div>
             <div>
                 <span class="logo-title">Exchanger Pro</span>
-                <span class="logo-subtitle">Trusted  & Fast</span>
+                <span class="logo-subtitle">Trusted & Fast</span>
             </div>
         </a>
     </div>
@@ -312,7 +409,7 @@
         <div class="review-time-card">
             <div class="rtc-left">
                 <div>
-                    <h6>Review Time: 1- 6 Hours ⌛</h6>
+                    <h6 id="reviewTimeTitle">Review Time: 1- 6 Hours ⌛</h6>
                     <small>সাধারণত এই সময়ের মধ্যে কাজ শেষ হবে।</small>
                 </div>
             </div>
@@ -322,12 +419,22 @@
             </div>
         </div>
 
-        <div class="trust-box shadow-sm" style="background:white; border-radius:16px; padding:20px; text-align:center; border:1px solid rgba(0,0,0,0.03);">
-            <h6 class="fw-bold border-bottom pb-2 mb-3 text-dark" style="font-size:14px;">কেন আমাদের বেছে নিবেন?</h6>
+        <!-- Trust Box -->
+        <div class="trust-box">
+            <h6>কেন আমাদের বেছে নিবেন?</h6>
             <div class="row">
-                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-lightning-charge text-warning" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">দ্রুত পেমেন্ট</p></div>
-                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-lock text-info" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">নিরাপদ ডাটা</p></div>
-                <div class="col-4"><div class="p-2 bg-light rounded-circle d-inline-block mb-1"><i class="bi bi-headset text-success" style="font-size:28px;"></i></div><p style="font-size:11px;" class="fw-bold text-dark mb-0">২৪/৭ সাপোর্ট</p></div>
+                <div class="col-4 trust-item">
+                    <div class="trust-icon-box"><i class="bi bi-lightning-charge text-warning"></i></div>
+                    <p>দ্রুত পেমেন্ট</p>
+                </div>
+                <div class="col-4 trust-item">
+                    <div class="trust-icon-box"><i class="bi bi-lock text-info"></i></div>
+                    <p>নিরাপদ ডাটা</p>
+                </div>
+                <div class="col-4 trust-item">
+                    <div class="trust-icon-box"><i class="bi bi-headset text-success"></i></div>
+                    <p>২৪/৭ সাপোর্ট</p>
+                </div>
             </div>
         </div>
     </div>
@@ -365,7 +472,6 @@
                 <button class="h-tab-btn" onclick="showHistoryTab('trend', event)"><i class="bi bi-fire"></i> Trending</button>
             </div>
         </div>
-        <!-- Broadcast Box kept for reference in history tab, but popup will show globally -->
         <div id="broadcastBox" class="alert alert-warning py-2 shadow-sm border-0 d-flex align-items-center mb-3" style="display:none; border-radius:12px;"><i class="bi bi-megaphone-fill me-2 text-danger fs-5"></i><span id="broadcastText" class="fw-bold text-dark small"></span></div>
         
         <div id="history_sub"><div class="card border-0 shadow-sm" style="border-radius:12px;"><ul class="list-group list-group-flush" id="historyList" style="border-radius:12px;"><li class="list-group-item text-center text-muted py-4 border-0">লোড হচ্ছে...</li></ul></div></div>
@@ -401,6 +507,29 @@
             <i class="bi bi-wallet2"></i> উত্তোলন করুন
         </button>
 
+        <!-- Referral Card - Redesigned -->
+        <div class="referral-card">
+            <div class="ref-header">
+                <span style="font-weight: 700; font-size: 15px;"><i class="bi bi-gift-fill me-2"></i>Referral Program</span>
+                <div class="ref-badge">
+                    <i class="bi bi-percent"></i> <span id="commRateDisplay">0</span>% Commission
+                </div>
+            </div>
+            
+            <div class="ref-code-box">
+                <div class="ref-code-label">আপনার রেফারেল কোড</div>
+                <div class="ref-code-value" id="myReferralCode">LOADING</div>
+            </div>
+
+            <div class="ref-link-area">
+                <input type="text" class="ref-link-input" id="refLinkInput" value="Loading..." readonly>
+                <button class="ref-copy-btn" onclick="window.copyRefLink()">
+                    <i class="bi bi-clipboard-check"></i> <span>Copy</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Feature Grid -->
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="feature-icon ref"><i class="bi bi-people-fill"></i></div>
@@ -424,18 +553,10 @@
             <div class="text-end small text-muted mt-1" id="levelRemainCount">Next: 40 Left</div>
         </div>
 
-        <div class="card p-3 border-0 shadow-sm mb-3 text-center">
-            <label class="form-label small text-muted fw-bold mb-1">🎁 আপনার রেফারেল কোড 🎁</label>
-            <div class="d-flex justify-content-center align-items-center gap-2">
-                <h4 class="mb-0 fw-bold text-primary" id="myReferralCode">LOADING</h4>
-                <button class="btn btn-sm btn-outline-primary rounded-circle" onclick="window.copyRefLink()"><i class="bi bi-clipboard"></i></button>
-            </div>
-        </div>
-
         <div class="stats-card">
             <div class="stats-header">
                 <i class="bi bi-bar-chart-fill"></i>
-                <h6>সাবমিশন স্ট্যাটাস</h6>
+                <h6>Submission Status 🔔</h6>
             </div>
             <div class="stats-grid">
                 <div class="stat-item total"><span class="stat-val" id="statTotal">0</span><span class="stat-label">মোট</span></div>
@@ -479,11 +600,10 @@
   const urlParams = new URLSearchParams(window.location.search);
   const referrerCodeParam = urlParams.get('ref');
   
+  // Dynamic Settings
   window.currentDynamicRate = 10; 
   window.baseOldRate = 8;
   let currentUserApprovedCount = 0;
-  
-  // Variable to track if broadcast message was shown to avoid duplicate popups
   let lastBroadcastMessage = "";
 
   const levels = [
@@ -495,6 +615,17 @@
       { level: 6, approved: 390, rate: 14 },
       { level: 7, approved: 510, rate: 14.50 }
   ];
+
+  // Device Info Helper
+  function getDeviceInfo() {
+      const ua = navigator.userAgent;
+      if (/android/i.test(ua)) return "Android Device";
+      if (/iPad|iPhone|iPod/.test(ua)) return "iOS Device";
+      if (/Win/.test(ua)) return "Windows PC";
+      if (/Mac/.test(ua)) return "Macintosh";
+      if (/Linux/.test(ua)) return "Linux";
+      return "Unknown Device";
+  }
 
   function getUserLevel(totalApproved) {
       let currentLevel = levels[0];
@@ -521,7 +652,7 @@
       
       if(window.currentUser) {
           if(homeTitle) homeTitle.innerText = `Level ${levelData.current.level} Rate`;
-          if(homeRateNew) homeRateNew.innerText = `New Gmail  : ${window.currentDynamicRate} টাকা`;
+          if(homeRateNew) homeRateNew.innerText = `New Gmail : ${window.currentDynamicRate} টাকা`;
       } else {
           if(homeTitle) homeTitle.innerText = "Level 1 Rate";
       }
@@ -538,15 +669,16 @@
   }
   
   function getErrorReason(error) {
-      let msg = "Unknown error.";
+      let msg = "Unknown error occurred.";
       switch(error.code) {
-          case 'auth/email-already-in-use': msg = 'এই ইমেইল দিয়ে আগে রেজিস্ট্রেশন করা হয়েছে।'; break;
-          case 'auth/invalid-email': msg = 'ইমেইল ফরম্যাট সঠিক নয়।'; break;
-          case 'auth/weak-password': msg = 'পাসওয়ার্ড খুব দুর্বল।'; break;
-          case 'auth/user-not-found': msg = 'এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট নেই।'; break;
-          case 'auth/wrong-password': msg = 'পাসওয়ার্ড ভুল হয়েছে।'; break;
-          case 'auth/invalid-credential': msg = 'ইমেইল অথবা পাসওয়ার্ড ভুল।'; break;
-          default: msg = error.message;
+          case 'auth/email-already-in-use': msg = 'This email is already in use.'; break;
+          case 'auth/invalid-email': msg = 'Invalid email format.'; break;
+          case 'auth/weak-password': msg = 'Password is too weak. Minimum 6 characters required.'; break;
+          case 'auth/user-not-found': msg = 'No account found with this email.'; break;
+          case 'auth/wrong-password': msg = 'Incorrect password.'; break;
+          case 'auth/invalid-credential': msg = 'Invalid email or password.'; break;
+          case 'auth/too-many-requests': msg = 'Too many failed attempts.'; break;
+          default: msg = error.message || "An unexpected error occurred.";
       }
       return msg;
   }
@@ -559,6 +691,7 @@
   setInterval(updateClock, 1000);
   updateClock();
 
+  // Settings Listener
   onValue(ref(db, "settings"), (snap) => {
     if (snap.exists()) {
       const data = snap.val();
@@ -574,6 +707,10 @@
           if(startBtn) { startBtn.disabled = false; startBtn.innerText = "Next Step"; }
           if(submitBtn) { submitBtn.disabled = false; document.getElementById('btnText').innerText = "Confirm & Submit"; }
       }
+
+      const reviewText = data.review_time_text || "Review Time: 1- 6 Hours";
+      const reviewElement = document.getElementById('reviewTimeTitle');
+      if(reviewElement) reviewElement.innerText = reviewText + " ⌛";
 
       if(data.levels) {
           Object.keys(data.levels).forEach(key => {
@@ -592,36 +729,34 @@
           document.getElementById('rateNew').innerText = `New Gmail : ${nR} টাকা`;
       }
       document.getElementById('rateOld').innerText = `Old Gmail : ${oR} টাকা`;
-      document.getElementById('dollarType').innerHTML = `<option value="new">New Gmail (Level Rate)</option><option value="${oR}">Old Gmail (Level Rate)</option>`;
+      document.getElementById('dollarType').innerHTML = `<option value="new">New Gmail (Level Rate)</option><option value="${oR}">Old Gmail (${oR} Tk)</option>`;
       
       window.baseOldRate = oR;
+      
+      const commRate = data.commission_percent || 0;
+      const commDisplay = document.getElementById('commRateDisplay');
+      if(commDisplay) commDisplay.innerText = commRate;
       
       const minW = data.min_withdraw || 100;
       document.getElementById('wdMinLabel').innerText = `সর্বনিম্ন উত্তোলন: ${minW} টাকা`;
       document.getElementById('wdAmount').setAttribute('min', minW);
       
-      // --- BROADCAST MESSAGE POPUP LOGIC ---
       if(data.broadcast) {
-          // Update the text in history tab always
           document.getElementById('broadcastText').innerText = data.broadcast;
           document.getElementById('broadcastBox').style.display = 'flex';
           
-          // Check if message is new or changed
           if (data.broadcast !== lastBroadcastMessage) {
-              // Show SweetAlert Popup
               Swal.fire({
                   icon: 'info',
                   title: '📢 Notifications',
                   text: data.broadcast,
-                  confirmButtonColor: '#4F46E5',
-                  confirmButtonText: 'Okay '
+                  confirmButtonColor: '#4F46E5'
               });
-              // Update tracker
               lastBroadcastMessage = data.broadcast;
           }
       } else {
           document.getElementById('broadcastBox').style.display = 'none';
-          lastBroadcastMessage = ""; // Reset if broadcast removed
+          lastBroadcastMessage = "";
       }
       
       syncRatesAndTotal();
@@ -665,7 +800,6 @@
         if (snap.exists()) {
           const data = snap.val();
           
-          // Individual Admin Message (Keep this separate as before)
           if(data.admin_message) {
               showPopup('info', 'ব্যক্তিগত বার্তা', data.admin_message);
               update(ref(db, 'users/' + user.uid), { admin_message: null });
@@ -682,7 +816,17 @@
           document.getElementById('holdBalance').innerText = (Number(data.hold) || 0).toFixed(2);
           document.getElementById('wdMainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
           document.getElementById('wdHoldBalance').innerText = (Number(data.hold) || 0).toFixed(2);
-          document.getElementById('myReferralCode').innerText = data.referralCode || "N/A";
+          
+          // Referral Code UI Update
+          const rCode = data.referralCode || "N/A";
+          document.getElementById('myReferralCode').innerText = rCode;
+          
+          // Fix for null origin issue
+          let host = window.location.origin;
+          if(!host || host === 'null') host = 'https://exchanger-pro.web.app'; 
+          const refLink = host + window.location.pathname + "?ref=" + rCode;
+          document.getElementById('refLinkInput').value = refLink;
+          
           document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
           if (data.paymentNumber) document.getElementById('wdAccNumber').value = data.paymentNumber;
           if(data.paymentMethod) {
@@ -788,50 +932,150 @@
     }
   });
 
+  // --- LOGIN ---
   window.handleLogin = async () => {
     const email = document.getElementById('loginEmail').value.trim();
     const pass = document.getElementById('loginPass').value;
-    if(!email) return showError("Input Error", "Email cannot be empty.");
-    if(!pass) return showError("Input Error", "Password cannot be empty.");
+    
+    const btn = document.getElementById('loginBtn');
+    const btnText = document.getElementById('loginBtnText');
+    const btnSpinner = document.getElementById('loginBtnSpinner');
+
+    if(!email) { showError("Input Error", "Please enter your email."); return; }
+    if(!pass) { showError("Input Error", "Please enter your password."); return; }
+
+    btn.disabled = true;
+    btnText.innerText = "Checking...";
+    btnSpinner.classList.remove('d-none');
+
     try {
       await signInWithEmailAndPassword(auth, email, pass);
-      showPopup('success', 'Login Successful', 'Welcome back!');
+      if(auth.currentUser) {
+         await update(ref(db, 'users/' + auth.currentUser.uid), { 
+             last_login: Date.now(),
+             device: getDeviceInfo()
+         });
+      }
+      showPopup('success', 'Login Successful', 'Welcome to Exchanger Pro!');
       switchTab('home');
-    } catch (err) { showError("Login Failed", getErrorReason(err)); }
+    } catch (err) { 
+      showError("Login Failed", getErrorReason(err)); 
+      btn.disabled = false;
+      btnText.innerText = "Login";
+      btnSpinner.classList.add('d-none');
+    }
   };
 
+  // --- REGISTER ---
   window.handleRegister = async () => {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const pass = document.getElementById('regPass').value;
     const confirmPass = document.getElementById('regConfirmPass').value;
     
-    if (!name) return showError("Input Error", "Name is required.");
-    if (!email) return showError("Input Error", "Email is required.");
-    if (pass.length < 6) return showError("Weak Password", "Password must be at least 6 characters.");
-    if (pass !== confirmPass) return showError("Validation Error", "Passwords do not match.");
+    const btn = document.getElementById('regBtn');
+    const btnText = document.getElementById('regBtnText');
+    const btnSpinner = document.getElementById('regBtnSpinner');
+    
+    if (!name) { showError("Input Error", "Please enter your name."); return; }
+    if (!/^[a-zA-Z\s]+$/.test(name)) { showError("Invalid Name", "Name can only contain letters."); return; }
+    if (!email) { showError("Input Error", "Please enter your email."); return; }
+    if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)) { showError("Invalid Email", "Only valid Gmail addresses are allowed."); return; }
+    if (pass.length < 6) { showError("Weak Password", "Password must be at least 6 characters."); return; }
+    if (pass !== confirmPass) { showError("Validation Error", "Passwords do not match."); return; }
+
+    btn.disabled = true;
+    btnText.innerText = "Initializing...";
+    btnSpinner.classList.remove('d-none');
     
     try {
+      const settingsSnap = await get(ref(db, 'settings'));
+      const settings = settingsSnap.exists() ? settingsSnap.val() : {};
+      
+      const bonusUser = Number(settings.signup_bonus_user) || 0;
+      const bonusReferrer = Number(settings.signup_bonus_referrer) || 0;
+
+      btnText.innerText = "Creating account...";
       const res = await createUserWithEmailAndPassword(auth, email, pass);
+      
       const myRefCode = Math.random().toString(36).substring(2, 8).toUpperCase();
       let referrerId = null;
+      
       if(referrerCodeParam) {
-          const usersRef = ref(db, 'users');
-          const snapshot = await get(usersRef);
-          snapshot.forEach(child => { if(child.val().referralCode === referrerCodeParam) referrerId = child.key; });
+          btnText.innerText = "Validating referral...";
+          try {
+              const usersRef = ref(db, 'users');
+              const q = query(usersRef, orderByChild('referralCode'), equalTo(referrerCodeParam));
+              const snapshot = await get(q);
+              if (snapshot.exists()) snapshot.forEach(child => { referrerId = child.key; });
+          } catch (refErr) { console.error("Referral check error:", refErr); }
       }
+      
+      btnText.innerText = "Saving data...";
       await set(ref(db, 'users/' + res.user.uid), { 
-          username: name, email, balance: 0, hold: 0, paymentNumber: "", paymentMethod: "",
+          username: name, email, balance: bonusUser, hold: 0, paymentNumber: "", paymentMethod: "",
           createdAt: Date.now(), referralCode: myRefCode, referredBy: referrerId || "",
-          referralEarnings: 0, last_login: Date.now()
+          referralEarnings: 0, last_login: Date.now(),
+          device: getDeviceInfo()
       });
-      showPopup('success', 'Success', 'Account created successfully!');
-      location.reload();
-    } catch (err) { showError("Registration Failed", getErrorReason(err)); }
+
+      if(referrerId && bonusReferrer > 0) {
+          btnText.innerText = "Applying referral bonus...";
+          const referrerRef = ref(db, 'users/' + referrerId);
+          await update(referrerRef, {
+              balance: increment(bonusReferrer),
+              referralEarnings: increment(bonusReferrer)
+          });
+      }
+
+      Swal.fire({
+          icon: 'success',
+          title: '🎉 অভিনন্দন!',
+          html: `আপনার একাউন্ট সফলভাবে তৈরি হয়েছে।<br>আপনি <b style="color:#4F46E5">${bonusUser} টাকা</b> বোনাস পেয়েছেন!`,
+          confirmButtonColor: '#4F46E5'
+      }).then(() => { location.reload(); });
+
+    } catch (err) { 
+      showError("Registration Failed", getErrorReason(err));
+      btn.disabled = false;
+      btnText.innerText = "Register / Sign Up";
+      btnSpinner.classList.add('d-none');
+    }
   };
 
   window.handleLogout = () => signOut(auth).then(() => location.reload());
 
+  // --- COPY REFERRAL LINK ---
+  window.copyRefLink = async () => {
+      if (!window.currentUser) return;
+      const linkInput = document.getElementById('refLinkInput');
+      const link = linkInput.value;
+      
+      if(!link || link === 'Loading...') {
+          showError("Wait", "Profile data loading...");
+          return;
+      }
+
+      try {
+          if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(link);
+          } else {
+              linkInput.select();
+              linkInput.setSelectionRange(0, 99999);
+              document.execCommand('copy');
+          }
+          showPopup('success', 'কপি সফল হয়েছে!', 'আপনার রেফারেল লিংক কপি করা হয়েছে।');
+      } catch (err) {
+          Swal.fire({
+              icon: 'info',
+              title: 'Copy Link',
+              html: `<input value="${link}" class="swal2-input" readonly>`,
+              confirmButtonColor: '#4F46E5'
+          });
+      }
+  };
+
+  // --- SUBMISSION ---
   window.submitGmails = async (submissionData) => {
     const btn = document.getElementById('submitBtn');
     const btnText = document.getElementById('btnText');
@@ -846,15 +1090,21 @@
              return showError("Duplicate Entry", item.email + " has already been submitted.");
         }
       }
+      
       const newRef = push(ref(db, 'submissions'));
       await set(newRef, {
         userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText,
         submittedAt: Date.now(), status: "pending", ...submissionData
       });
+      
       for (let item of submissionData.gmails) await push(ref(db, 'used_emails'), { email: item.email });
+      
       const userRef = ref(db, 'users/' + currentUser.uid);
       const userSnap = await get(userRef);
-      await update(userRef, { hold: (Number(userSnap.val().hold) || 0) + submissionData.totalAmount });
+      const userData = userSnap.val();
+      
+      await update(userRef, { hold: (Number(userData.hold) || 0) + submissionData.totalAmount });
+
       showPopup('success', 'Success', 'Submission recorded.');
       location.reload();
     } catch (err) {
@@ -871,7 +1121,7 @@
     const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
     
     if (!pNum) return showError("Missing Number", "Account number is required.");
-    if (!amt || amt < minW) return showError("Invalid Amount", `Minimum is ${minW} BDT.`);
+    if (!amt || amt < minW) return showError("Invalid Amount", `Minimum amount is ${minW} BDT.`);
     if (amt > balance) return showError("Insufficient Balance", `You have ${balance} BDT.`);
     
     try {
@@ -884,22 +1134,6 @@
         window.closeWithdrawPage();
         location.reload();
     } catch(e) { showError("Database Error", "Could not connect."); }
-  };
-
-  window.copyRefLink = async () => {
-      if (!window.currentUser) return;
-      try {
-          const snap = await get(ref(db, 'users/' + currentUser.uid));
-          let code = snap.val().referralCode;
-          if(!code) {
-              code = Math.random().toString(36).substring(2, 8).toUpperCase(); 
-              await update(ref(db, 'users/' + currentUser.uid), { referralCode: code });
-              document.getElementById('myReferralCode').innerText = code;
-          }
-          const link = window.location.origin + window.location.pathname + "?ref=" + code;
-          if(navigator.clipboard) await navigator.clipboard.writeText(link);
-          showPopup('success', 'Copied!', 'Link copied.');
-      } catch(e) { showError("Error", "Could not copy."); }
   };
 
   window.openWithdrawPage = () => {
@@ -951,7 +1185,6 @@
         document.getElementById('login-header-content').style.display = type === 'reg' ? 'none' : 'block';
         document.getElementById('reg-header-content').style.display = type === 'reg' ? 'block' : 'none';
     }
-    function hideAuth() { document.getElementById('auth-page').style.display = 'none'; }
 
     document.addEventListener('DOMContentLoaded', () => { addMoreRow(); addMoreRow(); });
 
@@ -983,8 +1216,6 @@
     }
 
     function validateAndSubmit() {
-        const errorBox = document.getElementById('masterError');
-        errorBox.style.display = 'none';
         const rows = document.querySelectorAll('.gmail-row');
         if (rows.length < 2) { return showError("Validation Error", "Minimum 2 emails required."); }
 
@@ -1000,7 +1231,6 @@
             else if (!emailRegex.test(email)) { hasError = true; showError("Invalid Email", `Row ${idx+1} is not a valid Gmail.`); }
             else if (pass.length < 6) { hasError = true; showError("Weak Password", `Row ${idx+1} password too short.`); }
             else if (localSet.has(email)) { hasError = true; showError("Duplicate", `${email} entered twice.`); }
-            else if (pass === email.split('@')[0]) { hasError = true; showError("Weak Password", `Row ${idx+1} password is too simple.`); }
             
             if (!hasError) { localSet.add(email); gmails.push({ email, password: pass }); }
         });
