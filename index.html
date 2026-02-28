@@ -402,7 +402,7 @@
             <div class="small"><b>১০০% নিরাপদ :</b> আমরা সততার সাথে সার্ভিস দিচ্ছি।</div>
         </div>
 
-        <!-- Rate Card V2 (Design like Screenshot) -->
+        <!-- Rate Card V2 -->
         <div class="rate-card-v2">
             <div class="rate-card-header">
                 <div class="level-badge-v2">
@@ -429,7 +429,6 @@
         <div class="home-card trans-card">
             <h6 class="mb-3 fw-bold text-dark"><i class="bi bi-currency-exchange text-primary me-2"></i>লেনদেন শুরু করুন</h6>
             
-            <!-- Dropdown Selection -->
             <div class="mb-3">
                 <label class="form-label text-muted small fw-bold">Choose Gmail Type</label>
                 <select class="form-select-custom" id="dollarType" onchange="updateTotal()">
@@ -781,6 +780,7 @@
   setInterval(updateClock, 1000);
   updateClock();
 
+  // Global Settings Listener (Works for Guests too)
   onValue(ref(db, "settings"), (snap) => {
     if (snap.exists()) {
       const data = snap.val();
@@ -814,6 +814,7 @@
       const nR = data.levels?.[1]?.new_rate || 10;
       const oR = data.levels?.[1]?.old_rate || 8;
       
+      // Update Guest/Home Rates if user not logged in
       if (!window.currentUser) {
           document.getElementById('rateNew').innerHTML = `${nR} <small>টাকা</small>`;
       }
@@ -972,6 +973,16 @@
           });
       });
       document.getElementById('auth-page').style.display = 'none';
+    } else {
+        // Handle Logout State
+        window.currentUser = null;
+        currentUserApprovedCount = 0;
+        document.getElementById('auth-page').style.display = 'none'; // Ensure login isn't blocking
+        document.getElementById('userDisplayName').innerText = "Guest";
+        document.getElementById('mainBalance').innerText = "0.00";
+        document.getElementById('holdBalance').innerText = "0.00";
+        // Reset other stats if needed
+        syncRatesAndTotal(); 
     }
   });
 
@@ -984,7 +995,9 @@
       await signInWithEmailAndPassword(auth, email, pass);
       if(auth.currentUser) await update(ref(db, 'users/' + auth.currentUser.uid), { last_login: Date.now(), device: getDeviceInfo(), forceLogout: false });
       showPopup('success', 'Login Successful', 'Welcome to Exchanger Pro!'); switchTab('home');
-    } catch (err) { showError("Login Failed", getErrorReason(err)); btn.disabled = false; btnText.innerText = "Login"; btnSpinner.classList.add('d-none'); }
+      document.getElementById('auth-page').style.display = 'none';
+    } catch (err) { showError("Login Failed", getErrorReason(err)); } 
+    finally { btn.disabled = false; btnText.innerText = "Login"; btnSpinner.classList.add('d-none'); }
   };
 
   window.handleRegister = async () => {
@@ -1006,11 +1019,19 @@
       btnText.innerText = "Saving data...";
       await set(ref(db, 'users/' + res.user.uid), { username: name, email, balance: bonusUser, hold: 0, paymentNumber: "", paymentMethod: "", createdAt: Date.now(), referralCode: myRefCode, referredBy: referrerId || "", referralEarnings: 0, last_login: Date.now(), device: getDeviceInfo(), forceLogout: false });
       if(referrerId && bonusReferrer > 0) { await update(ref(db, 'users/' + referrerId), { balance: increment(bonusReferrer), referralEarnings: increment(bonusReferrer) }); }
-      Swal.fire({ icon: 'success', title: '🎉 অভিনন্দন!', html: `আপনার একাউন্ট সফলভাবে তৈরি হয়েছে।<br>আপনি <b style="color:#4F46E5">${bonusUser} টাকা</b> বোনাস পেয়েছেন!`, confirmButtonColor: '#4F46E5' }).then(() => { location.reload(); });
-    } catch (err) { showError("Registration Failed", getErrorReason(err)); btn.disabled = false; btnText.innerText = "Register / Sign Up"; btnSpinner.classList.add('d-none'); }
+      Swal.fire({ icon: 'success', title: '🎉 অভিনন্দন!', html: `আপনার একাউন্ট সফলভাবে তৈরি হয়েছে।<br>আপনি <b style="color:#4F46E5">${bonusUser} টাকা</b> বোনাস পেয়েছেন!`, confirmButtonColor: '#4F46E5' });
+      document.getElementById('auth-page').style.display = 'none';
+      switchTab('home');
+    } catch (err) { showError("Registration Failed", getErrorReason(err)); } 
+    finally { btn.disabled = false; btnText.innerText = "Register / Sign Up"; btnSpinner.classList.add('d-none'); }
   };
 
-  window.handleLogout = () => signOut(auth).then(() => location.reload());
+  window.handleLogout = () => {
+      signOut(auth).then(() => {
+          showPopup('success', 'Logged Out', 'You have been logged out successfully.');
+          switchTab('home');
+      });
+  }
 
   // Support Link
   window.openSupport = () => window.open('http://t.me/gmail_marketing02', '_blank');
@@ -1070,8 +1091,16 @@
       for (let item of submissionData.gmails) await push(ref(db, 'used_emails'), { email: item.email });
       const userRef = ref(db, 'users/' + currentUser.uid); const userSnap = await get(userRef); const userData = userSnap.val();
       await update(userRef, { hold: (Number(userData.hold) || 0) + submissionData.totalAmount });
-      showPopup('success', 'Success', 'Submission recorded.'); location.reload();
-    } catch (err) { btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none'); showError("Server Error", err.message); }
+      
+      showPopup('success', 'Success', 'Submission recorded.');
+      
+      // Reset Form & UI without reload
+      document.getElementById('gmailRows').innerHTML = '';
+      addMoreRow(); addMoreRow();
+      switchTab('history');
+      
+    } catch (err) { showError("Server Error", err.message); } 
+    finally { btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none'); }
   };
 
   window.processWithdraw = async () => {
@@ -1082,7 +1111,17 @@
     try {
         await push(ref(db, 'withdraw_requests'), { userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText, amount: amt, method, paymentNumber: pNum, status: "pending", requestedAt: Date.now() });
         await update(ref(db, 'users/' + currentUser.uid), { balance: balance - amt, paymentNumber: pNum, paymentMethod: method });
-        showPopup('success', 'Success', 'Request Submitted.'); window.closeWithdrawPage(); location.reload();
+        showPopup('success', 'Success', 'Request Submitted.'); 
+        
+        window.closeWithdrawPage();
+        document.getElementById('wdAmount').value = '';
+        switchTab('history');
+        // Programmatically click the Withdraw tab inside history
+        setTimeout(() => {
+            const wdTabBtn = document.querySelector('.h-tab-btn[onclick*="wd"]');
+            if(wdTabBtn) wdTabBtn.click();
+        }, 100);
+        
     } catch(e) { showError("Database Error", "Could not connect."); }
   };
 
