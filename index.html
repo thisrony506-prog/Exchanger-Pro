@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Exchanger Pro - Trusted Platform</title>
     <meta name="theme-color" content="#4F46E5">
+    
+    <!-- PWA Configuration -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Exchanger Pro">
+    
+    <!-- Custom Logo Icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkV4Y2hhbmdlciBQcm8iLAogICJzaG9ydF9uYW1lIjogIkV4Y2hhbmdlciBQcm8iLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI0YzRjRGNiIsCiAgInRoZW1lX2NvbG9yIjogIiM0RjQ2RTUiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDcmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJyBmaWxsPSclMjM0RjQ2RTUnJTNFJTNDL3JlY3QlM0UlM0NwYXRoIGQ9J001MCAyMEwyMCAzNUw1MCA1MEw4MCAzNUw1MCAyMFonIGZpbGw9J3doaXRlJyUyRiUzRSUzQ3BhdGggZD0nTTIwIDUwTDUwIDY1TDgwIDUwJyBzdHJva2U9J3doaXRlJyBzdHJva2Utd2lkdGg9JzUnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgZmlsbD0nbm9uZSclMkYlM0UlM0NwYXRoIGQ9J00yMCA2NUw1MCA4MEw4MCA2NScgc3Ryb2tlPSd3aGl0ZScgc3Ryb2tlLXdpZHRoPSc1JyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbGw9J25vbmUnIG9wYWNpdHk9JzAuNyclMkYlM0UlM0MlMkZzdmclM0UiLAogICAgICAic2l6ZXMiOiAiMTI4eDEyOCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -29,98 +41,116 @@
         ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 10px; }
 
         .swal2-popup.swal2-toast { background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 12px; padding: 10px 20px; border-left: 5px solid var(--primary-color); }
-        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
         .swal2-container { z-index: 99999 !important; }
 
-        /* Navbar */
-        .navbar { background: var(--gradient-main) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 10px 0; position: sticky; top: 0; z-index: 1001; }
-        .brand-logo-link { display: flex; align-items: center; text-decoration: none; gap: 10px; }
-        .logo-icon-custom { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); }
-        .logo-icon-custom svg { width: 20px; height: 20px; fill: white; }
-        .logo-title { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
-        .logo-subtitle { font-size: 9px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        /* --- UPDATED NAVBAR DESIGN --- */
+        .navbar { 
+            background: var(--gradient-main) !important; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            padding: 10px 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1001;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            min-height: 68px;
+        }
+
+        .navbar-brand-center {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 44px; 
+            height: 44px; 
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+        .nav-logo-icon svg { width: 24px; height: 24px; fill: white; }
+
+        .nav-text-block {
+            display: flex;
+            align-items: center;
+            line-height: 1.1;
+        }
+
+        /* "Exchanger" Text - White */
+        .nav-text-exchanger {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-text-pro-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-left: 5px;
+        }
+
+        /* "Pro" Text - Yellow/Gold Color */
+        .nav-text-pro {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FFD700; /* Yellow Color */
+            letter-spacing: -0.5px;
+        }
+
+        .nav-text-slogan {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-top: 1px;
+            text-align: left;
+        }
+        /* ---------------------------------- */
 
         /* Bottom Nav */
         .nav-bottom { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 6px 0 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
         .nav-item { color: #6B7280; font-size: 10px; font-weight: 600; transition: 0.2s; width: 25%; text-align: center; padding: 4px 0; cursor: pointer; }
         .nav-item.active { color: var(--primary-color); }
         .nav-item i { font-size: 22px; margin-bottom: 2px; display: block; transition: transform 0.2s; }
-        .nav-item:active i { transform: scale(1.2); }
         
         /* Components */
         .social-float { position: fixed; bottom: 85px; right: 15px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
         .float-btn { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); color: white; transition: transform 0.2s; }
-        .float-btn:active { transform: scale(0.9); }
         .wa-btn { background-color: #25D366; }
         .tg-btn { background: linear-gradient(135deg, #0088cc 0%, #0055aa 100%); }
         
         /* --- COMMON CARD STYLE --- */
         .home-card {
-            background: white;
-            border-radius: var(--radius-card);
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: var(--shadow-card);
-            border: 1px solid rgba(255,255,255,0.5);
-            animation: fadeInUp 0.5s ease-out forwards;
-            opacity: 0;
+            background: white; border-radius: var(--radius-card); padding: 20px; margin-bottom: 15px;
+            box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.5);
+            animation: fadeInUp 0.5s ease-out forwards; opacity: 0;
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- RATE DISPLAY DESIGN (Like Screenshot) --- */
-        .rate-card-v2 {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-        }
-        .rate-card-header {
-            background: #f8fafc;
-            padding: 12px 20px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .level-badge-v2 {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
-            color: #4F46E5;
-            font-size: 14px;
-        }
-        .level-badge-v2 i { font-size: 16px; }
-        
-        .rate-grid-v2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 15px;
-            gap: 15px;
-        }
-        .rate-box-v2 {
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #f3f4f6;
-        }
+        /* Rate Card, Review Card, Trans Card, Trust Box... */
+        .rate-card-v2 { background: white; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #e5e7eb; }
+        .rate-card-header { background: #f8fafc; padding: 12px 20px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
+        .level-badge-v2 { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #4F46E5; font-size: 14px; }
+        .rate-grid-v2 { display: grid; grid-template-columns: 1fr 1fr; padding: 15px; gap: 15px; }
+        .rate-box-v2 { background: #f9fafb; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #f3f4f6; }
         .rate-box-v2.new { border-left: 4px solid #10b981; }
         .rate-box-v2.old { border-left: 4px solid #8b5cf6; }
-        
         .rb-title { font-size: 12px; color: #6b7280; font-weight: 600; margin-bottom: 5px; }
         .rb-value { font-size: 22px; font-weight: 800; color: #111827; }
         .rb-value small { font-size: 11px; font-weight: 600; color: #9ca3af; }
 
-        /* Review Time Card */
         .review-time-card { display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
-        .review-time-card::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.03)); }
         .rtc-left { display: flex; align-items: center; gap: 15px; }
         .rtc-icon-box { width: 50px; height: 50px; background: rgba(79, 70, 229, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-color); position: relative; }
-        .rtc-icon-box::after { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 14px; border: 2px solid var(--primary-color); opacity: 0.1; }
         .rtc-info h6 { margin: 0; font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
         .rtc-info h4 { margin: 0; font-size: 18px; font-weight: 800; color: #111827; margin-top: 2px; }
         .rtc-right { text-align: right; position: relative; z-index: 1; }
@@ -129,37 +159,18 @@
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
         .rtc-clock-text { font-size: 16px; font-weight: 800; color: var(--primary-color); font-family: monospace; }
 
-        /* Transaction Card */
         .trans-card { border: 1px solid rgba(255,255,255,0.5); }
         .trans-btn { background: var(--gradient-main); color: white; border: none; padding: 14px; border-radius: 14px; font-weight: 700; width: 100%; font-size: 16px; transition: 0.2s; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2); display: flex; align-items: center; justify-content: center; gap: 8px; }
         .trans-btn:active { transform: scale(0.98); box-shadow: 0 2px 5px rgba(79, 70, 229, 0.2); }
         .trans-btn:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; transform: none; }
         
         .form-select-custom {
-            background-color: #f3f4f6;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-weight: 600;
-            color: #374151;
-            width: 100%;
-            cursor: pointer;
-            transition: all 0.2s;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 12px center;
-            background-repeat: no-repeat;
-            background-size: 16px 12px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
+            background-color: #f3f4f6; border: 2px solid transparent; border-radius: 12px; padding: 12px 16px; font-weight: 600; color: #374151; width: 100%; cursor: pointer; transition: all 0.2s;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3E");
+            background-position: right 12px center; background-repeat: no-repeat; background-size: 16px 12px; -webkit-appearance: none; -moz-appearance: none; appearance: none;
         }
-        .form-select-custom:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background-color: #fff;
-        }
+        .form-select-custom:focus { outline: none; border-color: var(--primary-color); background-color: #fff; }
 
-        /* Trust Box */
         .trust-box-new { text-align: center; }
         .tbn-title { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .tbn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -171,21 +182,18 @@
         .tbn-icon.t3 { background: linear-gradient(135deg, #10b981, #059669); }
         .tbn-text { font-size: 11px; font-weight: 700; color: #4b5563; }
 
-        /* Gmail Row */
         .gmail-row { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; position: relative; border: 1px solid #e5e7eb; transition: all 0.3s; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .gmail-row:focus-within { border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1); }
         .gmail-row input { border: none; background: #f9fafb; border-radius: 8px; padding: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; }
         .gmail-row .remove-btn { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; line-height: 1; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-        /* History Tabs */
         .history-tabs-container { background: white; padding: 8px; border-radius: 20px; margin-bottom: 15px; box-shadow: var(--shadow-card); border: 1px solid #f3f4f6; }
         .history-tabs { display: flex; gap: 8px; }
         .h-tab-btn { flex: 1; border: none; background: transparent; padding: 12px 5px; font-weight: 600; color: #6B7280; font-size: 11px; border-radius: 16px; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .h-tab-btn i { font-size: 20px; transition: 0.3s; }
         .h-tab-btn.active { background: var(--gradient-main); color: white; transform: scale(1.02); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); }
 
-        /* Top Sellers */
         .seller-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f3f4f6; transition: 0.2s; }
         .seller-card:active { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.06); }
         .seller-rank { width: 45px; height: 45px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-right: 15px; color: #6B7280; font-size: 16px; flex-shrink: 0; }
@@ -230,7 +238,6 @@
         .ref-input-group { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; }
         .ref-code-text { font-size: 18px; font-weight: 700; letter-spacing: 1px; color: #fff; }
 
-        /* Settings Menu */
         .settings-card { background: white; border-radius: 16px; padding: 10px; margin-bottom: 20px; box-shadow: var(--shadow-card); }
         .settings-item { display: flex; align-items: center; padding: 15px; border-radius: 12px; transition: 0.2s; cursor: pointer; }
         .settings-item:active { background: #f3f4f6; }
@@ -293,13 +300,9 @@
                         <path d="M2 12L12 17L22 12" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div id="login-header-content">
-                    <div class="auth-title">Welcome Back to Exchanger Pro</div>
-                    <div class="auth-subtitle">আপনার একাউন্টে লগইন করে এক্সচেঞ্জ এবং ব্যালেন্স ম্যানেজ করুন।</div>
-                </div>
-                <div id="reg-header-content" style="display: none;">
-                    <div class="auth-title">Exchanger Pro এ একাউন্ট খুলুন</div>
-                    <div class="auth-subtitle">দ্রুত, নিরাপদ এবং সহজভাবে এক্সচেঞ্জ শুরু করতে এখনই রেজিস্ট্রেশন করুন।</div>
+                <div id="auth-dynamic-header">
+                    <div class="auth-title" id="authTitle">Welcome Back to Exchanger Pro</div>
+                    <div class="auth-subtitle" id="authSubtitle">আপনার একাউন্টে লগইন করে এক্সচেঞ্জ এবং ব্যালেন্স ম্যানেজ করুন।</div>
                 </div>
                 <div class="trust-badges" style="margin-top: 25px;">
                     <div class="trust-badge-item"><i class="bi bi-shield-lock-fill"></i><span>Trusted</span></div>
@@ -308,6 +311,7 @@
                 </div>
             </div>
             <div class="auth-body">
+                <!-- Login Form -->
                 <div id="login-form">
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="loginEmail" placeholder="Email"><label>Gmail Address</label></div>
                     <div class="form-floating mb-4"><input type="password" class="form-control" id="loginPass" placeholder="Password"><label>Password</label></div>
@@ -315,8 +319,10 @@
                         <span id="loginBtnText">Login</span>
                         <span id="loginBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     </button>
-                    <p class="text-center small mt-4 mb-0">একাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')" class="fw-bold" style="color:var(--primary-color)">Register করুন</a></p>
+                    <p class="text-center small mt-3 mb-0">একাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')" class="fw-bold" style="color:var(--primary-color)">Register করুন</a></p>
                 </div>
+                
+                <!-- Register Form -->
                 <div id="reg-form" style="display: none;">
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="regName" placeholder="Name"><label>Full Name</label></div>
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="regEmail" placeholder="Email"><label>Gmail Address</label></div>
@@ -364,8 +370,10 @@
                 <div class="form-text text-danger small fw-bold" id="wdMinLabel">সর্বনিম্ন উত্তোলন: 100 টাকা</div>
             </div>
         </div>
-        <button class="btn btn-main w-100 py-3 fw-bold" onclick="window.processWithdraw()">Submit Request
- <i class="bi bi-send-check ms-2"></i></button>
+        <button class="btn btn-main w-100 py-3 fw-bold" id="withdrawSubmitBtn" onclick="window.processWithdraw()">
+            <span id="withdrawBtnText">Submit Request</span>
+            <span id="withdrawBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </button>
     </div>
 </div>
 
@@ -375,22 +383,30 @@
     <a href="https://wa.me/8801964182265" target="_blank" class="float-btn wa-btn"><i class="bi bi-whatsapp"></i></a>
 </div>
 
+<!-- UPDATED NAVBAR HTML -->
 <nav class="navbar navbar-dark">
-    <div class="container d-flex justify-content-center">
-        <a class="brand-logo-link" href="#">
-            <div class="logo-icon-custom">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
-                    <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+    <a class="navbar-brand-center" href="#">
+        <!-- Logo Icon -->
+        <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+                <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <!-- Text Block -->
+        <div class="nav-text-block">
+            <!-- "Exchanger" Text -->
+            <span class="nav-text-exchanger">Exchanger</span>
+            
+            <!-- Wrapper for Pro and Slogan -->
+            <div class="nav-text-pro-wrapper">
+                <span class="nav-text-pro">Pro</span>
+                <span class="nav-text-slogan">TRUSTED & FAST</span>
             </div>
-            <div>
-                <span class="logo-title">Exchanger Pro</span>
-                <span class="logo-subtitle">Trusted & Fast</span>
-            </div>
-        </a>
-    </div>
+        </div>
+    </a>
 </nav>
 
 <div class="container mt-2 page-container">
@@ -402,7 +418,6 @@
             <div class="small"><b>১০০% নিরাপদ :</b> আমরা সততার সাথে সার্ভিস দিচ্ছি।</div>
         </div>
 
-        <!-- Rate Card V2 -->
         <div class="rate-card-v2">
             <div class="rate-card-header">
                 <div class="level-badge-v2">
@@ -425,7 +440,6 @@
             </div>
         </div>
 
-        <!-- Transaction Card -->
         <div class="home-card trans-card">
             <h6 class="mb-3 fw-bold text-dark"><i class="bi bi-currency-exchange text-primary me-2"></i>লেনদেন শুরু করুন</h6>
             
@@ -440,7 +454,6 @@
             <button class="trans-btn" id="startTransBtn" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right-circle ms-2"></i></button>
         </div>
 
-        <!-- Redesigned Review Time Card -->
         <div class="home-card review-time-card">
             <div class="rtc-left">
                 <div class="rtc-icon-box">
@@ -459,7 +472,6 @@
             </div>
         </div>
 
-        <!-- Trust Box New -->
         <div class="home-card trust-box-new">
             <div class="tbn-title"><i class="bi bi-shield-check text-primary"></i> কেন আমাদের বেছে নিবেন?</div>
             <div class="tbn-grid">
@@ -664,7 +676,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { getDatabase, ref, set, get, update, push, onValue, increment, query, orderByChild, equalTo, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
   const firebaseConfig = {
@@ -752,7 +764,7 @@
   }
 
   function showPopup(icon, title, text) {
-      Swal.fire({ icon: icon, title: title, text: text, confirmButtonColor: '#4F46E5', background: '#fff' });
+      Swal.fire({ icon: icon, title: title, html: text, confirmButtonColor: '#4F46E5', background: '#fff' });
   }
 
   function showError(title, msg) { showPopup('error', title, msg); }
@@ -780,7 +792,7 @@
   setInterval(updateClock, 1000);
   updateClock();
 
-  // Global Settings Listener (Works for Guests too)
+  // Global Settings Listener
   onValue(ref(db, "settings"), (snap) => {
     if (snap.exists()) {
       const data = snap.val();
@@ -793,7 +805,7 @@
           if(startBtn) { startBtn.disabled = true; startBtn.innerHTML = "⚠️ কাজটি সাময়িকভাবে স্থগিত। ⏳"; }
           if(submitBtn) { submitBtn.disabled = true; document.getElementById('btnText').innerText = "Maintenance Mode"; }
       } else {
-          if(startBtn) { startBtn.disabled = false; startBtn.innerHTML = 'Continue <i class="bi bi-arrow-right-circle ms-2"></i>'; }
+          if(startBtn) { startBtn.disabled = false; startBtn.innerHTML = 'Next Step <i class="bi bi-arrow-right-circle ms-2"></i>'; }
           if(submitBtn) { submitBtn.disabled = false; document.getElementById('btnText').innerText = "Submit Details"; }
       }
 
@@ -814,7 +826,6 @@
       const nR = data.levels?.[1]?.new_rate || 10;
       const oR = data.levels?.[1]?.old_rate || 8;
       
-      // Update Guest/Home Rates if user not logged in
       if (!window.currentUser) {
           document.getElementById('rateNew').innerHTML = `${nR} <small>টাকা</small>`;
       }
@@ -974,18 +985,18 @@
       });
       document.getElementById('auth-page').style.display = 'none';
     } else {
-        // Handle Logout State
         window.currentUser = null;
         currentUserApprovedCount = 0;
-        document.getElementById('auth-page').style.display = 'none'; // Ensure login isn't blocking
+        document.getElementById('auth-page').style.display = 'none'; 
         document.getElementById('userDisplayName').innerText = "Guest";
         document.getElementById('mainBalance').innerText = "0.00";
         document.getElementById('holdBalance').innerText = "0.00";
-        // Reset other stats if needed
         syncRatesAndTotal(); 
     }
   });
 
+  // --- Auth Handlers ---
+  
   window.handleLogin = async () => {
     const email = document.getElementById('loginEmail').value.trim(); const pass = document.getElementById('loginPass').value;
     const btn = document.getElementById('loginBtn'); const btnText = document.getElementById('loginBtnText'); const btnSpinner = document.getElementById('loginBtnSpinner');
@@ -1093,8 +1104,6 @@
       await update(userRef, { hold: (Number(userData.hold) || 0) + submissionData.totalAmount });
       
       showPopup('success', 'Success', 'Submission recorded.');
-      
-      // Reset Form & UI without reload
       document.getElementById('gmailRows').innerHTML = '';
       addMoreRow(); addMoreRow();
       switchTab('history');
@@ -1103,11 +1112,27 @@
     finally { btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none'); }
   };
 
+  // Withdraw Function with Loading State
   window.processWithdraw = async () => {
-    const method = document.getElementById('selectedMethod').value; const amt = Number(document.getElementById('wdAmount').value); const balance = Number(document.getElementById('wdMainBalance').innerText); const pNum = document.getElementById('wdAccNumber').value.trim(); const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
+    const method = document.getElementById('selectedMethod').value; 
+    const amt = Number(document.getElementById('wdAmount').value); 
+    const balance = Number(document.getElementById('wdMainBalance').innerText); 
+    const pNum = document.getElementById('wdAccNumber').value.trim(); 
+    const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
+    
     if (!pNum) return showError("Missing Number", "Account number is required.");
     if (!amt || amt < minW) return showError("Invalid Amount", `Minimum amount is ${minW} BDT.`);
     if (amt > balance) return showError("Insufficient Balance", `You have ${balance} BDT.`);
+    
+    // Button Loading Start
+    const btn = document.getElementById('withdrawSubmitBtn');
+    const btnText = document.getElementById('withdrawBtnText');
+    const btnSpinner = document.getElementById('withdrawBtnSpinner');
+    
+    btn.disabled = true;
+    btnText.innerText = "Processing...";
+    btnSpinner.classList.remove('d-none');
+
     try {
         await push(ref(db, 'withdraw_requests'), { userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText, amount: amt, method, paymentNumber: pNum, status: "pending", requestedAt: Date.now() });
         await update(ref(db, 'users/' + currentUser.uid), { balance: balance - amt, paymentNumber: pNum, paymentMethod: method });
@@ -1116,16 +1141,23 @@
         window.closeWithdrawPage();
         document.getElementById('wdAmount').value = '';
         switchTab('history');
-        // Programmatically click the Withdraw tab inside history
         setTimeout(() => {
             const wdTabBtn = document.querySelector('.h-tab-btn[onclick*="wd"]');
             if(wdTabBtn) wdTabBtn.click();
         }, 100);
-        
-    } catch(e) { showError("Database Error", "Could not connect."); }
+    } catch(e) { 
+        showError("Database Error", "Could not connect."); 
+        // Reset button on error
+        btn.disabled = false;
+        btnText.innerText = "Submit Request";
+        btnSpinner.classList.add('d-none');
+    }
   };
 
-  window.openWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'block'; document.querySelector('.page-container').style.display = 'none'; document.querySelector('.nav-bottom').style.display = 'none'; };
+  window.openWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'block'; document.querySelector('.page-container').style.display = 'none'; document.querySelector('.nav-bottom').style.display = 'none'; 
+      // Reset button state when opening
+      const btn = document.getElementById('withdrawSubmitBtn'); btn.disabled = false; document.getElementById('withdrawBtnText').innerText = "Submit Request"; document.getElementById('withdrawBtnSpinner').classList.add('d-none');
+  };
   window.closeWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'none'; document.querySelector('.page-container').style.display = 'block'; document.querySelector('.nav-bottom').style.display = 'flex'; };
   window.selectPaymentMethod = (el, method) => { document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('selectedMethod').value = method; };
 
@@ -1155,10 +1187,19 @@
     }
     
     function toggleAuth(type) {
-        document.getElementById('login-form').style.display = type === 'reg' ? 'none' : 'block';
+        const title = document.getElementById('authTitle');
+        const subtitle = document.getElementById('authSubtitle');
+        
+        document.getElementById('login-form').style.display = type === 'login' ? 'block' : 'none';
         document.getElementById('reg-form').style.display = type === 'reg' ? 'block' : 'none';
-        document.getElementById('login-header-content').style.display = type === 'reg' ? 'none' : 'block';
-        document.getElementById('reg-header-content').style.display = type === 'reg' ? 'block' : 'none';
+
+        if (type === 'login') {
+            title.innerText = "Welcome Back to Exchanger Pro";
+            subtitle.innerText = "আপনার একাউন্টে লগইন করে এক্সচেঞ্জ এবং ব্যালেন্স ম্যানেজ করুন।";
+        } else if (type === 'reg') {
+            title.innerText = "Exchanger Pro এ একাউন্ট খুলুন";
+            subtitle.innerText = "দ্রুত, নিরাপদ এবং সহজভাবে এক্সচেঞ্জ শুরু করতে এখনই রেজিস্ট্রেশন করুন।";
+        }
     }
 
     document.addEventListener('DOMContentLoaded', () => { addMoreRow(); addMoreRow(); });
