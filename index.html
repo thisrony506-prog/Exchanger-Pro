@@ -15,8 +15,6 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkV4Y2hhbmdlciBQcm8iLAogICJzaG9ydF9uYW1lIjogIkV4Y2hhbmdlciBQcm8iLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI0YzRjRGNiIsCiAgInRoZW1lX2NvbG9yIjogIiM0RjQ2RTUiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDcmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJyBmaWxsPSclMjM0RjQ2RTUnJTNFJTNDL3JlY3QlM0UlM0NwYXRoIGQ9J001MCAyMEwyMCAzNUw1MCA1MEw4MCAzNUw1MCAyMFonIGZpbGw9J3doaXRlJyUyRiUzRSUzQ3BhdGggZD0nTTIwIDUwTDUwIDY1TDgwIDUwJyBzdHJva2U9J3doaXRlJyBzdHJva2Utd2lkdGg9JzUnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgZmlsbD0nbm9uZSclMkYlM0UlM0NwYXRoIGQ9J00yMCA2NUw1MCA4MEw4MCA2NScgc3Ryb2tlPSd3aGl0ZScgc3Ryb2tlLXdpZHRoPSc1JyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbGw9J25vbmUnIG9wYWNpdHk9JzAuNyclMkYlM0UlM0MlMkZzdmclM0UiLAogICAgICAic2l6ZXMiOiAiMTI4eDEyOCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -43,7 +41,7 @@
         .swal2-popup.swal2-toast { background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 12px; padding: 10px 20px; border-left: 5px solid var(--primary-color); }
         .swal2-container { z-index: 99999 !important; }
 
-        /* --- UPDATED NAVBAR DESIGN --- */
+        /* --- NAVBAR DESIGN --- */
         .navbar { 
             background: var(--gradient-main) !important; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
@@ -77,44 +75,11 @@
         }
         .nav-logo-icon svg { width: 24px; height: 24px; fill: white; }
 
-        .nav-text-block {
-            display: flex;
-            align-items: center;
-            line-height: 1.1;
-        }
-
-        /* "Exchanger" Text - White */
-        .nav-text-exchanger {
-            font-size: 20px;
-            font-weight: 800;
-            color: white;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-text-pro-wrapper {
-            display: flex;
-            flex-direction: column;
-            margin-left: 5px;
-        }
-
-        /* "Pro" Text - Yellow/Gold Color */
-        .nav-text-pro {
-            font-size: 20px;
-            font-weight: 800;
-            color: #FFD700; /* Yellow Color */
-            letter-spacing: -0.5px;
-        }
-
-        .nav-text-slogan {
-            font-size: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-            margin-top: 1px;
-            text-align: left;
-        }
-        /* ---------------------------------- */
+        .nav-text-block { display: flex; align-items: center; line-height: 1.1; }
+        .nav-text-exchanger { font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+        .nav-text-pro-wrapper { display: flex; flex-direction: column; margin-left: 5px; }
+        .nav-text-pro { font-size: 20px; font-weight: 800; color: #FFD700; letter-spacing: -0.5px; }
+        .nav-text-slogan { font-size: 8px; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 1px; text-align: left; }
 
         /* Bottom Nav */
         .nav-bottom { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 6px 0 12px 0; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
@@ -136,7 +101,7 @@
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Rate Card, Review Card, Trans Card, Trust Box... */
+        /* Rate Card */
         .rate-card-v2 { background: white; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #e5e7eb; }
         .rate-card-header { background: #f8fafc; padding: 12px 20px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
         .level-badge-v2 { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #4F46E5; font-size: 14px; }
@@ -148,16 +113,41 @@
         .rb-value { font-size: 22px; font-weight: 800; color: #111827; }
         .rb-value small { font-size: 11px; font-weight: 600; color: #9ca3af; }
 
-        .review-time-card { display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
-        .rtc-left { display: flex; align-items: center; gap: 15px; }
-        .rtc-icon-box { width: 50px; height: 50px; background: rgba(79, 70, 229, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-color); position: relative; }
-        .rtc-info h6 { margin: 0; font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .rtc-info h4 { margin: 0; font-size: 18px; font-weight: 800; color: #111827; margin-top: 2px; }
-        .rtc-right { text-align: right; position: relative; z-index: 1; }
-        .rtc-status-badge { display: inline-flex; align-items: center; gap: 5px; background: #ecfdf5; color: #059669; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; margin-bottom: 5px; }
-        .pulse-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
-        .rtc-clock-text { font-size: 16px; font-weight: 800; color: var(--primary-color); font-family: monospace; }
+        /* --- DYNAMIC REVIEW TIME DESIGN --- */
+        .review-time-container-v3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .rt-card-v3 {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        .rt-card-v3.type-left { border-top: 4px solid var(--primary-color); background: linear-gradient(to bottom, rgba(79, 70, 229, 0.05), white); }
+        .rt-card-v3.type-right { border-top: 4px solid #10B981; background: linear-gradient(to bottom, rgba(16, 185, 129, 0.05), white); }
+
+        .rt-v3-icon {
+            width: 35px; height: 35px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 8px; font-size: 16px;
+        }
+        .type-left .rt-v3-icon { background: rgba(79, 70, 229, 0.1); color: var(--primary-color); }
+        .type-right .rt-v3-icon { background: rgba(16, 185, 129, 0.1); color: #10B981; }
+
+        .rt-v3-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 2px; line-height: 1.3; }
+        .rt-v3-date { font-size: 10px; color: #6b7280; margin-bottom: 8px; }
+        .rt-v3-time-box { background: #f9fafb; border-radius: 8px; padding: 8px; border: 1px solid #e5e7eb; }
+        .rt-v3-sec { font-size: 18px; font-weight: 800; font-family: 'Courier New', Courier, monospace; color: #111; letter-spacing: 1px; }
+        .rt-v3-label { font-size: 10px; color: #10B981; font-weight: 700; background: #ecfdf5; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
+        .countdown-active { animation: pulse 1s infinite; color: #059669 !important; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
         .trans-card { border: 1px solid rgba(255,255,255,0.5); }
         .trans-btn { background: var(--gradient-main); color: white; border: none; padding: 14px; border-radius: 14px; font-weight: 700; width: 100%; font-size: 16px; transition: 0.2s; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2); display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -272,14 +262,16 @@
         .wd-balance-box { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 15px; margin-top: 15px; }
         .wd-body { padding: 20px; }
         
-        .payment-method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        /* Dynamic Payment Grid */
+        .payment-method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .pm-card { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.2s; }
         .pm-card.active { border-color: var(--primary-color); background: rgba(79, 70, 229, 0.05); }
         .pm-card i { font-size: 24px; margin-bottom: 5px; display: block; }
         .pm-card span { font-size: 11px; font-weight: 700; }
-        .pm-card.bkash i { color: #E2136E; }
-        .pm-card.nagad i { color: #F6921D; }
-        .pm-card.binance i { color: #F0B90B; }
+        .pm-card.method-bkash i { color: #E2136E; }
+        .pm-card.method-nagad i { color: #F6921D; }
+        .pm-card.method-binance i { color: #F0B90B; }
+        .pm-card.active { box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2); }
 
         .content-section { display: none; padding: 15px; animation: slideUp 0.3s ease-out; }
         .content-section.active { display: block; }
@@ -311,7 +303,6 @@
                 </div>
             </div>
             <div class="auth-body">
-                <!-- Login Form -->
                 <div id="login-form">
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="loginEmail" placeholder="Email"><label>Gmail Address</label></div>
                     <div class="form-floating mb-4"><input type="password" class="form-control" id="loginPass" placeholder="Password"><label>Password</label></div>
@@ -322,7 +313,6 @@
                     <p class="text-center small mt-3 mb-0">একাউন্ট নেই? <a href="#" onclick="toggleAuth('reg')" class="fw-bold" style="color:var(--primary-color)">Register করুন</a></p>
                 </div>
                 
-                <!-- Register Form -->
                 <div id="reg-form" style="display: none;">
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="regName" placeholder="Name"><label>Full Name</label></div>
                     <div class="form-floating mb-3"><input type="text" class="form-control" id="regEmail" placeholder="Email"><label>Gmail Address</label></div>
@@ -355,12 +345,8 @@
     <div class="wd-body">
         <div class="card p-3 border-0 shadow-sm mb-3">
             <label class="text-muted small fw-bold mb-2">পেমেন্ট মেথড সিলেক্ট করুন</label>
-            <div class="payment-method-grid">
-                <div class="pm-card bkash active" onclick="window.selectPaymentMethod(this, 'bkash')"><i class="bi bi-wallet2"></i><span>bKash</span></div>
-                <div class="pm-card nagad" onclick="window.selectPaymentMethod(this, 'nagad')"><i class="bi bi-wallet2"></i><span>Nagad</span></div>
-                <div class="pm-card binance" onclick="window.selectPaymentMethod(this, 'binance')"><i class="bi bi-app-indicator"></i><span>USDT</span></div>
-            </div>
-            <input type="hidden" id="selectedMethod" value="bkash">
+            <div id="paymentMethodGrid" class="payment-method-grid"></div>
+            <input type="hidden" id="selectedMethod" value="">
         </div>
         <div class="card p-3 border-0 shadow-sm mb-3">
             <div class="mb-3"><label class="form-label text-muted small fw-bold">একাউন্ট নম্বর</label><input type="text" class="form-control" id="wdAccNumber" placeholder="Number/Address"></div>
@@ -383,10 +369,9 @@
     <a href="https://wa.me/8801964182265" target="_blank" class="float-btn wa-btn"><i class="bi bi-whatsapp"></i></a>
 </div>
 
-<!-- UPDATED NAVBAR HTML -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-dark">
     <a class="navbar-brand-center" href="#">
-        <!-- Logo Icon -->
         <div class="nav-logo-icon">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
@@ -394,13 +379,8 @@
                 <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
-        
-        <!-- Text Block -->
         <div class="nav-text-block">
-            <!-- "Exchanger" Text -->
             <span class="nav-text-exchanger">Exchanger</span>
-            
-            <!-- Wrapper for Pro and Slogan -->
             <div class="nav-text-pro-wrapper">
                 <span class="nav-text-pro">Pro</span>
                 <span class="nav-text-slogan">TRUSTED & FAST</span>
@@ -442,7 +422,6 @@
 
         <div class="home-card trans-card">
             <h6 class="mb-3 fw-bold text-dark"><i class="bi bi-currency-exchange text-primary me-2"></i>লেনদেন শুরু করুন</h6>
-            
             <div class="mb-3">
                 <label class="form-label text-muted small fw-bold">Choose Gmail Type</label>
                 <select class="form-select-custom" id="dollarType" onchange="updateTotal()">
@@ -450,26 +429,12 @@
                     <option value="old">Old Gmail (Level Rate)</option>
                 </select>
             </div>
-
             <button class="trans-btn" id="startTransBtn" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right-circle ms-2"></i></button>
         </div>
 
-        <div class="home-card review-time-card">
-            <div class="rtc-left">
-                <div class="rtc-icon-box">
-                    <i class="bi bi-clock-history"></i>
-                </div>
-                <div class="rtc-info">
-                    <h6>Review Time</h6>
-                    <h4 id="reviewTimeTitle">1 - 6 Hours</h4>
-                </div>
-            </div>
-            <div class="rtc-right">
-                <div class="rtc-status-badge">
-                    <div class="pulse-dot"></div> LIVE
-                </div>
-                <div class="rtc-clock-text" id="liveClock">00:00 PM</div>
-            </div>
+        <!-- DYNAMIC REVIEW TIME SECTION -->
+        <div id="reviewTimeContainer" class="review-time-container-v3">
+            <!-- JS will inject items here -->
         </div>
 
         <div class="home-card trust-box-new">
@@ -702,15 +667,150 @@
   let currentUserApprovedCount = 0;
   let lastBroadcastMessage = "";
 
-  const levels = [
-      { level: 1, approved: 0, rate: 10 },
-      { level: 2, approved: 40, rate: 12 },
-      { level: 3, approved: 90, rate: 12.50 },
-      { level: 4, approved: 180, rate: 13 },
-      { level: 5, approved: 290, rate: 13.50 },
-      { level: 6, approved: 390, rate: 14 },
-      { level: 7, approved: 510, rate: 14.50 }
+  // --- MODIFIED: Made levels mutable and added old_rate ---
+  let levels = [
+      { level: 1, approved: 0, rate: 10, old_rate: 8 },
+      { level: 2, approved: 40, rate: 12, old_rate: 9 },
+      { level: 3, approved: 90, rate: 12.50, old_rate: 9.5 },
+      { level: 4, approved: 180, rate: 13, old_rate: 10 },
+      { level: 5, approved: 290, rate: 13.50, old_rate: 10.5 },
+      { level: 6, approved: 390, rate: 14, old_rate: 11 },
+      { level: 7, approved: 510, rate: 14.50, old_rate: 11.5 }
   ];
+
+  // --- DEFAULT DATA DEFINITIONS ---
+  const defaultReviewShifts = {
+      shift1: { title: "শুভ রাত্রি প্রথম সময়", time: "12:00 AM", active: true, order: 1 },
+      shift2: { title: "শুভ দিনের প্রথম সময়", time: "07:00 AM", active: true, order: 2 }
+  };
+
+  const defaultPaymentMethods = {
+      bkash: { name: "bKash", icon: "bi-wallet2", color: "#E2136E", active: true },
+      nagad: { name: "Nagad", icon: "bi-wallet2", color: "#F6921D", active: true },
+      binance: { name: "USDT", icon: "bi-app-indicator", color: "#F0B90B", active: true }
+  };
+
+  // --- TIMER LOGIC START ---
+  let globalTimerInterval = null;
+  let activeShifts = defaultReviewShifts; 
+
+  function initTimerSystem() {
+      const container = document.getElementById('reviewTimeContainer');
+      if(!container) return;
+      
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      
+      container.innerHTML = `
+        <div class="rt-card-v3 type-left">
+            <div class="rt-v3-icon"><i class="bi bi-moon-stars-fill"></i></div>
+            <div class="rt-v3-title" id="shift-title-1">Loading...</div>
+            <div class="rt-v3-date">(${dateStr})</div>
+            <div class="rt-v3-time-box">
+                <div class="rt-v3-sec" id="shift-timer-1">--:--:--</div>
+                <div class="rt-v3-label" id="shift-label-1">Waiting...</div>
+            </div>
+        </div>
+        <div class="rt-card-v3 type-right">
+            <div class="rt-v3-icon"><i class="bi bi-sun-fill"></i></div>
+            <div class="rt-v3-title" id="shift-title-2">Loading...</div>
+            <div class="rt-v3-date">(${dateStr})</div>
+            <div class="rt-v3-time-box">
+                <div class="rt-v3-sec" id="shift-timer-2">--:--:--</div>
+                <div class="rt-v3-label" id="shift-label-2">Waiting...</div>
+            </div>
+        </div>
+      `;
+
+      if(!globalTimerInterval) {
+          globalTimerInterval = setInterval(updateTimers, 1000);
+      }
+      updateTimers();
+  }
+
+  function updateTimers() {
+      const now = new Date();
+      const shiftsList = Object.values(activeShifts).filter(s => s.active);
+      
+      if(shiftsList.length > 0) updateSingleTimer(1, shiftsList[0], now);
+      if(shiftsList.length > 1) updateSingleTimer(2, shiftsList[1], now);
+  }
+
+  function updateSingleTimer(index, shiftData, now) {
+      const titleEl = document.getElementById(`shift-title-${index}`);
+      const timerEl = document.getElementById(`shift-timer-${index}`);
+      const labelEl = document.getElementById(`shift-label-${index}`);
+      
+      if(!titleEl || !shiftData) return;
+
+      titleEl.innerText = shiftData.title || "Shift " + index;
+      
+      const parts = (shiftData.time || "12:00 AM").match(/(\d+):(\d+) (AM|PM)/i);
+      
+      if(parts) {
+          let hours = parseInt(parts[1]);
+          const mins = parseInt(parts[2]);
+          const ampm = parts[3].toUpperCase();
+          
+          if(ampm === 'PM' && hours !== 12) hours += 12;
+          if(ampm === 'AM' && hours === 12) hours = 0;
+          
+          const targetToday = new Date();
+          targetToday.setHours(hours, mins, 0, 0);
+          
+          let target = targetToday;
+          if(target <= now) target.setDate(target.getDate() + 1);
+          
+          const diff = target - now;
+          
+          if(diff > 0) {
+              const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+              const s = Math.floor((diff % (1000 * 60)) / 1000);
+              
+              timerEl.innerText = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+              timerEl.classList.add('countdown-active');
+              labelEl.innerText = shiftData.time;
+              labelEl.className = "rt-v3-label";
+          } else {
+              timerEl.innerText = "00:00:00";
+              timerEl.classList.remove('countdown-active');
+          }
+      } else {
+          timerEl.innerText = "Invalid Time";
+      }
+  }
+
+  initTimerSystem();
+  // --- TIMER LOGIC END ---
+
+  function renderPaymentMethods(methods) {
+      const container = document.getElementById('paymentMethodGrid');
+      let html = '';
+      let firstMethodKey = null;
+      
+      Object.keys(methods).forEach(key => {
+          const m = methods[key];
+          if(m.active) {
+              if(!firstMethodKey) firstMethodKey = key;
+              html += `
+                <div class="pm-card method-${key}" onclick="window.selectPaymentMethod(this, '${key}')">
+                    <i class="bi ${m.icon}" style="color:${m.color}"></i>
+                    <span>${m.name}</span>
+                </div>`;
+          }
+      });
+      
+      container.innerHTML = html;
+      
+      if(firstMethodKey) {
+          const firstCard = container.querySelector('.pm-card');
+          if(firstCard) firstCard.classList.add('active');
+          document.getElementById('selectedMethod').value = firstMethodKey;
+      }
+  }
+
+  renderPaymentMethods(defaultPaymentMethods);
 
   function getDeviceInfo() {
       const ua = navigator.userAgent;
@@ -735,21 +835,28 @@
       return { current: currentLevel, next: nextLevel };
   }
   
+  // FIX: Ensured Old Rate UI updates correctly for logged in users
   function syncRatesAndTotal() {
       const levelData = getUserLevel(currentUserApprovedCount);
       window.currentDynamicRate = levelData.current.rate;
+      window.baseOldRate = levelData.current.old_rate;
       
       const rateDisplay = document.getElementById('currentRateDisplay');
       if(rateDisplay) rateDisplay.innerText = window.currentDynamicRate + " টাকা";
       
       const homeTitle = document.getElementById('homeLevelTitle');
       const homeRateNew = document.getElementById('rateNew');
+      const homeRateOld = document.getElementById('rateOld'); // Added Old Rate Element
       
       if(window.currentUser) {
           if(homeTitle) homeTitle.innerText = `Level ${levelData.current.level} Rate`;
           if(homeRateNew) homeRateNew.innerHTML = `${window.currentDynamicRate} <small>টাকা</small>`;
+          if(homeRateOld) homeRateOld.innerHTML = `${window.baseOldRate} <small>টাকা</small>`; // Update Old Rate UI
       } else {
+          // For guests, show Level 1 rates
           if(homeTitle) homeTitle.innerText = "Level 1 Rate";
+          if(homeRateNew) homeRateNew.innerHTML = `${levels[0].rate} <small>টাকা</small>`;
+          if(homeRateOld) homeRateOld.innerHTML = `${levels[0].old_rate} <small>টাকা</small>`;
       }
       
       updateTotal();
@@ -785,18 +892,24 @@
       return msg;
   }
 
-  function updateClock() {
-      const now = new Date();
-      document.getElementById('liveClock').innerText = now.toLocaleTimeString('en-US', { hour12: true });
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
   // Global Settings Listener
   onValue(ref(db, "settings"), (snap) => {
-    if (snap.exists()) {
-      const data = snap.val();
+      const data = snap.exists() ? snap.val() : {};
       
+      // Update Shifts Data for Timer
+      if(data.review_shifts) {
+          activeShifts = data.review_shifts;
+          const s1Title = document.getElementById('shift-title-1');
+          const s2Title = document.getElementById('shift-title-2');
+          if(s1Title && activeShifts[Object.keys(activeShifts)[0]]) s1Title.innerText = activeShifts[Object.keys(activeShifts)[0]].title;
+          if(s2Title && activeShifts[Object.keys(activeShifts)[1]]) s2Title.innerText = activeShifts[Object.keys(activeShifts)[1]].title;
+      }
+
+      // Render Dynamic Payment Methods
+      const pMethods = data.payment_methods || defaultPaymentMethods;
+      renderPaymentMethods(pMethods);
+      
+      // Maintenance Mode
       const isMaintenance = data.maintenance_mode || false;
       const startBtn = document.getElementById('startTransBtn');
       const submitBtn = document.getElementById('submitBtn');
@@ -808,39 +921,35 @@
           if(startBtn) { startBtn.disabled = false; startBtn.innerHTML = 'Next Step <i class="bi bi-arrow-right-circle ms-2"></i>'; }
           if(submitBtn) { submitBtn.disabled = false; document.getElementById('btnText').innerText = "Submit Details"; }
       }
-
-      const reviewText = data.review_time_text || "1 - 6 Hours";
-      const reviewElement = document.getElementById('reviewTimeTitle');
-      if(reviewElement) reviewElement.innerText = reviewText;
-
-      if(data.levels) {
+      
+      // --- DYNAMIC RATES FIX START ---
+      // Update local levels array with DB data
+      if (data.levels) {
           Object.keys(data.levels).forEach(key => {
-              const idx = levels.findIndex(l => l.level === parseInt(key));
-              if(idx !== -1) {
-                  levels[idx].rate = data.levels[key].new_rate;
-                  levels[idx].approved = data.levels[key].req;
+              const lvlIndex = levels.findIndex(l => l.level == key);
+              if (lvlIndex !== -1) {
+                  if (data.levels[key].new_rate) levels[lvlIndex].rate = data.levels[key].new_rate;
+                  if (data.levels[key].old_rate) levels[lvlIndex].old_rate = data.levels[key].old_rate;
+                  if (data.levels[key].approved_count || data.levels[key].approved) levels[lvlIndex].approved = data.levels[key].approved_count || data.levels[key].approved;
               }
           });
       }
+      
+      // Force refresh UI with new rates
+      syncRatesAndTotal();
+      // --- DYNAMIC RATES FIX END ---
 
-      const nR = data.levels?.[1]?.new_rate || 10;
-      const oR = data.levels?.[1]?.old_rate || 8;
-      
-      if (!window.currentUser) {
-          document.getElementById('rateNew').innerHTML = `${nR} <small>টাকা</small>`;
-      }
-      document.getElementById('rateOld').innerHTML = `${oR} <small>টাকা</small>`;
-      
-      window.baseOldRate = oR;
-      
+      // Commission
       const commRate = data.commission_percent || 0;
       const commDisplay = document.getElementById('commRateDisplay');
       if(commDisplay) commDisplay.innerText = commRate;
       
+      // Min Withdraw
       const minW = data.min_withdraw || 100;
       document.getElementById('wdMinLabel').innerText = `সর্বনিম্ন উত্তোলন: ${minW} টাকা`;
       document.getElementById('wdAmount').setAttribute('min', minW);
       
+      // Broadcast
       if(data.broadcast) {
           document.getElementById('broadcastText').innerText = data.broadcast;
           document.getElementById('broadcastBox').style.display = 'flex';
@@ -852,8 +961,6 @@
           document.getElementById('broadcastBox').style.display = 'none';
           lastBroadcastMessage = "";
       }
-      syncRatesAndTotal();
-    }
   });
 
   function renderSellers(snap, containerId) {
@@ -901,7 +1008,7 @@
               update(ref(db, 'users/' + user.uid), { admin_message: null });
           }
 
-          if(data.is_blocked) { showPopup('error', 'Account Blocked', 'আপনার একাউন্ট ব্লক করা হয়েছে।'); signOut(auth); return; }
+          if(data.is_blocked) { showPopup('error', 'Account Blocked', 'আপনার একাউন্ট ব্লক করা হয়েছে।'); signOut(auth); return; }
 
           document.getElementById('userDisplayName').innerText = data.username || "User";
           document.getElementById('mainBalance').innerText = (Number(data.balance) || 0).toFixed(2);
@@ -917,16 +1024,29 @@
           
           document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
           if (data.paymentNumber) document.getElementById('wdAccNumber').value = data.paymentNumber;
+          
           if(data.paymentMethod) {
-              document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active'));
-              const card = document.querySelector(`.pm-card.${data.paymentMethod}`);
-              if(card) card.classList.add('active');
-              document.getElementById('selectedMethod').value = data.paymentMethod;
+              const methodInput = document.getElementById('selectedMethod');
+              setTimeout(() => {
+                  const cards = document.querySelectorAll('.pm-card');
+                  let found = false;
+                  cards.forEach(c => {
+                      if(c.getAttribute('onclick').includes(`'${data.paymentMethod}'`)) {
+                          c.classList.add('active');
+                          methodInput.value = data.paymentMethod;
+                          found = true;
+                      } else {
+                          c.classList.remove('active');
+                      }
+                  });
+              }, 200);
           }
 
           currentUserApprovedCount = data.manual_approved_count || 0;
+          // Call sync here to update rates based on user level
+          syncRatesAndTotal();
+          
           const levelData = getUserLevel(currentUserApprovedCount);
-          window.currentDynamicRate = levelData.current.rate;
           
           document.getElementById('levelNameDisplay').innerText = `Level ${levelData.current.level}`;
           document.getElementById('levelCurrentRate').innerText = levelData.current.rate;
@@ -937,8 +1057,6 @@
               let progress = ((currentUserApprovedCount - levelData.current.approved) / (levelData.next.approved - levelData.current.approved)) * 100;
               document.getElementById('levelProgressBar').style.width = progress + '%';
           } else { document.getElementById('levelRemainCount').innerText = "MAX"; document.getElementById('levelProgressBar').style.width = '100%'; }
-          
-          syncRatesAndTotal();
         }
       });
 
@@ -1044,7 +1162,6 @@
       });
   }
 
-  // Support Link
   window.openSupport = () => window.open('http://t.me/gmail_marketing02', '_blank');
 
   window.logoutAllDevices = async () => {
@@ -1086,7 +1203,7 @@
       const linkInput = document.getElementById('refLinkInput'); const link = linkInput.value;
       if(!link || link === 'Loading...') { showError("Wait", "Profile data loading..."); return; }
       const tempInput = document.createElement('input'); tempInput.style.position = 'absolute'; tempInput.style.left = '-9999px'; tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); tempInput.setSelectionRange(0, 99999);
-      try { const successful = document.execCommand('copy'); if (successful) showToast('success', 'রেফারেল লিংক কপি হয়েছে!'); else throw new Error('Copy failed'); } catch (err) { showError("Copy Failed", "Please manually copy the link."); }
+      try { const successful = document.execCommand('copy'); if (successful) showToast('success', 'রেফারেল লিংক কপি হয়েছে!'); else throw new Error('Copy failed'); } catch (err) { showError("Copy Failed", "Please manually copy the link."); }
       document.body.removeChild(tempInput);
   };
 
@@ -1112,7 +1229,7 @@
     finally { btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none'); }
   };
 
-  // Withdraw Function with Loading State
+  // Withdraw Function
   window.processWithdraw = async () => {
     const method = document.getElementById('selectedMethod').value; 
     const amt = Number(document.getElementById('wdAmount').value); 
@@ -1120,11 +1237,11 @@
     const pNum = document.getElementById('wdAccNumber').value.trim(); 
     const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
     
+    if (!method) return showError("Method Missing", "Please select a payment method.");
     if (!pNum) return showError("Missing Number", "Account number is required.");
     if (!amt || amt < minW) return showError("Invalid Amount", `Minimum amount is ${minW} BDT.`);
     if (amt > balance) return showError("Insufficient Balance", `You have ${balance} BDT.`);
     
-    // Button Loading Start
     const btn = document.getElementById('withdrawSubmitBtn');
     const btnText = document.getElementById('withdrawBtnText');
     const btnSpinner = document.getElementById('withdrawBtnSpinner');
@@ -1147,7 +1264,6 @@
         }, 100);
     } catch(e) { 
         showError("Database Error", "Could not connect."); 
-        // Reset button on error
         btn.disabled = false;
         btnText.innerText = "Submit Request";
         btnSpinner.classList.add('d-none');
@@ -1155,11 +1271,15 @@
   };
 
   window.openWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'block'; document.querySelector('.page-container').style.display = 'none'; document.querySelector('.nav-bottom').style.display = 'none'; 
-      // Reset button state when opening
       const btn = document.getElementById('withdrawSubmitBtn'); btn.disabled = false; document.getElementById('withdrawBtnText').innerText = "Submit Request"; document.getElementById('withdrawBtnSpinner').classList.add('d-none');
   };
   window.closeWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'none'; document.querySelector('.page-container').style.display = 'block'; document.querySelector('.nav-bottom').style.display = 'flex'; };
-  window.selectPaymentMethod = (el, method) => { document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('selectedMethod').value = method; };
+  
+  window.selectPaymentMethod = (el, methodKey) => { 
+      document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active')); 
+      el.classList.add('active'); 
+      document.getElementById('selectedMethod').value = methodKey; 
+  };
 
 </script>
 
