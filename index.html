@@ -11,7 +11,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Exchanger Pro">
     
-    <!-- Custom Logo Icon -->
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRXhjaGFuZ2VyIFBybyIsInNob3J0X25hbWUiOiJFeGNoYW5nZXIgUHJvIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNGM0Y0RjYiLCJ0aGVtZV9jb2xvciI6IiM0RjQ2RTUiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ3JlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIHJ4PScyMCcgZmlsbD0nJTIzNEY0NkU1Jy8lM0UlM0NwYXRoIGQ9J001MCAyMEwyMCAzNUw1MCA1MEw4MCAzNUw1MCAyMFonIGZpbGw9J3doaXRlJy8lM0UlM0NwYXRoIGQ9J00yMCA1MEw1MCA2NUw4MCA1MCcgc3Ryb2tlPSd3aGl0ZScgc3Ryb2tlLXdpZHRoPSc1JyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbGw9J25vbmUnLyUzRSUzQ3BhdGggZD0nTTIwIDY1TDUwIDgwTDgwIDY1JyBzdHJva2U9J3doaXRlJyBzdHJva2Utd2lkdGg9JzUnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgZmlsbD0nbm9uZScgb3BhY2l0eT0nMC43Jy8lM0UlM0Mvc3ZnJTNFIiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Cpath d='M50 20L20 35L50 50L80 35L50 20Z' fill='white'/%3E%3Cpath d='M20 50L50 65L80 50' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M20 65L50 80L80 65' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
     
@@ -20,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
+        /* CSS Code Starts */
         :root { 
             --primary-color: #4F46E5;
             --primary-light: #818CF8;
@@ -33,6 +37,30 @@
         
         body { background-color: var(--bg-body); font-family: 'Segoe UI', sans-serif; color: var(--text-main); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .page-container { padding-bottom: 80px; padding-top: 15px; }
+
+        /* --- LOADING SCREEN --- */
+        #app-loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gradient-main); z-index: 999999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+        #app-loader.hidden { opacity: 0; pointer-events: none; }
+        .loader-logo { width: 80px; height: 80px; margin-bottom: 30px; animation: pulse 1.5s infinite; }
+        .loader-spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 1s linear infinite; }
+        .loader-text { color: white; margin-top: 15px; font-weight: 600; font-size: 14px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Network Error Overlay */
+        .network-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95); z-index: 99998;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 20px;
+        }
+        .network-overlay.show { display: flex; }
+        .network-overlay i { font-size: 60px; color: #ef4444; margin-bottom: 20px; animation: shake 0.5s infinite; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
 
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -147,7 +175,6 @@
         .rt-v3-sec { font-size: 18px; font-weight: 800; font-family: 'Courier New', Courier, monospace; color: #111; letter-spacing: 1px; }
         .rt-v3-label { font-size: 10px; color: #10B981; font-weight: 700; background: #ecfdf5; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
         .countdown-active { animation: pulse 1s infinite; color: #059669 !important; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
         .trans-card { border: 1px solid rgba(255,255,255,0.5); }
         .trans-btn { background: var(--gradient-main); color: white; border: none; padding: 14px; border-radius: 14px; font-weight: 700; width: 100%; font-size: 16px; transition: 0.2s; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2); display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -237,6 +264,16 @@
         .settings-item .text small { color: #6b7280; font-size: 11px; }
         .settings-item.danger i, .settings-item.danger h6 { color: #ef4444; }
         
+        /* Install App Button Style */
+        .install-app-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white; padding: 15px; border-radius: 16px; width: 100%;
+            font-weight: 700; font-size: 16px; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
+            border: none; transition: 0.2s; margin-top: 15px; margin-bottom: 15px;
+        }
+        .install-app-btn:active { transform: scale(0.98); opacity: 0.9; }
+        
         /* Auth Page */
         #auth-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-main); z-index: 2000; overflow-y: auto; }
         .auth-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
@@ -279,6 +316,26 @@
     </style>
 </head>
 <body>
+
+<!-- Initial App Loader -->
+<div id="app-loader">
+    <div class="loader-logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <div class="loader-spinner"></div>
+    <div class="loader-text">⏳ Loading… Please wait...</div>
+</div>
+
+<!-- Network Error Overlay -->
+<div id="networkErrorOverlay" class="network-overlay">
+    <i class="bi bi-wifi-off"></i>
+    <h4>🚫 No Internet Connection</h4>
+    <p>Please check your network and try again.</p>
+</div>
 
 <!-- Auth Page -->
 <div id="auth-page">
@@ -347,6 +404,7 @@
             <label class="text-muted small fw-bold mb-2">পেমেন্ট মেথড সিলেক্ট করুন</label>
             <div id="paymentMethodGrid" class="payment-method-grid"></div>
             <input type="hidden" id="selectedMethod" value="">
+            <input type="hidden" id="selectedMethodName" value="">
         </div>
         <div class="card p-3 border-0 shadow-sm mb-3">
             <div class="mb-3"><label class="form-label text-muted small fw-bold">একাউন্ট নম্বর</label><input type="text" class="form-control" id="wdAccNumber" placeholder="Number/Address"></div>
@@ -380,7 +438,7 @@
             </svg>
         </div>
         <div class="nav-text-block">
-            <span class="nav-text-exchanger">Exchanger</span>
+            <span class="nav-text-exchanger">Exchanger </span>
             <div class="nav-text-pro-wrapper">
                 <span class="nav-text-pro">Pro</span>
                 <span class="nav-text-slogan">TRUSTED & FAST</span>
@@ -429,13 +487,10 @@
                     <option value="old">Old Gmail (Level Rate)</option>
                 </select>
             </div>
-            <button class="trans-btn" id="startTransBtn" onclick="protectedAction('exchange')">Next Step <i class="bi bi-arrow-right-circle ms-2"></i></button>
+            <button class="trans-btn" id="startTransBtn" onclick="protectedAction('exchange')">Start Gmail Selling <i class="bi bi-arrow-right-circle ms-2"></i></button>
         </div>
 
-        <!-- DYNAMIC REVIEW TIME SECTION -->
-        <div id="reviewTimeContainer" class="review-time-container-v3">
-            <!-- JS will inject items here -->
-        </div>
+        <div id="reviewTimeContainer" class="review-time-container-v3"></div>
 
         <div class="home-card trust-box-new">
             <div class="tbn-title"><i class="bi bi-shield-check text-primary"></i> কেন আমাদের বেছে নিবেন?</div>
@@ -589,7 +644,6 @@
                 <input type="hidden" id="refLinkInput" value="Loading...">
             </div>
 
-            <!-- SETTINGS & SECURITY SECTION -->
             <div class="settings-card">
                 <div class="settings-item" onclick="window.openSupport()">
                     <i class="bi bi-headset text-primary"></i>
@@ -625,6 +679,11 @@
                 </div>
             </div>
 
+            <!-- INSTALL APP BUTTON -->
+            <button id="installAppBtn" class="install-app-btn">
+                <i class="bi bi-box-arrow-in-down"></i> Download App
+            </button>
+
             <button class="btn btn-outline-danger w-100 btn-sm rounded-pill py-2 mb-5" onclick="window.handleLogout()">
                 <i class="bi bi-box-arrow-right me-2"></i>Logout
             </button>
@@ -659,6 +718,7 @@
   const db = getDatabase(app);
 
   window.currentUser = null;
+  window.isAppReady = false; 
   const urlParams = new URLSearchParams(window.location.search);
   const referrerCodeParam = urlParams.get('ref');
   
@@ -667,18 +727,10 @@
   let currentUserApprovedCount = 0;
   let lastBroadcastMessage = "";
 
-  // --- MODIFIED: Made levels mutable and added old_rate ---
   let levels = [
-      { level: 1, approved: 0, rate: 10, old_rate: 8 },
-      { level: 2, approved: 40, rate: 12, old_rate: 9 },
-      { level: 3, approved: 90, rate: 12.50, old_rate: 9.5 },
-      { level: 4, approved: 180, rate: 13, old_rate: 10 },
-      { level: 5, approved: 290, rate: 13.50, old_rate: 10.5 },
-      { level: 6, approved: 390, rate: 14, old_rate: 11 },
-      { level: 7, approved: 510, rate: 14.50, old_rate: 11.5 }
+      { level: 1, approved: 0, rate: 10, old_rate: 8 }
   ];
 
-  // --- DEFAULT DATA DEFINITIONS ---
   const defaultReviewShifts = {
       shift1: { title: "শুভ রাত্রি প্রথম সময়", time: "12:00 AM", active: true, order: 1 },
       shift2: { title: "শুভ দিনের প্রথম সময়", time: "07:00 AM", active: true, order: 2 }
@@ -689,6 +741,85 @@
       nagad: { name: "Nagad", icon: "bi-wallet2", color: "#F6921D", active: true },
       binance: { name: "USDT", icon: "bi-app-indicator", color: "#F0B90B", active: true }
   };
+
+  // --- LOADING & NETWORK LOGIC ---
+  const appLoader = document.getElementById('app-loader');
+  const networkOverlay = document.getElementById('networkErrorOverlay');
+  
+  const updateNetworkStatus = () => {
+      if (!navigator.onLine) {
+          networkOverlay.classList.add('show');
+      } else {
+          networkOverlay.classList.remove('show');
+      }
+  };
+  
+  window.addEventListener('online', updateNetworkStatus);
+  window.addEventListener('offline', updateNetworkStatus);
+  
+  window.hideLoader = () => {
+      appLoader.classList.add('hidden');
+      window.isAppReady = true;
+  };
+
+  updateNetworkStatus();
+  
+  // --- DYNAMIC SERVICE WORKER REGISTRATION (Single File Solution) ---
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      const CACHE_NAME = 'exchanger-pro-v1';
+      const urlsToCache = [ '/', '/index.html' ];
+      self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))));
+      self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(swUrl).then((registration) => {
+        console.log('SW registered: ', registration);
+      }).catch((registrationError) => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+
+  // --- PWA INSTALL LOGIC ---
+  let deferredPrompt;
+  const installBtn = document.getElementById('installAppBtn');
+  
+  window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'flex';
+  });
+
+  installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+              console.log('User accepted A2HS prompt');
+              installBtn.style.display = 'none';
+          }
+          deferredPrompt = null;
+      } else {
+          Swal.fire({
+              icon: 'info',
+              title: 'Install App',
+              html: `
+                <div style="text-align: left; font-size: 14px;">
+                    <b>iOS (iPhone/iPad) Users:</b><br>
+                    1. Tap the <b>Share</b> button <i class="bi bi-box-arrow-up"></i> at the bottom.<br>
+                    2. Scroll down and tap <b>Add to Home Screen</b>.<br><br>
+                    <b>Android Users:</b><br>
+                    1. Tap the <b>3 dots</b> menu <i class="bi bi-three-dots-vertical"></i> at top right.<br>
+                    2. Tap <b>Add to Home Screen</b> or <b>Install App</b>.
+                </div>`,
+              confirmButtonColor: '#4F46E5'
+          });
+      }
+  });
 
   // --- TIMER LOGIC START ---
   let globalTimerInterval = null;
@@ -794,7 +925,7 @@
           if(m.active) {
               if(!firstMethodKey) firstMethodKey = key;
               html += `
-                <div class="pm-card method-${key}" onclick="window.selectPaymentMethod(this, '${key}')">
+                <div class="pm-card method-${key}" onclick="window.selectPaymentMethod(this, '${key}', '${m.name}')">
                     <i class="bi ${m.icon}" style="color:${m.color}"></i>
                     <span>${m.name}</span>
                 </div>`;
@@ -807,6 +938,7 @@
           const firstCard = container.querySelector('.pm-card');
           if(firstCard) firstCard.classList.add('active');
           document.getElementById('selectedMethod').value = firstMethodKey;
+          document.getElementById('selectedMethodName').value = methods[firstMethodKey].name;
       }
   }
 
@@ -823,19 +955,22 @@
   }
 
   function getUserLevel(totalApproved) {
-      let currentLevel = levels[0];
-      let nextLevel = levels[1];
-      for (let i = 0; i < levels.length; i++) {
-          if (totalApproved >= levels[i].approved) {
-              currentLevel = levels[i];
-              if (i + 1 < levels.length) nextLevel = levels[i + 1];
-              else nextLevel = null;
+      const sortedLevels = [...levels].sort((a, b) => a.approved - b.approved);
+      
+      let currentLevel = sortedLevels[0];
+      let nextLevel = sortedLevels[1] || null;
+      
+      for (let i = 0; i < sortedLevels.length; i++) {
+          if (totalApproved >= sortedLevels[i].approved) {
+              currentLevel = sortedLevels[i];
+              nextLevel = (i + 1 < sortedLevels.length) ? sortedLevels[i + 1] : null;
+          } else {
+              break;
           }
       }
       return { current: currentLevel, next: nextLevel };
   }
   
-  // FIX: Ensured Old Rate UI updates correctly for logged in users
   function syncRatesAndTotal() {
       const levelData = getUserLevel(currentUserApprovedCount);
       window.currentDynamicRate = levelData.current.rate;
@@ -846,17 +981,17 @@
       
       const homeTitle = document.getElementById('homeLevelTitle');
       const homeRateNew = document.getElementById('rateNew');
-      const homeRateOld = document.getElementById('rateOld'); // Added Old Rate Element
+      const homeRateOld = document.getElementById('rateOld');
       
       if(window.currentUser) {
           if(homeTitle) homeTitle.innerText = `Level ${levelData.current.level} Rate`;
           if(homeRateNew) homeRateNew.innerHTML = `${window.currentDynamicRate} <small>টাকা</small>`;
-          if(homeRateOld) homeRateOld.innerHTML = `${window.baseOldRate} <small>টাকা</small>`; // Update Old Rate UI
+          if(homeRateOld) homeRateOld.innerHTML = `${window.baseOldRate} <small>টাকা</small>`;
       } else {
-          // For guests, show Level 1 rates
+          const defaultLvl = levels[0];
           if(homeTitle) homeTitle.innerText = "Level 1 Rate";
-          if(homeRateNew) homeRateNew.innerHTML = `${levels[0].rate} <small>টাকা</small>`;
-          if(homeRateOld) homeRateOld.innerHTML = `${levels[0].old_rate} <small>টাকা</small>`;
+          if(homeRateNew) homeRateNew.innerHTML = `${defaultLvl.rate} <small>টাকা</small>`;
+          if(homeRateOld) homeRateOld.innerHTML = `${defaultLvl.old_rate} <small>টাকা</small>`;
       }
       
       updateTotal();
@@ -896,7 +1031,6 @@
   onValue(ref(db, "settings"), (snap) => {
       const data = snap.exists() ? snap.val() : {};
       
-      // Update Shifts Data for Timer
       if(data.review_shifts) {
           activeShifts = data.review_shifts;
           const s1Title = document.getElementById('shift-title-1');
@@ -905,11 +1039,9 @@
           if(s2Title && activeShifts[Object.keys(activeShifts)[1]]) s2Title.innerText = activeShifts[Object.keys(activeShifts)[1]].title;
       }
 
-      // Render Dynamic Payment Methods
       const pMethods = data.payment_methods || defaultPaymentMethods;
       renderPaymentMethods(pMethods);
       
-      // Maintenance Mode
       const isMaintenance = data.maintenance_mode || false;
       const startBtn = document.getElementById('startTransBtn');
       const submitBtn = document.getElementById('submitBtn');
@@ -918,38 +1050,33 @@
           if(startBtn) { startBtn.disabled = true; startBtn.innerHTML = "⚠️ কাজটি সাময়িকভাবে স্থগিত। ⏳"; }
           if(submitBtn) { submitBtn.disabled = true; document.getElementById('btnText').innerText = "Maintenance Mode"; }
       } else {
-          if(startBtn) { startBtn.disabled = false; startBtn.innerHTML = 'Next Step <i class="bi bi-arrow-right-circle ms-2"></i>'; }
+          if(startBtn) { startBtn.disabled = false; startBtn.innerHTML = 'Start Gmail Selling <i class="bi bi-arrow-right-circle ms-2"></i>'; }
           if(submitBtn) { submitBtn.disabled = false; document.getElementById('btnText').innerText = "Submit Details"; }
       }
       
-      // --- DYNAMIC RATES FIX START ---
-      // Update local levels array with DB data
       if (data.levels) {
+          levels = [];
           Object.keys(data.levels).forEach(key => {
-              const lvlIndex = levels.findIndex(l => l.level == key);
-              if (lvlIndex !== -1) {
-                  if (data.levels[key].new_rate) levels[lvlIndex].rate = data.levels[key].new_rate;
-                  if (data.levels[key].old_rate) levels[lvlIndex].old_rate = data.levels[key].old_rate;
-                  if (data.levels[key].approved_count || data.levels[key].approved) levels[lvlIndex].approved = data.levels[key].approved_count || data.levels[key].approved;
-              }
+              const lvlData = data.levels[key];
+              levels.push({
+                  level: Number(key),
+                  approved: lvlData.req || 0,
+                  rate: lvlData.new_rate || 10,
+                  old_rate: lvlData.old_rate || 8
+              });
           });
       }
       
-      // Force refresh UI with new rates
       syncRatesAndTotal();
-      // --- DYNAMIC RATES FIX END ---
 
-      // Commission
       const commRate = data.commission_percent || 0;
       const commDisplay = document.getElementById('commRateDisplay');
       if(commDisplay) commDisplay.innerText = commRate;
       
-      // Min Withdraw
       const minW = data.min_withdraw || 100;
       document.getElementById('wdMinLabel').innerText = `সর্বনিম্ন উত্তোলন: ${minW} টাকা`;
       document.getElementById('wdAmount').setAttribute('min', minW);
       
-      // Broadcast
       if(data.broadcast) {
           document.getElementById('broadcastText').innerText = data.broadcast;
           document.getElementById('broadcastBox').style.display = 'flex';
@@ -1003,6 +1130,8 @@
         if (snap.exists()) {
           const data = snap.val();
           
+          if(!window.isAppReady) window.hideLoader();
+
           if(data.admin_message) {
               showPopup('info', 'ব্যক্তিগত বার্তা', data.admin_message);
               update(ref(db, 'users/' + user.uid), { admin_message: null });
@@ -1025,25 +1154,7 @@
           document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
           if (data.paymentNumber) document.getElementById('wdAccNumber').value = data.paymentNumber;
           
-          if(data.paymentMethod) {
-              const methodInput = document.getElementById('selectedMethod');
-              setTimeout(() => {
-                  const cards = document.querySelectorAll('.pm-card');
-                  let found = false;
-                  cards.forEach(c => {
-                      if(c.getAttribute('onclick').includes(`'${data.paymentMethod}'`)) {
-                          c.classList.add('active');
-                          methodInput.value = data.paymentMethod;
-                          found = true;
-                      } else {
-                          c.classList.remove('active');
-                      }
-                  });
-              }, 200);
-          }
-
           currentUserApprovedCount = data.manual_approved_count || 0;
-          // Call sync here to update rates based on user level
           syncRatesAndTotal();
           
           const levelData = getUserLevel(currentUserApprovedCount);
@@ -1055,8 +1166,13 @@
           if(levelData.next) {
               document.getElementById('levelRemainCount').innerText = `${levelData.next.approved - currentUserApprovedCount} Left`;
               let progress = ((currentUserApprovedCount - levelData.current.approved) / (levelData.next.approved - levelData.current.approved)) * 100;
+              if(progress < 0) progress = 0;
+              if(progress > 100) progress = 100;
               document.getElementById('levelProgressBar').style.width = progress + '%';
-          } else { document.getElementById('levelRemainCount').innerText = "MAX"; document.getElementById('levelProgressBar').style.width = '100%'; }
+          } else { 
+              document.getElementById('levelRemainCount').innerText = "MAX"; 
+              document.getElementById('levelProgressBar').style.width = '100%'; 
+          }
         }
       });
 
@@ -1098,14 +1214,17 @@
           if(requests.length === 0) { list.innerHTML = '<li class="list-group-item text-center text-muted py-4 border-0">কোনো রিকোয়েস্ট নেই</li>'; return; }
           requests.forEach(r => {
               let statusBadge = r.status === 'approved' ? '<span class="badge bg-success rounded-pill">Approved</span>' : (r.status === 'rejected' ? '<span class="badge bg-danger rounded-pill">Rejected</span>' : '<span class="badge bg-warning text-dark rounded-pill">Pending</span>');
-              list.innerHTML += `<li class="list-group-item history-list-item border-0 bg-white mb-2 shadow-sm" style="border-radius:12px;"><div class="d-flex justify-content-between align-items-center"><div><b style="color:var(--primary-color)">${r.amount} BDT</b> <small class="text-muted d-block">${new Date(r.requestedAt).toLocaleDateString()}</small></div><div class="text-end">${statusBadge}<br><small class="text-muted">${r.method}</small></div></div></li>`;
+              let methodName = r.paymentMethod || r.method || 'Unknown';
+              list.innerHTML += `<li class="list-group-item history-list-item border-0 bg-white mb-2 shadow-sm" style="border-radius:12px;"><div class="d-flex justify-content-between align-items-center"><div><b style="color:var(--primary-color)">${r.amount} BDT</b> <small class="text-muted d-block">${new Date(r.requestedAt).toLocaleDateString()}</small></div><div class="text-end">${statusBadge}<br><small class="text-muted">${methodName}</small></div></div></li>`;
           });
       });
       document.getElementById('auth-page').style.display = 'none';
     } else {
         window.currentUser = null;
         currentUserApprovedCount = 0;
-        document.getElementById('auth-page').style.display = 'none'; 
+        if(!window.isAppReady) window.hideLoader();
+        
+        document.getElementById('auth-page').style.display = 'block'; 
         document.getElementById('userDisplayName').innerText = "Guest";
         document.getElementById('mainBalance').innerText = "0.00";
         document.getElementById('holdBalance').innerText = "0.00";
@@ -1116,6 +1235,8 @@
   // --- Auth Handlers ---
   
   window.handleLogin = async () => {
+    if(!navigator.onLine) return showError("Network Error", "ইন্টারনেট সংযোগ নেই।");
+    
     const email = document.getElementById('loginEmail').value.trim(); const pass = document.getElementById('loginPass').value;
     const btn = document.getElementById('loginBtn'); const btnText = document.getElementById('loginBtnText'); const btnSpinner = document.getElementById('loginBtnSpinner');
     if(!email) { showError("Input Error", "Please enter your email."); return; } if(!pass) { showError("Input Error", "Please enter your password."); return; }
@@ -1130,6 +1251,8 @@
   };
 
   window.handleRegister = async () => {
+    if(!navigator.onLine) return showError("Network Error", "ইন্টারনেট সংযোগ নেই।");
+    
     const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim(); const pass = document.getElementById('regPass').value; const confirmPass = document.getElementById('regConfirmPass').value;
     const btn = document.getElementById('regBtn'); const btnText = document.getElementById('regBtnText'); const btnSpinner = document.getElementById('regBtnSpinner');
     if (!name) { showError("Input Error", "Please enter your name."); return; } if (!/^[a-zA-Z\s]+$/.test(name)) { showError("Invalid Name", "Name can only contain letters."); return; }
@@ -1208,6 +1331,8 @@
   };
 
   window.submitGmails = async (submissionData) => {
+    if(!navigator.onLine) return showError("Network Error", "ইন্টারনেট সংযোগ নেই।");
+    
     const btn = document.getElementById('submitBtn'); const btnText = document.getElementById('btnText'); const btnLoad = document.getElementById('btnLoad');
     btn.disabled = true; btnText.innerText = "Processing..."; btnLoad.classList.remove('d-none');
     try {
@@ -1229,15 +1354,17 @@
     finally { btn.disabled = false; btnText.innerText = "Confirm & Submit"; btnLoad.classList.add('d-none'); }
   };
 
-  // Withdraw Function
   window.processWithdraw = async () => {
-    const method = document.getElementById('selectedMethod').value; 
+    if(!navigator.onLine) return showError("Network Error", "ইন্টারনেট সংযোগ নেই।");
+    
+    const methodKey = document.getElementById('selectedMethod').value; 
+    const methodName = document.getElementById('selectedMethodName').value; 
     const amt = Number(document.getElementById('wdAmount').value); 
     const balance = Number(document.getElementById('wdMainBalance').innerText); 
     const pNum = document.getElementById('wdAccNumber').value.trim(); 
     const minW = Number(document.getElementById('wdAmount').getAttribute('min'));
     
-    if (!method) return showError("Method Missing", "Please select a payment method.");
+    if (!methodKey) return showError("Method Missing", "Please select a payment method.");
     if (!pNum) return showError("Missing Number", "Account number is required.");
     if (!amt || amt < minW) return showError("Invalid Amount", `Minimum amount is ${minW} BDT.`);
     if (amt > balance) return showError("Insufficient Balance", `You have ${balance} BDT.`);
@@ -1251,8 +1378,23 @@
     btnSpinner.classList.remove('d-none');
 
     try {
-        await push(ref(db, 'withdraw_requests'), { userId: currentUser.uid, username: document.getElementById('userDisplayName').innerText, amount: amt, method, paymentNumber: pNum, status: "pending", requestedAt: Date.now() });
-        await update(ref(db, 'users/' + currentUser.uid), { balance: balance - amt, paymentNumber: pNum, paymentMethod: method });
+        await push(ref(db, 'withdraw_requests'), { 
+            userId: currentUser.uid, 
+            username: document.getElementById('userDisplayName').innerText, 
+            amount: amt, 
+            method: methodKey, 
+            paymentMethod: methodName, 
+            paymentNumber: pNum, 
+            status: "pending", 
+            requestedAt: Date.now() 
+        });
+        
+        await update(ref(db, 'users/' + currentUser.uid), { 
+            balance: balance - amt, 
+            paymentNumber: pNum, 
+            paymentMethod: methodKey 
+        });
+        
         showPopup('success', 'Success', 'Request Submitted.'); 
         
         window.closeWithdrawPage();
@@ -1275,10 +1417,11 @@
   };
   window.closeWithdrawPage = () => { document.getElementById('withdraw-page').style.display = 'none'; document.querySelector('.page-container').style.display = 'block'; document.querySelector('.nav-bottom').style.display = 'flex'; };
   
-  window.selectPaymentMethod = (el, methodKey) => { 
+  window.selectPaymentMethod = (el, methodKey, methodName) => { 
       document.querySelectorAll('.pm-card').forEach(c => c.classList.remove('active')); 
       el.classList.add('active'); 
-      document.getElementById('selectedMethod').value = methodKey; 
+      document.getElementById('selectedMethod').value = methodKey;
+      document.getElementById('selectedMethodName').value = methodName;
   };
 
 </script>
