@@ -3,10 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Exchanger Pro - Trusted Platform</title>
-    <meta name="theme-color" content="#4F46E5">
     
-    <!-- PWA Configuration -->
+    <!-- SEO Basic Tags -->
+    <title>Exchanger Pro - Trusted Gmail Exchange & Earning Platform in Bangladesh</title>
+    <meta name="description" content="Exchanger Pro is the most trusted Gmail exchange platform in Bangladesh. Buy, sell, and exchange Gmails securely. Earn money online with fast payments via bKash, Nagad, and more.">
+    <meta name="keywords" content="Gmail Exchange, Buy Gmail, Sell Gmail, Earn Money Online BD, Exchanger Pro, Gmail Marketing, Trusted Exchange, bKash Payment, Online Income BD">
+    <meta name="author" content="Exchanger Pro Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://exchanger-pro.web.app/" />
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://exchanger-pro.web.app/">
+    <meta property="og:title" content="Exchanger Pro - Trusted Gmail Exchange Platform">
+    <meta property="og:description" content="Join Exchanger Pro to exchange Gmails safely and earn money. Fast payment system with 24/7 support.">
+    <meta property="og:image" content="https://exchanger-pro.web.app/og-image.png"> <!-- Ensure you add an image at this URL -->
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exchanger Pro - Gmail Exchange">
+    <meta name="twitter:description" content="Best Gmail exchange platform in Bangladesh. Trusted and fast.">
+
+    <!-- Theme & PWA Config -->
+    <meta name="theme-color" content="#4F46E5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Exchanger Pro">
@@ -21,6 +40,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Schema.org Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Exchanger Pro",
+      "url": "https://exchanger-pro.web.app",
+      "description": "Trusted Gmail exchange and online earning platform in Bangladesh.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Android, iOS, Windows",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BDT"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Exchanger Pro"
+      }
+    }
+    </script>
     
     <style>
         /* CSS Code Starts */
@@ -141,7 +182,7 @@
         .rb-value { font-size: 22px; font-weight: 800; color: #111827; }
         .rb-value small { font-size: 11px; font-weight: 600; color: #9ca3af; }
 
-        /* --- DYNAMIC REVIEW TIME DESIGN --- */
+        /* --- DYNAMIC REVIEW TIME DESIGN (UPDATED SIZES) --- */
         .review-time-container-v3 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -169,10 +210,14 @@
         .type-left .rt-v3-icon { background: rgba(79, 70, 229, 0.1); color: var(--primary-color); }
         .type-right .rt-v3-icon { background: rgba(16, 185, 129, 0.1); color: #10B981; }
 
-        .rt-v3-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 2px; line-height: 1.3; }
+        /* UPDATED: Font size increased to 16px */
+        .rt-v3-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 2px; line-height: 1.3; }
         .rt-v3-date { font-size: 10px; color: #6b7280; margin-bottom: 8px; }
         .rt-v3-time-box { background: #f9fafb; border-radius: 8px; padding: 8px; border: 1px solid #e5e7eb; }
-        .rt-v3-sec { font-size: 18px; font-weight: 800; font-family: 'Courier New', Courier, monospace; color: #111; letter-spacing: 1px; }
+        
+        /* UPDATED: Timer font size increased to 26px for prominence */
+        .rt-v3-sec { font-size: 26px; font-weight: 800; font-family: 'Courier New', Courier, monospace; color: #111; letter-spacing: 1px; }
+        
         .rt-v3-label { font-size: 10px; color: #10B981; font-weight: 700; background: #ecfdf5; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
         .countdown-active { animation: pulse 1s infinite; color: #059669 !important; }
 
@@ -764,26 +809,6 @@
 
   updateNetworkStatus();
   
-  // --- DYNAMIC SERVICE WORKER REGISTRATION (Single File Solution) ---
-  if ('serviceWorker' in navigator) {
-    const swCode = `
-      const CACHE_NAME = 'exchanger-pro-v1';
-      const urlsToCache = [ '/', '/index.html' ];
-      self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))));
-      self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    const swUrl = URL.createObjectURL(blob);
-    
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register(swUrl).then((registration) => {
-        console.log('SW registered: ', registration);
-      }).catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
-      });
-    });
-  }
-
   // --- PWA INSTALL LOGIC ---
   let deferredPrompt;
   const installBtn = document.getElementById('installAppBtn');
@@ -821,7 +846,7 @@
       }
   });
 
-  // --- TIMER LOGIC START ---
+  // --- TIMER LOGIC START (UPDATED) ---
   let globalTimerInterval = null;
   let activeShifts = defaultReviewShifts; 
 
@@ -861,10 +886,10 @@
 
   function updateTimers() {
       const now = new Date();
-      const shiftsList = Object.values(activeShifts).filter(s => s.active);
+      const allShifts = Object.values(activeShifts).sort((a, b) => (a.order || 0) - (b.order || 0));
       
-      if(shiftsList.length > 0) updateSingleTimer(1, shiftsList[0], now);
-      if(shiftsList.length > 1) updateSingleTimer(2, shiftsList[1], now);
+      if(allShifts.length > 0) updateSingleTimer(1, allShifts[0], now);
+      if(allShifts.length > 1) updateSingleTimer(2, allShifts[1], now);
   }
 
   function updateSingleTimer(index, shiftData, now) {
@@ -876,6 +901,19 @@
 
       titleEl.innerText = shiftData.title || "Shift " + index;
       
+      if(shiftData.active === false) {
+          timerEl.innerText = "00:00:00";
+          timerEl.classList.remove('countdown-active');
+          labelEl.innerText = "Disabled";
+          labelEl.className = "rt-v3-label"; 
+          labelEl.style.background = "#fee2e2"; 
+          labelEl.style.color = "#ef4444"; 
+          return; 
+      } else {
+          labelEl.style.background = ""; 
+          labelEl.style.color = "";
+      }
+
       const parts = (shiftData.time || "12:00 AM").match(/(\d+):(\d+) (AM|PM)/i);
       
       if(parts) {
@@ -1035,8 +1073,9 @@
           activeShifts = data.review_shifts;
           const s1Title = document.getElementById('shift-title-1');
           const s2Title = document.getElementById('shift-title-2');
-          if(s1Title && activeShifts[Object.keys(activeShifts)[0]]) s1Title.innerText = activeShifts[Object.keys(activeShifts)[0]].title;
-          if(s2Title && activeShifts[Object.keys(activeShifts)[1]]) s2Title.innerText = activeShifts[Object.keys(activeShifts)[1]].title;
+          const keys = Object.keys(activeShifts);
+          if(keys.length > 0 && s1Title) s1Title.innerText = activeShifts[keys[0]].title;
+          if(keys.length > 1 && s2Title) s2Title.innerText = activeShifts[keys[1]].title;
       }
 
       const pMethods = data.payment_methods || defaultPaymentMethods;
