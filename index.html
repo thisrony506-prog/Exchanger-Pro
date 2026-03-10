@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google-site-verification" content="ZneMuy62g1icR3FVUaKv2gGrZh8D7WXCqakO7CV_5wY" />
-    <!-- SEO Basic Tags -->
+    
+    <!-- SEO Basic Tags - Updated for Vercel -->
     <title>Exchanger Pro - Trusted Gmail Exchange & Earning Platform in Bangladesh</title>
     <meta name="description" content="Exchanger Pro is the most trusted Gmail exchange platform in Bangladesh. Buy, sell, and exchange Gmails securely. Earn money online with fast payments via bKash, Nagad, and more.">
     <meta name="keywords" content="Gmail Exchange, Buy Gmail, Sell Gmail, Earn Money Online BD, Exchanger Pro, Gmail Marketing, Trusted Exchange, bKash Payment, Online Income BD">
     <meta name="author" content="Exchanger Pro Team">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://exchanger-pro.web.app/" />
+    
+    <!-- Canonical URL Updated -->
+    <link rel="canonical" href="https://exchangerpro.vercel.app/" />
 
-    <!-- Open Graph / Facebook / WhatsApp -->
+    <!-- Open Graph / Facebook / WhatsApp - Updated -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://exchanger-pro.web.app/">
+    <meta property="og:url" content="https://exchangerpro.vercel.app/">
     <meta property="og:title" content="Exchanger Pro - Trusted Gmail Exchange Platform">
     <meta property="og:description" content="Join Exchanger Pro to exchange Gmails safely and earn money. Fast payment system with 24/7 support.">
-    <meta property="og:image" content="https://exchanger-pro.web.app/og-image.png"> <!-- Ensure you add an image at this URL -->
+    <meta property="og:image" content="https://exchangerpro.vercel.app/og-image.png"> 
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -47,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Exchanger Pro",
-      "url": "https://exchangerpro.web.app",
+      "url": "https://exchangerpro.vercel.app",
       "description": "Trusted Gmail exchange and online earning platform in Bangladesh.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Android, iOS, Windows",
@@ -182,7 +185,7 @@
         .rb-value { font-size: 22px; font-weight: 800; color: #111827; }
         .rb-value small { font-size: 11px; font-weight: 600; color: #9ca3af; }
 
-        /* --- DYNAMIC REVIEW TIME DESIGN (UPDATED SIZES) --- */
+        /* --- DYNAMIC REVIEW TIME DESIGN --- */
         .review-time-container-v3 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -210,12 +213,10 @@
         .type-left .rt-v3-icon { background: rgba(79, 70, 229, 0.1); color: var(--primary-color); }
         .type-right .rt-v3-icon { background: rgba(16, 185, 129, 0.1); color: #10B981; }
 
-        /* UPDATED: Font size increased to 16px */
         .rt-v3-title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 2px; line-height: 1.3; }
         .rt-v3-date { font-size: 10px; color: #6b7280; margin-bottom: 8px; }
         .rt-v3-time-box { background: #f9fafb; border-radius: 8px; padding: 8px; border: 1px solid #e5e7eb; }
         
-        /* UPDATED: Timer font size increased to 26px for prominence */
         .rt-v3-sec { font-size: 26px; font-weight: 800; font-family: 'Courier New', Courier, monospace; color: #111; letter-spacing: 1px; }
         
         .rt-v3-label { font-size: 10px; color: #10B981; font-weight: 700; background: #ecfdf5; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
@@ -846,7 +847,7 @@
       }
   });
 
-  // --- TIMER LOGIC START (UPDATED) ---
+  // --- TIMER LOGIC START ---
   let globalTimerInterval = null;
   let activeShifts = defaultReviewShifts; 
 
@@ -1187,7 +1188,7 @@
           const rCode = data.referralCode || "N/A";
           document.getElementById('myReferralCode').innerText = rCode;
           
-          let host = window.location.origin; if(!host || host === 'null') host = 'https://exchanger-pro.web.app'; 
+          let host = window.location.origin; if(!host || host === 'null') host = 'https://exchangerpro.vercel.app'; 
           document.getElementById('refLinkInput').value = host + window.location.pathname + "?ref=" + rCode;
           
           document.getElementById('referralEarnings').innerText = (Number(data.referralEarnings) || 0).toFixed(2);
